@@ -1,17 +1,26 @@
 <template>
    <NavBar></NavBar>
    <MainImageSlide></MainImageSlide>
+    <TripSearch></TripSearch>
+    <QandA></QandA>
+    <FooterArea></FooterArea>
 </template>
 
 <script>
 import NavBar from "@/components/NavBar.vue"
 import MainImageSlide from "@/components/MainImageSlide.vue"
+import TripSearch from "@/components/TripSearch.vue"
+import QandA from "@/components/QandA.vue"
+import FooterArea from "@/components/FooterArea.vue"
 
 export default {
   name: 'App',
   components: {
     NavBar,
-    MainImageSlide
+    MainImageSlide,
+    TripSearch,
+    QandA,
+    FooterArea
   }
 }
 </script>
