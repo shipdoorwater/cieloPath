@@ -1,20 +1,20 @@
 <template>
-  <NavBar></NavBar>
- 
-  
+   <NavBar></NavBar>
+   <MainImageSlide></MainImageSlide>
 </template>
 
 <script>
 import NavBar from "@/components/NavBar.vue"
+import MainImageSlide from "@/components/MainImageSlide.vue"
 
 export default {
   name: 'App',
   components: {
-    NavBar
+    NavBar,
+    MainImageSlide
   }
 }
 </script>
-
 <style>
 @font-face {
     font-family: 'WavvePADO-Regular';
