@@ -1,9 +1,11 @@
 <template>
    <NavBar></NavBar>
+
    <MainImageSlide></MainImageSlide>
     <TripSearch></TripSearch>
     <QandA></QandA>
     <FooterArea></FooterArea>
+    <Login_kakao></Login_kakao>
 </template>
 
 <script>
@@ -12,6 +14,7 @@ import MainImageSlide from "@/components/MainImageSlide.vue"
 import TripSearch from "@/components/TripSearch.vue"
 import QandA from "@/components/QandA.vue"
 import FooterArea from "@/components/FooterArea.vue"
+import Login_kakao from "@/components/Login_kakao.vue"
 
 export default {
   name: 'App',
@@ -20,7 +23,8 @@ export default {
     MainImageSlide,
     TripSearch,
     QandA,
-    FooterArea
+    FooterArea,
+    Login_kakao
   }
 }
 </script>
