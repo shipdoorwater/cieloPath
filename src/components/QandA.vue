@@ -1,153 +1,140 @@
 <template>
-  <div class="container bg-sky-blue">
-    <h1>Notice</h1>
-    <br /><br /><br /><br />
-    <div class="row py-8 py-md-10 py-lg-11">
-      <div class="col-lg-6">
-        <div class="row justify-content-center justify-content-lg-start">
-          <div class="col-lg-10">
-            <div class="d-flex gap-2 gap-lg-x1 mb-4 mb-lg-5 vertical-center">
-              <div> 
-              </div>
-              <div>
-                <h5 class="fs-8-bold lh-lg mb-1 text-gray">
-                  <i class="bi bi-calendar-heart"></i>&nbsp;&nbsp;CIELO PATH는 다양한 여행 일정을 제공해요.
-                </h5>
-                <p class="lh-xl text-white-opacity mb-0">
-                  We offers a variety of travel schedules.
-                </p>
-              </div>
-            </div>
-                <h5 class="fs-8-bold lh-lg mb-1 text-gray">
-                  <i class="bi bi-calendar-heart"></i>&nbsp;&nbsp;CIELO PATH는 지속적으로 업데이트하고 있어요.
-                </h5>
-                <p class="lh-xl text-white-opacity mb-0">
-                  We are continuously being updated.
-                </p>
-              </div>
-        </div>
+  <div style="background-color: white;" class="container">
+    <h1>CIELO PATH에 대해<br> 궁금한 점이 있다면 무엇이든 말씀해주세요.</h1><br><br><br>
+    <button type="button" class="btn btn-primary" style="width:120px; background-color: beige; color: black; border: none" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">글&nbsp;쓰&nbsp;기</button>
+    <br><br><br>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">NO</th>
+            <th scope="col">제목</th>
+            <th scope="col">글쓴이</th>
+            <th scope="col">작성일</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in items" :key="item.id" @dblclick="goToDetail(item.id)">
+            <th scope="row">{{ item.id }}</th>
+            <td>{{ item.title }}</td>
+            <td>{{ item.author }}</td>
+            <td>{{ item.date }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <br>
+    <!-- Writing Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">1:1문의 남기기</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="col-lg-6">
-        <div class="accordion mt-lg-4 bg-white" id="accordion" style="padding-left: 0; padding-right: 0">
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="heading1">
-              <button class="accordion-button accordion-button-custom" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                CIELO PATH 운영시간
-              </button>
-            </h2>
-            <div class="accordion-collapse collapse show" id="collapse1" data-bs-parent="#accordion">
-              <div class="accordion-body accordion-body-custom" style="text-align: left;">
-                CIELO PATH에서 여행 일정생성은 24시간 가능해요!<br>
-                다만, 상담은 9 to 6로 가능하오니 이용에 참고부탁드려요.
-              </div>
-            </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label class="col-form-label">제목</label>
+            <input type="text" class="form-control" id="title">
           </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="heading2">
-              <button class="accordion-button accordion-button-custom collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                CIELO PATH 사용방법
-              </button>
-            </h2>
-            <div class="accordion-collapse collapse" id="collapse2" data-bs-parent="#accordion">
-              <div class="accordion-body accordion-body-custom" style="text-align: left;">
-                가고싶은 지역을 검색 후<br>
-                일정을 만들어주세요!<br>
-                타닥! 클릭! 완료!<br>
-              </div>
-            </div>
+          <div class="mb-3">
+            <label class="col-form-label">내용</label>
+            <textarea class="form-control" id="contents"></textarea>
           </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="heading3">
-              <button class="accordion-button accordion-button-custom collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                CIELO PATH 공지사항 3
-              </button>
-            </h2>
-            <div class="accordion-collapse collapse" id="collapse3" data-bs-parent="#accordion">
-              <div class="accordion-body accordion-body-custom" style="text-align: left;">
-                공지사항 3 내용입니다.
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="heading4">
-              <button class="accordion-button accordion-button-custom collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-                CIELO PATH 공지사항 4
-              </button>
-            </h2>
-            <div class="accordion-collapse collapse" id="collapse4" data-bs-parent="#accordion">
-              <div class="accordion-body accordion-body-custom" style="text-align: left;">
-                공지사항 4 내용입니다.
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="heading5">
-              <button class="accordion-button accordion-button-custom collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
-                CIELO PATH 공지사항 5
-              </button>
-            </h2>
-            <div class="accordion-collapse collapse" id="collapse5" data-bs-parent="#accordion">
-              <div class="accordion-body accordion-body-custom" style="text-align: left;">
-                공지사항 5 내용입니다.
-              </div>
-            </div>
-          </div>
-        </div>
+        </form>
       </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-primary">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+    <div class="btn-group me-2" role="group" aria-label="First group">
+      <button type="button" class="btn btn-outline-secondary">1</button>
+      <button type="button" class="btn btn-outline-secondary">2</button>
+      <button type="button" class="btn btn-outline-secondary">3</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "QandA",
+  name: 'QandA',
   data() {
-    return {};
+    return {
+        showWriteModal: false,
+      newPost: { title: '', content: '' },
+      items: [
+        { id: 1, title: '연습제목', author: '연습이름', date: '작성일' },
+        { id: 2, title: '연습제목', author: '연습이름', date: '작성일' },
+        { id: 3, title: '연습제목', author: '연습이름', date: '작성일' }
+      ]
+    };
   },
-};
+  methods: {
+    goToDetail(id) {
+      this.$router.push({ name: 'DetailPage', params: { id } });
+    },
+    submitPost() {
+      if (this.newPost.title && this.newPost.content) {
+        this.items.push({...this.newPost, id: this.items.length + 1, author: 'Default Author', date: new Date().toLocaleDateString()});
+        this.newPost = { title: '', content: '' }; // Reset form
+        this.showWriteModal = false; // Close modal
+      } else {
+        alert("제목과 내용을 모두 입력해주세요.");
+      }
+    }
+  }
+}
 </script>
 
+  
 <style>
-/* 공통 배경색 */
-.bg-sky-blue {
-  background-color: rgb(204, 222, 255) !important;
+.container {
+  max-width: 1200px;
+  margin: auto;
 }
-
-/* 텍스트 화이트 & opacity */
-.text-white-opacity {
-  color: rgb(53, 53, 53);
-  opacity: 0.65;
-}
-
-/* 공통 폰트 스타일 */
-.fs-8-bold {
-  font-size: 15pt;
-  font-weight: bold;
-}
-
-/* 세로 정렬 아이콘과 텍스트를 중앙 정렬 */
-.vertical-center {
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: center;
   justify-content: center;
-  height: 100%;
+  align-items: center;
+  z-index: 1040;  
 }
 
 
-/* 아코디언 버튼 스타일 */
-.accordion-button-custom {
-  font-size: 8pt;
-  line-height: large;
-  font-weight: bold;
-  padding-top: 1ex;
-  padding-bottom: 2ex;
+.modal-dialog {
+  width: auto; 
 }
 
-/* 아코디언 바디 패딩 조절 */
-.accordion-body-custom {
-  padding-top: 0;
-  padding-bottom: 1ex;
+.modal-content {
+  position: relative; 
+  padding: 20px;
+  animation: fadeIn 0.5s;
 }
 
-
+.close {
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border: none;
+  background: none;
+  color: black;
+  font-size: 1.5rem;
+}
+.table-responsive {
+  padding: 0 15px;
+}
 </style>
+
+  

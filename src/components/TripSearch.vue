@@ -1,5 +1,5 @@
 <template><br><br><br><br><br><br>
-  <div class="container my-page">
+  <div style="background-color: white;" class="container my-page">
     <h1>어디로 떠나볼까요?</h1><br><br><br>
     <nav class="navbar navbar-light bg-white">
       <div class="container-fluid justify-content-center">
