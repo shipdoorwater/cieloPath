@@ -3,96 +3,44 @@
   <div class="container register">
                   <div class="row">
                       <div class="col-md-3 register-left">
-                          <img src="@/assets/logo.png" alt=""/>
-                          <h3>Welcome</h3>
+                          <img src="@/assets/logo.png" alt=""/><br><br>
+                          <h3>WELCOME</h3><br>
                           <p>CIELO PATH에서 간편하고 빠르게 여행 일정을 만들어보세요!</p>
                       </div>
                       <div class="col-md-9 register-right">
-                          <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                              <li class="nav-item">
-                                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Employee</a>
-                              </li>
-                              <li class="nav-item">
-                                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Hirer</a>
-                              </li>
-                          </ul>
-                          <div class="tab-content" id="myTabContent">
-                              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                  <h3 class="register-heading">회원가입</h3>
+
+                                  <h3 class="register-heading">회원가입</h3><br><br>
                                   <div class="row register-form">
                                       <div class="col-md-6">
                                           <div class="form-group">
                                             <div class="form-group">
-                                              <input type="text" class="form-control" placeholder="ID" value="" />
-                                          </div>
-                                              <input type="text" class="form-control" placeholder="이름" value="" />
+                                              <input type="email" class="form-control" placeholder="이메일" value="" /><br>
                                           </div>
                                           <div class="form-group">
-                                              <input type="text" class="form-control" placeholder="닉네임" value="" />
+                                              <input type="text" class="form-control" placeholder="이름" value="" /><br>
                                           </div>
                                           <div class="form-group">
-                                              <input type="password" class="form-control"  placeholder="비밀번호" value="" />
+                                              <input type="text" class="form-control" placeholder="닉네임" value="" /><br>
                                           </div>
                                           <div class="form-group">
-                                              <input type="password" class="form-control"  placeholder="비밀번호 확인" value="" />
+                                              <input type="password" class="form-control"  placeholder="비밀번호" value="" /><br>
                                           </div>
                                           <div class="form-group">
+                                              <input type="password" class="form-control"  placeholder="비밀번호 확인" value="" /><br>
                                           </div>
-                                      </div>
-                                      <div class="col-md-6">
+                                         
                                           <div class="form-group">
-                                              <input type="email" class="form-control" placeholder="이메일" value="" />
+                                              <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="휴대폰번호" value="" /><br>
                                           </div>
-                                          <div class="form-group">
-                                              <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="휴대폰번호" value="" />
-                                          </div>
-                                          <input type="submit" class="btnRegister"  value="Register"/>
+                                          <input type="submit" class="btnRegister"  value="가입완료"/>
                                       </div>
                                   </div>
                               </div>
-                              <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                  <h3  class="register-heading">Apply as a Hirer</h3>
-                                  <div class="row register-form">
-                                      <div class="col-md-6">
-                                          <div class="form-group">
-                                              <input type="text" class="form-control" placeholder="First Name *" value="" />
-                                          </div>
-                                          <div class="form-group">
-                                              <input type="text" class="form-control" placeholder="Last Name *" value="" />
-                                          </div>
-                                          <div class="form-group">
-                                              <input type="email" class="form-control" placeholder="Email *" value="" />
-                                          </div>
-                                          <div class="form-group">
-                                              <input type="text" maxlength="10" minlength="10" class="form-control" placeholder="Phone *" value="" />
-                                          </div>
-                                      </div>
-                                      <div class="col-md-6">
-                                          <div class="form-group">
-                                              <input type="password" class="form-control" placeholder="Password *" value="" />
-                                          </div>
-                                          <div class="form-group">
-                                              <input type="password" class="form-control" placeholder="Confirm Password *" value="" />
-                                          </div>
-                                          <div class="form-group">
-                                              <select class="form-control">
-                                                  <option class="hidden"  selected disabled>Please select your Sequrity Question</option>
-                                                  <option>What is your Birthdate?</option>
-                                                  <option>What is Your old Phone Number</option>
-                                                  <option>What is your Pet Name?</option>
-                                              </select>
-                                          </div>
-                                          <div class="form-group">
-                                              <input type="text" class="form-control" placeholder="`Answer *" value="" />
-                                          </div>
-                                          <input type="submit" class="btnRegister"  value="Register"/>
-                                      </div>
+                             </div>
+                                         </div>
                                   </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+                            
+                      
     </template>
     <script>
     export default {
@@ -100,6 +48,10 @@
     }
     </script>
     <style>
+    .form-group{
+        width: 500px;
+
+    }
     .register{
       background: -webkit-linear-gradient(left, #3931AF, #00C6FF);
       margin-top: 3%;
