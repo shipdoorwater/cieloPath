@@ -2,7 +2,11 @@
   <div class="container my-page">
   <h1>My Profile</h1>
   <div class="profile-section">
+    <div id="app">
     <img :src="profileImageUrl" alt="Profile Image" class="profile-image"/>
+    <input type="file" @change="onFileChange" />
+    <button @click="uploadImage">이미지 업로드</button>
+</div>
     <button style="width: 250px;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editInfoModal">Edit My Info</button>
   </div>
   <ul class="nav nav-tabs">
@@ -35,10 +39,6 @@
             <div class="mb-3">
               <label for="mobile" class="col-form-label">휴대폰번호:</label>
               <input type="tel" class="form-control" id="mobile">
-            </div>
-            <div class="mb-3">
-              <label for="email" class="col-form-label">이메일:</label>
-              <input type="email" class="form-control" id="email">
             </div>
             <div class="mb-3">
               <label for="password" class="col-form-label">비밀번호:</label>
@@ -92,15 +92,40 @@ name: 'MyPage',
 data() {
   return {
     showWriteModal: false,
-    profileImageUrl: 'path_to_default_profile_image.jpg',
+    profileImageUrl: '',
     showModal: false, // Controls visibility of the modal
     tempCieloText:""
   };
 },
 methods: {
-  
+  onFileChange(e) {
+            const file = e.target.files[0];
+            this.previewImage(file);
+        },
+        previewImage(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                this.profileImageUrl = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        },
+        uploadImage() {
+    let formData = new FormData();
+    const fileInput = document.querySelector('input[type="file"]');
+    formData.append("image", fileInput.files[0]);
+
+    // // axios.post('your-server-upload-url', formData, {
+    // //     headers: {
+    // //         'Content-Type': 'multipart/form-data'
+    // //     }
+    // }).then(response => {
+    //     console.log("Image uploaded successfully", response.data);
+    // }).catch(error => {
+    //     console.error("Error uploading image:", error);
+    // });
 }
 }
+};
 </script>
 
 

@@ -2,10 +2,9 @@
     <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
       <!-- Logo -->
-      <a class="navbar-brand me-auto" href="#">
-        <img src="@/assets/logo.png" alt="logo" height="80px">
-      </a>
-      
+      <a class="navbar-brand me-auto" href="http://192.168.0.71:8080/">
+    <img src="@/assets/logo.png" alt="logo" height="80px" class="logo-image">
+</a>
       <!-- Toggler for mobile -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <i class="bi bi-list"></i>
@@ -15,10 +14,12 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">여행지</a>
+            <!-- <a class="nav-link active" aria-current="page" href="#">여행지</a> -->
+            <a class="nav-link active" href="#trip-search" @click="scrollToComponent($event, 'trip-search')">여행지</a>
+
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">공지사항</a>
+            <a class="nav-link active" href="#Notice-Area" @click="scrollToComponent($event, 'Notice-Area')">공지사항</a>
           </li>
         </ul>
         
@@ -29,7 +30,7 @@
               <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">프로필</a></li>
+              <li><a class="dropdown-item" href="http://localhost:8080/mypage">프로필</a></li>
               <li><a class="dropdown-item" href="#">설정</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="#">로그아웃</a></li>
@@ -47,7 +48,23 @@
   export default {
     name: 'NavBar',
     components: {
+    },
+    methods: {
+  scrollToComponent(event, id) {
+    event.preventDefault(); // Prevent the default anchor click behavior
+    console.log("Trying to scroll to:", id); // Debug log
+    const element = document.getElementById(id);
+    if (element) {
+      console.log("Element found:", element); // Debug log
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      console.log("Element not found"); // Debug log
     }
+  }
+}
+
+
+
   }
   </script>
   
@@ -59,7 +76,9 @@
         text-align: right;
       }
     }  
-  
+    .logo-image {
+    margin-left: 30px; /* Add 10px margin to the left of the image */
+}
   .bi-list {
     border: 0px;
   }

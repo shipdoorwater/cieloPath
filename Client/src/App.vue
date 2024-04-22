@@ -1,11 +1,13 @@
-2625d7c9df55193dcfa7b87f864b8d8d8bb11300
-
 <template>
-  
- <router-view></router-view>
+<router-view name="default"></router-view>
+<router-view name="header"></router-view>
+<router-view name="main1"></router-view>
+<router-view name="main2"></router-view>
+<router-view name="footer"></router-view>
 </template>
 
 <script>
+
 
 export default {
   name: 'App',
