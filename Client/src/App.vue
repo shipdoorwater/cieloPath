@@ -1,45 +1,27 @@
+
 <template>
-   <NavBar></NavBar>
-   <router-link to="/image">Node</router-link> 
-   <MainImageSlide></MainImageSlide>
-    <TripSearch></TripSearch>
-    <QandA></QandA>
-    <FooterArea></FooterArea>
-    <NoticeArea></NoticeArea>
-    <MyPage></MyPage>
-<SignUp></SignUp>
-    <Login_kakao></Login_kakao>
+  <nav>
+    <router-link to="/">LoginPage</router-link>
+    <Login_getToken></Login_getToken>
+  </nav>
+  <router-view/>
 </template>
 
 <script>
-import NavBar from "@/components/NavBar.vue"
-import MainImageSlide from "@/components/MainImageSlide.vue"
-import TripSearch from "@/components/TripSearch.vue"
-import QandA from "@/components/QandA.vue"
-import FooterArea from "@/components/FooterArea.vue"
-import NoticeArea from "@/components/NoticeArea.vue"
-import SignUp from '@/components/SignUp.vue';
-import MyPage from "@/components/MyPage.vue";
+import Login_getToken from "@/components/Login_getToken.vue"
 
-
-import Login_kakao from "@/components/Login_kakao.vue"
 
 
 export default {
   name: 'App',
   components: {
-    NavBar,
-    SignUp,
-    MyPage,
-    MainImageSlide,
-    TripSearch,
-    QandA,
-    FooterArea,
-    Login_kakao,
-    NoticeArea
+    Login_getToken
   }
 }
+//
 </script>
+
+
 <style>
 @font-face {
     font-family: 'WavvePADO-Regular';

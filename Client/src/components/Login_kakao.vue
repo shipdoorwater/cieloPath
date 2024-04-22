@@ -7,8 +7,7 @@
         alt="카카오 로그인 버튼"
       />
     </a>
-    <p>{{ tokenResult }}</p>
-    <!-- <div @click="kakaoLogout()">로그아웃</div> -->
+    >
   </div>
 </template>
 
@@ -19,7 +18,7 @@ export default {
   name: "Login_kakao",
   data() {
     return {
-      tokenResult: "",
+
     };
   },
 
@@ -112,5 +111,3 @@ export default {
   },
 };
 </script>
-
-<style></style>
