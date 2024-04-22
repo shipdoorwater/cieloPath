@@ -47,27 +47,21 @@
 
         <!-- User Icon -->
         <ul class="navbar-nav">
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
+          <li class="nav-item" v-if="isAuthenticated">
+            <!-- 로그인 되었을 때의 드롭다운 메뉴 -->
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="bi bi-person-circle" style="font-size: 1.5rem"></i>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li>
-                <a class="dropdown-item" href="http://localhost:8080/mypage"
-                  >프로필</a
-                >
-              </li>
+              <li><a class="dropdown-item" href="http://localhost:8080/mypage">프로필</a></li>
               <li><a class="dropdown-item" href="#">설정</a></li>
               <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#" @click="logout()">로그아웃</a></li>
+              <li><a class="dropdown-item" href="#" @click="logout">로그아웃</a></li>
             </ul>
+          </li>
+          <li class="nav-item" v-else>
+            <!-- 로그인 되어 있지 않을 때의 로그인 링크 -->
+            <a class="nav-link" href="/login">로그인</a>
           </li>
         </ul>
       </div>
@@ -76,9 +70,16 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "NavBar",
   components: {},
+  computed: {
+    ...mapState(["user", "token"]), // `user`와 `token` 상태를 매핑
+    isAuthenticated() {
+      return !!this.token; // 토큰 존재 여부로 인증 상태 결정
+    },
+  },
   methods: {
     scrollToComponent(event, id) {
       event.preventDefault(); // Prevent the default anchor click behavior
