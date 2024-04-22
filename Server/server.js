@@ -24,6 +24,33 @@ app.listen(3000, function () {
   });
 
 
+const axios = require('axios');
+
+// 로그인 검증
+app.get('/login', async (req, res) => {
+  const code = req.query.code; // 인가 코드 추출
+  try {
+    const response = await axios.post('https://kauth.kakao.com/oauth/token', null, {
+      params: {
+        grant_type: 'authorization_code',
+        client_id: 'c875ede1bee7c0255072cedc1a16fced',
+        redirect_uri: 'http://localhost:8080/login',
+        code: code,
+      },
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    });
+    const accessToken = response.data.access_token;
+    // 액세스 토큰을 사용하여 사용자 정보 요청 등의 다음 단계 처리
+  } catch (error) {
+    console.error('Access Token Error', error.response.data);
+  }
+});
+
+
+
+
 // 공지사항 글 작성
 app.post('/api/notice/write', (req, res) => {
     const { title, content, writerId } = req.body;
@@ -35,6 +62,8 @@ app.post('/api/notice/write', (req, res) => {
       res.status(201).send(`Post added with ID: ${results.insertId}`);
     });
   });
+
+// 공지사항 글 수정
 
 
 

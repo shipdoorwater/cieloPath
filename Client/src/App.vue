@@ -1,6 +1,6 @@
 <template>
    <NavBar></NavBar>
-
+   <router-link to="/image">Node</router-link> 
    <MainImageSlide></MainImageSlide>
     <TripSearch></TripSearch>
     <QandA></QandA>
