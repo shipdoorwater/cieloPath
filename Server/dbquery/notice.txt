@@ -1,0 +1,8 @@
+CREATE TABLE notice 
+(
+    postId INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(20),
+    content TEXT,
+    writerId VARCHAR(20),
+    writeDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
