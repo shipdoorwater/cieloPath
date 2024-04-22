@@ -3,8 +3,8 @@ import App from './App.vue'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import router from './router'
-
+import router from './router';
+import store from "@/store";
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -15,5 +15,5 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
-createApp(App).use(router).mount('#app')
+createApp(App).use(router).use(store).mount('#app')
 // window.KaKao.init("c875ede1bee7c0255072cedc1a16fced");
