@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LoginPage from '@/components/LoginPage.vue'
+// import LoginPage from '@/components/LoginPage.vue'
 import SignUp from '@/components/SignUp.vue'
 import MyPage from '@/components/MyPage.vue'
 import AdminPage from '@/components/AdminPage.vue'
+// import Login_getToken from '@/components/Login_getToken.vue'
+import kakaoCallback from '@/components/kakao-callback.vue'
 
 const routes = [
 
@@ -14,7 +16,7 @@ const routes = [
       header: () => import('@/components/MainImageSlide.vue'),
       main1: () => import('@/components/TripSearch.vue'),
       main2: () => import('@/components/NoticeArea.vue'),
-      footer: () => import('@/components/FooterArea.vue')
+      footer: () => import('@/components/FooterArea.vue'),
     }
   },
   {
@@ -22,11 +24,11 @@ const routes = [
     name: 'signup',
     component: SignUp
   },
-  {
-    path: '/login',
-    name: 'login',
-    component: LoginPage
-  },
+  // {
+  //   path: '/login',
+  //   name: 'login',
+  //   component: Login_getToken
+  // },
   {
     path: '/mypage',
     name: 'mypage',
@@ -37,6 +39,11 @@ const routes = [
     name: 'admin',
     component: AdminPage
   },
+  {
+      path: '/kakao-callback',
+      name: 'kakao-callback',
+      component: kakaoCallback
+    }
 ]
 
 const router = createRouter({

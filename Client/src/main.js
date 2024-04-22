@@ -13,5 +13,5 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-createApp(App).use(router).mount('#app')
+createApp(App).use(router).use(store).mount('#app')
 // window.KaKao.init("c875ede1bee7c0255072cedc1a16fced");

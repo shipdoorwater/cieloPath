@@ -25,7 +25,7 @@ export default {
   methods: {
     loginWithKakao() {
       window.Kakao.Auth.authorize({
-        redirectUri: "http://localhost:8080/login",
+        redirectUri: "http://localhost:8080/kakao-callback",
       });
     },
 
