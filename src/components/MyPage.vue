@@ -56,7 +56,7 @@
     </div>
 
           <button type="button" style="background-color: beige; color: black; border:none" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">CIELO 만들기</button>
-          <!-- CIELO 만들기 Modal -->
+        
           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -93,7 +93,7 @@ export default {
     return {
       showWriteModal: false,
       profileImageUrl: 'path_to_default_profile_image.jpg',
-      showModal: false // Controls visibility of the modal
+      showModal: false 
     };
   },
   methods: {
