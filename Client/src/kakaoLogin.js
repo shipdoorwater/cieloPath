@@ -10,7 +10,7 @@ const getKakaoToken = async (code) => {
     const data = {
       grant_type: "authorization_code",
       client_id: "ad632cadfa2b4394ddf002a933bb5958", // rest api
-      redirect_uri: "http://localhost:8080/login",
+      redirect_uri: "http://localhost:8080/kakao-callback",
       code: code
     };
 
