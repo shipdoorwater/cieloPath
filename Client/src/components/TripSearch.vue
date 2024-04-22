@@ -1,5 +1,5 @@
 <template><br><br><br><br><br><br>
-  <div style="background-color: white;" class="container my-page">
+  <div id="trip-search" style="background-color: white;" >
     <h1>어디로 떠나볼까요?</h1><br><br><br>
     <nav class="navbar navbar-light bg-white">
       <div class="container-fluid justify-content-center">
@@ -50,8 +50,7 @@
     </div>
   </div>
 </div>
-
-  </div>
+</div>
 </template>
 
 
@@ -123,7 +122,6 @@ export default {
 }
 
 .btn-booking {
-  
   background-color: #b9b9b9; /* Light grey background */
   border: 1px solid #ccc; /* Optional: adds a subtle border */
   color: black; /* Text color */
@@ -134,8 +132,7 @@ export default {
 
 .modal-footer {
   display: flex;
-  align-items: center;
-  justify-content: flex-start; /* Aligns content to the left */
+  align-items: right;
 }
 .form-control {
   width: 300px;
@@ -165,7 +162,7 @@ export default {
   }
 
 .modal-dialog {
-  max-width: 80%; /* Increases the maximum width of the modal */
+  max-width: 50%; /* Increases the maximum width of the modal */
   width: auto; /* Allows the modal to scale based on the max-width */
 }
 

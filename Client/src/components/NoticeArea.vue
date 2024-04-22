@@ -1,94 +1,38 @@
 <template>
-  <div class="container bg-sky-blue">
-    <h1>Notice</h1>
-    <br /><br /><br /><br />
-    <div class="row py-8 py-md-10 py-lg-11">
-      <div class="col-lg-6">
-        <div class="row justify-content-center justify-content-lg-start">
-          <div class="col-lg-10">
-            <div class="d-flex gap-2 gap-lg-x1 mb-4 mb-lg-5 vertical-center">
-              <div> 
-              </div>
-              <div>
-                <h5 class="fs-8-bold lh-lg mb-1 text-gray">
-                  <i class="bi bi-calendar-heart"></i>&nbsp;&nbsp;CIELO PATH는 다양한 여행 일정을 제공해요.
-                </h5>
-                <p class="lh-xl text-white-opacity mb-0">
-                  We offers a variety of travel schedules.
-                </p>
-              </div>
-            </div>
-                <h5 class="fs-8-bold lh-lg mb-1 text-gray">
-                  <i class="bi bi-calendar-heart"></i>&nbsp;&nbsp;CIELO PATH는 지속적으로 업데이트하고 있어요.
-                </h5>
-                <p class="lh-xl text-white-opacity mb-0">
-                  We are continuously being updated.
-                </p>
-              </div>
+  <div id="Notice-Area" class="bg-sky-blue">
+    <div class="container py-5"><br><br><br>
+      <h1 class="text-center mb-4">Notice</h1><br><br><br><br>
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <div class="info-section"><br><br><br>
+            <h5 class="fs-8-bold text-gray mb-3">
+              <i class="bi bi-calendar-heart"></i>&nbsp;&nbsp;CIELO PATH는 다양한 여행 일정을 제공해요.
+            </h5>
+            <p class="text-white-opacity">
+              We offers a variety of travel schedules.
+            </p><br><br><br>
+            <h5 class="fs-8-bold text-gray mb-3">
+              <i class="bi bi-calendar-heart"></i>&nbsp;&nbsp;CIELO PATH는 지속적으로 업데이트하고 있어요.
+            </h5>
+            <p class="text-white-opacity">
+              We are continuously being updated.
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="accordion mt-lg-4 bg-white" id="accordion" style="padding-left: 0; padding-right: 0">
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="heading1">
-              <button class="accordion-button accordion-button-custom" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                CIELO PATH 운영시간
-              </button>
-            </h2>
-            <div class="accordion-collapse collapse show" id="collapse1" data-bs-parent="#accordion">
-              <div class="accordion-body accordion-body-custom" style="text-align: left;">
-                CIELO PATH에서 여행 일정생성은 24시간 가능해요!<br>
-                다만, 상담은 9 to 6로 가능하오니 이용에 참고부탁드려요.
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="heading2">
-              <button class="accordion-button accordion-button-custom collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                CIELO PATH 사용방법
-              </button>
-            </h2>
-            <div class="accordion-collapse collapse" id="collapse2" data-bs-parent="#accordion">
-              <div class="accordion-body accordion-body-custom" style="text-align: left;">
-                가고싶은 지역을 검색 후<br>
-                일정을 만들어주세요!<br>
-                타닥! 클릭! 완료!<br>
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="heading3">
-              <button class="accordion-button accordion-button-custom collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                CIELO PATH 공지사항 3
-              </button>
-            </h2>
-            <div class="accordion-collapse collapse" id="collapse3" data-bs-parent="#accordion">
-              <div class="accordion-body accordion-body-custom" style="text-align: left;">
-                공지사항 3 내용입니다.
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="heading4">
-              <button class="accordion-button accordion-button-custom collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-                CIELO PATH 공지사항 4
-              </button>
-            </h2>
-            <div class="accordion-collapse collapse" id="collapse4" data-bs-parent="#accordion">
-              <div class="accordion-body accordion-body-custom" style="text-align: left;">
-                공지사항 4 내용입니다.
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="heading5">
-              <button class="accordion-button accordion-button-custom collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
-                CIELO PATH 공지사항 5
-              </button>
-            </h2>
-            <div class="accordion-collapse collapse" id="collapse5" data-bs-parent="#accordion">
-              <div class="accordion-body accordion-body-custom" style="text-align: left;">
-                공지사항 5 내용입니다.
+        <div class="col-lg-6">
+          <div class="accordion" id="accordionExample">
+            <div class="accordion-item" v-for="item in accordionItems" :key="item.id">
+              <h2 class="accordion-header" :id="`heading${item.id}`"
+                  :class="{'accordion-header-custom': item.open, 'accordion-header-default': !item.open}">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" :data-bs-target="`#collapse${item.id}`"
+                        :aria-expanded="item.open.toString()" :aria-controls="`collapse${item.id}`" @click="toggleAccordion(item.id)">
+                  {{ item.title }}
+                </button>
+              </h2>
+              <div :id="`collapse${item.id}`" class="accordion-collapse collapse" :class="{ show: item.open }" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  {{ item.content }}
+                </div>
               </div>
             </div>
           </div>
@@ -98,56 +42,67 @@
   </div>
 </template>
 
+
 <script>
 export default {
   name: "NoticeArea",
   data() {
-    return {};
+    return {
+      accordionItems: [
+        { id: 'collapse1', title: 'CIELO PATH 운영시간', content: '24시간 여행 일정 생성 가능합니다. 상담은 9 to 6로 제한됩니다.', open: true },
+        { id: 'collapse2', title: 'CIELO PATH 사용방법', content: '가고 싶은 지역을 검색 후 일정을 만들어 주세요! 타닥! 클릭! 완료!', open: false },
+        { id: 'collapse3', title: 'CIELO PATH 공지사항 3', content: '공지사항 3 내용입니다.', open: false },
+        { id: 'collapse4', title: 'CIELO PATH 공지사항 4', content: '공지사항 4 내용입니다.', open: false },
+        { id: 'collapse5', title: 'CIELO PATH 공지사항 5', content: '공지사항 5 내용입니다.', open: false }
+      ]
+    };
   },
+  methods: {
+    toggleAccordion(id) {
+      this.accordionItems.forEach(item => {
+        item.open = item.id === id ? !item.open : false;
+      });
+    }
+  }
 };
 </script>
 
+
 <style>
-/* 공통 배경색 */
 .bg-sky-blue {
-  background-color: rgb(204, 222, 255) !important;
+  background-color: rgb(204, 222, 255);
 }
 
-/* 텍스트 화이트 & opacity */
+.container {
+  min-height: 100vh; /* 컨테이너의 최소 높이를 뷰포트의 전체 높이로 설정 */
+  padding: 2rem 1rem; /* 상단과 하단에 적절한 여백 제공 */
+}
+
 .text-white-opacity {
   color: rgb(53, 53, 53);
   opacity: 0.65;
 }
 
-/* 공통 폰트 스타일 */
 .fs-8-bold {
-  font-size: 15pt;
+  font-size: 20px; /* 폰트 크기 증가 */
   font-weight: bold;
 }
-
-/* 세로 정렬 아이콘과 텍스트를 중앙 정렬 */
-.vertical-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
+.accordion-header-custom {
+  background-color: #cceeff; /* 푸른색 배경 */
 }
 
+.accordion-header-default {
+  background-color: #ffffff; /* 흰색 배경 */
+}
 
-/* 아코디언 버튼 스타일 */
 .accordion-button-custom {
-  font-size: 8pt;
-  line-height: large;
-  font-weight: bold;
-  padding-top: 1ex;
-  padding-bottom: 2ex;
+  font-size: 1rem; /* 적절한 폰트 크기 설정 */
+  padding: 0.75rem 1.25rem; /* 버튼의 패딩 조절 */
 }
 
-/* 아코디언 바디 패딩 조절 */
 .accordion-body-custom {
-  padding-top: 0;
-  padding-bottom: 1ex;
+  text-align: left;
+  padding: 1rem; /* 바디의 내부 패딩 조정 */
 }
-
-
 </style>
+

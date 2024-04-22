@@ -1,6 +1,6 @@
 <template>
   
-  <div class="container">
+  <div>
     <img src="@/assets/logo.png" alt="logo" height="150px" style="float: left; margin-right: 10px;"> 
     <br><br><br><br><br><br><br><br><br>
     <h3>만든 이</h3><br>
@@ -33,18 +33,6 @@ export default {
 </script>
 
 <style>
-.container {
-  background-color: #FDF8EC; /* 배경색 설정 */
-  padding: 150px; /* 패딩 추가 */
-  width: 100%; 
-  margin: 0 auto; 
-  box-sizing: border-box;
-  
-}
-
-.creator-section {
-  text-align: left; /* "만든 이" 섹션 텍스트 왼쪽 정렬 */
-}
 
 .profile {
   display: inline-block; /* 요소를 옆으로 배열 */
@@ -67,7 +55,7 @@ export default {
   padding-left: 0;
   margin-right: auto;
   margin-left: auto;
-  width: 100%; /* 컨테이너의 최대 폭을 화면 너비와 일치시킴 */
+  
 }
 </style>
 

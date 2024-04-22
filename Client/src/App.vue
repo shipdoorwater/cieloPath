@@ -1,14 +1,14 @@
-
 <template>
-  <nav>
-    <router-link to="/">LoginPage</router-link>
-    <Login_getToken></Login_getToken>
-  </nav>
-  <router-view/>
+<router-view name="default"></router-view>
+<router-view name="header"></router-view>
+<router-view name="main1"></router-view>
+<router-view name="main2"></router-view>
+<router-view name="footer"></router-view>
 </template>
 
 <script>
 import Login_getToken from "@/components/Login_getToken.vue"
+
 
 
 
