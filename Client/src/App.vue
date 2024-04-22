@@ -1,50 +1,17 @@
+2625d7c9df55193dcfa7b87f864b8d8d8bb11300
+
 <template>
- <router-view :key="$route.fullPath"></router-view>
-   <!-- <NavBar></NavBar> -->
-   <!-- <LoginPage></LoginPage> -->
-   <!-- <MainImageSlide></MainImageSlide>
-    <TripSearch></TripSearch>
-    <QandA></QandA>
-    <FooterArea></FooterArea>
-    <NoticeArea></NoticeArea>
-    <MyPage></MyPage>
-<SignUp></SignUp>
-
-<router-link to="/login1">LoginPage</router-link> -->
-
-
+  
+ <router-view></router-view>
 </template>
 
 <script>
-// import NavBar from "@/components/NavBar.vue"
-// import LoginPage from "./components/LoginPage.vue"
-// import MainImageSlide from "@/components/MainImageSlide.vue"
-// import TripSearch from "@/components/TripSearch.vue"
-// import QandA from "@/components/QandA.vue"
-// import FooterArea from "@/components/FooterArea.vue"
-// import NoticeArea from "@/components/NoticeArea.vue"
-// import SignUp from '@/components/SignUp.vue';
-// import MyPage from "@/components/MyPage.vue";
 
 export default {
   name: 'App',
-
+  components: {
+  }
 }
-
-// export default {
-//   name: 'App',
-//   components: {
-//     NavBar,
-//     // LoginPage,
-//     SignUp,
-//     MyPage,
-//     MainImageSlide,
-//     TripSearch,
-//     QandA,
-//     FooterArea,
-//     NoticeArea
-//   }
-// }
 //
 </script>
 <style>

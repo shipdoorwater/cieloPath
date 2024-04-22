@@ -1,6 +1,6 @@
 <template>
-    <h1>Hello World</h1>
-    <!-- <div class="background">
+
+    <div class="background">
         <title>Login Page</title>
         <br><br><br><br><br><br>
         <h2>CIELO PATH와 여행을 시작해봐요</h2><br><br><br><br><br><br>
@@ -48,7 +48,7 @@
                                 <p>{{ tokenResult }}</p>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
 </template>
     

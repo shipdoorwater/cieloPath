@@ -93,7 +93,8 @@ data() {
   return {
     showWriteModal: false,
     profileImageUrl: 'path_to_default_profile_image.jpg',
-    showModal: false // Controls visibility of the modal
+    showModal: false, // Controls visibility of the modal
+    tempCieloText:""
   };
 },
 methods: {
