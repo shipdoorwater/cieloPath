@@ -17,13 +17,12 @@
           <tr v-for="item in items" :key="item.id" @dblclick="goToDetail(item.id)">
             <th scope="row">{{ item.id }}</th>
             <td>{{ item.title }}</td>
-            <td>{{ item.author }}</td>
+            <td>{{ item.writer }}</td>
             <td>{{ item.date }}</td>
           </tr>
         </tbody>
       </table>
     </div>
-    
     <br>
     <!-- Writing Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -52,7 +51,6 @@
     </div>
   </div>
 </div>
-  
     <div class="btn-group me-2" role="group" aria-label="First group">
       <button type="button" class="btn btn-outline-secondary">1</button>
       <button type="button" class="btn btn-outline-secondary">2</button>
@@ -60,7 +58,6 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
   name: 'QandA',
@@ -69,9 +66,9 @@ export default {
         showWriteModal: false,
       newPost: { title: '', content: '' },
       items: [
-        { id: 1, title: '연습제목', author: '연습이름', date: '작성일' },
-        { id: 2, title: '연습제목', author: '연습이름', date: '작성일' },
-        { id: 3, title: '연습제목', author: '연습이름', date: '작성일' }
+        { id: 1, title: '연습제목', writer: '연습이름', date: '작성일' },
+        { id: 2, title: '연습제목', writer: '연습이름', date: '작성일' },
+        { id: 3, title: '연습제목', writer: '연습이름', date: '작성일' }
       ]
     };
   },
@@ -81,7 +78,7 @@ export default {
     },
     submitPost() {
       if (this.newPost.title && this.newPost.content) {
-        this.items.push({...this.newPost, id: this.items.length + 1, author: 'Default Author', date: new Date().toLocaleDateString()});
+        this.items.push({...this.newPost, id: this.items.length + 1, writer: 'Default Author', date: new Date().toLocaleDateString()});
         this.newPost = { title: '', content: '' }; // Reset form
         this.showWriteModal = false; // Close modal
       } else {
@@ -91,8 +88,6 @@ export default {
   }
 }
 </script>
-
-  
 <style>
 .container {
   max-width: 1200px;
@@ -108,20 +103,16 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1040;  
+  z-index: 1040;
 }
-
-
 .modal-dialog {
-  width: auto; 
+  width: auto;
 }
-
 .modal-content {
-  position: relative; 
+  position: relative;
   padding: 20px;
   animation: fadeIn 0.5s;
 }
-
 .close {
   cursor: pointer;
   position: absolute;
@@ -136,5 +127,3 @@ export default {
   padding: 0 15px;
 }
 </style>
-
-  
