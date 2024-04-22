@@ -7,15 +7,21 @@
 </template>
 
 <script>
+import Login_getToken from "@/components/Login_getToken.vue"
+
+
 
 
 export default {
   name: 'App',
   components: {
+    Login_getToken
   }
 }
 //
 </script>
+
+
 <style>
 @font-face {
     font-family: 'WavvePADO-Regular';
