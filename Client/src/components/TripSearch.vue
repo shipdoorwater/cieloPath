@@ -116,10 +116,10 @@ export default {
     font-size: 20px;
 }
 .booking-buttons {
-  display: flex; /* Establishes a flex container */
-  align-items: center; /* Centers the buttons vertically within the container */
-  justify-content: flex-start; /* Aligns the buttons to the start of the container */
-  gap: 10px; /* Space between the buttons */
+  display: flex; 
+  align-items: center; 
+  justify-content: flex-start; 
+  gap: 10px;
 }
 
 .btn-booking {

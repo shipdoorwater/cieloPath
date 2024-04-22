@@ -1,44 +1,51 @@
 <template>
-   <NavBar></NavBar>
-
-   <MainImageSlide></MainImageSlide>
+ <router-view :key="$route.fullPath"></router-view>
+   <!-- <NavBar></NavBar> -->
+   <!-- <LoginPage></LoginPage> -->
+   <!-- <MainImageSlide></MainImageSlide>
     <TripSearch></TripSearch>
     <QandA></QandA>
     <FooterArea></FooterArea>
     <NoticeArea></NoticeArea>
     <MyPage></MyPage>
 <SignUp></SignUp>
-    <Login_kakao></Login_kakao>
+
+<router-link to="/login1">LoginPage</router-link> -->
+
+
 </template>
 
 <script>
-import NavBar from "@/components/NavBar.vue"
-import MainImageSlide from "@/components/MainImageSlide.vue"
-import TripSearch from "@/components/TripSearch.vue"
-import QandA from "@/components/QandA.vue"
-import FooterArea from "@/components/FooterArea.vue"
-import NoticeArea from "@/components/NoticeArea.vue"
-import SignUp from '@/components/SignUp.vue';
-import MyPage from "@/components/MyPage.vue";
-
-
-import Login_kakao from "@/components/Login_kakao.vue"
-
+// import NavBar from "@/components/NavBar.vue"
+// import LoginPage from "./components/LoginPage.vue"
+// import MainImageSlide from "@/components/MainImageSlide.vue"
+// import TripSearch from "@/components/TripSearch.vue"
+// import QandA from "@/components/QandA.vue"
+// import FooterArea from "@/components/FooterArea.vue"
+// import NoticeArea from "@/components/NoticeArea.vue"
+// import SignUp from '@/components/SignUp.vue';
+// import MyPage from "@/components/MyPage.vue";
 
 export default {
   name: 'App',
-  components: {
-    NavBar,
-    SignUp,
-    MyPage,
-    MainImageSlide,
-    TripSearch,
-    QandA,
-    FooterArea,
-    Login_kakao,
-    NoticeArea
-  }
+
 }
+
+// export default {
+//   name: 'App',
+//   components: {
+//     NavBar,
+//     // LoginPage,
+//     SignUp,
+//     MyPage,
+//     MainImageSlide,
+//     TripSearch,
+//     QandA,
+//     FooterArea,
+//     NoticeArea
+//   }
+// }
+//
 </script>
 <style>
 @font-face {
