@@ -17,7 +17,7 @@
           <tr v-for="item in items" :key="item.id" @dblclick="goToDetail(item.id)">
             <th scope="row">{{ item.id }}</th>
             <td>{{ item.title }}</td>
-            <td>{{ item.author }}</td>
+            <td>{{ item.writer }}</td>
             <td>{{ item.date }}</td>
           </tr>
         </tbody>
@@ -69,9 +69,9 @@ export default {
         showWriteModal: false,
       newPost: { title: '', content: '' },
       items: [
-        { id: 1, title: '연습제목', author: '연습이름', date: '작성일' },
-        { id: 2, title: '연습제목', author: '연습이름', date: '작성일' },
-        { id: 3, title: '연습제목', author: '연습이름', date: '작성일' }
+        { id: 1, title: '연습제목', writer: '연습이름', date: '작성일' },
+        { id: 2, title: '연습제목', writer: '연습이름', date: '작성일' },
+        { id: 3, title: '연습제목', writer: '연습이름', date: '작성일' }
       ]
     };
   },
@@ -81,7 +81,7 @@ export default {
     },
     submitPost() {
       if (this.newPost.title && this.newPost.content) {
-        this.items.push({...this.newPost, id: this.items.length + 1, author: 'Default Author', date: new Date().toLocaleDateString()});
+        this.items.push({...this.newPost, id: this.items.length + 1, writer: 'Default Author', date: new Date().toLocaleDateString()});
         this.newPost = { title: '', content: '' }; // Reset form
         this.showWriteModal = false; // Close modal
       } else {

@@ -5,6 +5,9 @@
     <TripSearch></TripSearch>
     <QandA></QandA>
     <FooterArea></FooterArea>
+    <NoticeArea></NoticeArea>
+    <MyPage></MyPage>
+<SignUp></SignUp>
     <Login_kakao></Login_kakao>
 </template>
 
@@ -14,17 +17,26 @@ import MainImageSlide from "@/components/MainImageSlide.vue"
 import TripSearch from "@/components/TripSearch.vue"
 import QandA from "@/components/QandA.vue"
 import FooterArea from "@/components/FooterArea.vue"
+import NoticeArea from "@/components/NoticeArea.vue"
+import SignUp from '@/components/SignUp.vue';
+import MyPage from "@/components/MyPage.vue";
+
+
 import Login_kakao from "@/components/Login_kakao.vue"
+
 
 export default {
   name: 'App',
   components: {
     NavBar,
+    SignUp,
+    MyPage,
     MainImageSlide,
     TripSearch,
     QandA,
     FooterArea,
-    Login_kakao
+    Login_kakao,
+    NoticeArea
   }
 }
 </script>
