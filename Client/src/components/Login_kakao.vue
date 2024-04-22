@@ -7,17 +7,18 @@
         alt="카카오 로그인 버튼"
       />
     </a>
-    <p>{{ tokenResult }}</p>
-    <!-- <div @click="kakaoLogout()">로그아웃</div> -->
+    >
   </div>
 </template>
 
 <script>
+// import axios from "axios";
+
 export default {
   name: "Login_kakao",
   data() {
     return {
-      tokenResult: "",
+
     };
   },
 
@@ -27,6 +28,28 @@ export default {
         redirectUri: "http://localhost:8080/login",
       });
     },
+
+    fetchUserInfo() {
+      window.Kakao.API.request({
+        url: "/v2/user/me",
+        success: (response) => {
+          console.log(response);
+          // 서버에 이메일과 토큰 전송
+          this.checkUser(
+            response.kakao_account.email,
+            window.Kakao.Auth.getAccessToken()
+          );
+        },
+        fail: (error) => {
+          console.error("Failed to fetch user info:", error);
+        },
+      });
+    },
+
+    checkUser(userEmail, token) {
+      this.$store.dispatch("checkUser", { userEmail, token });
+    },
+
     displayToken() {
       const token = this.getCookie("authorize-access-token");
       if (token) {
@@ -88,5 +111,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

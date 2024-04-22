@@ -1,19 +1,27 @@
-2625d7c9df55193dcfa7b87f864b8d8d8bb11300
 
 <template>
-  
- <router-view></router-view>
+  <nav>
+    <router-link to="/">LoginPage</router-link>
+    <Login_getToken></Login_getToken>
+  </nav>
+  <router-view/>
 </template>
 
 <script>
+import Login_getToken from "@/components/Login_getToken.vue"
+
+
 
 export default {
   name: 'App',
   components: {
+    Login_getToken
   }
 }
 //
 </script>
+
+
 <style>
 @font-face {
     font-family: 'WavvePADO-Regular';
