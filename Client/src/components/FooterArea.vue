@@ -1,7 +1,7 @@
 <template>
   
-  <div>
-    <img src="@/assets/logo.png" alt="logo" height="150px" style="float: left; margin-right: 10px;"> 
+  <div style="background-color: beige;"><br><br><br><br>
+    <img src="@/assets/logo.png" alt="logo" height="150px" style="float: left; margin-right: 40px;"> 
     <br><br><br><br><br><br><br><br><br>
     <h3>만든 이</h3><br>
     <div>
