@@ -26,6 +26,7 @@ export default {
     loginWithKakao() {
       window.Kakao.Auth.authorize({
         redirectUri: "http://localhost:8080/kakao-callback",
+        prompt: "select_account"
       });
     },
 
