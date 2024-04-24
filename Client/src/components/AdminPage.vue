@@ -27,6 +27,7 @@
  <script>
  export default {
    name: 'AdminPage',
+   
    data() {
      return {
        adminItems: [
@@ -41,7 +42,13 @@
    methods: {
      handleAdminAction(action) {
        console.log('Action:', action);
-     },
+       if (action === '공지 관리') {
+      this.$router.push('/notice');
+    } else if(action === '회원 관리') {
+    this.$router.push('/member');
+     }else if(action === '여행지 관리') {
+    this.$router.push('/route');
+    }},
      hoverCard(item) {
        item.isHovered = true;
      },
