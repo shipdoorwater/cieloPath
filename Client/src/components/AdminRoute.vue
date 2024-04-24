@@ -1,79 +1,85 @@
 <template>
-    <div class="container-fluid mt-5">
+  <div class="container-fluid mt-5">
       <div class="row">
-        <h1 class="mb-4">여행지 관리</h1>
-        <!-- Side Navigation -->
-        <div class="col-md-3">
-          <div class="nav flex-column text-center">
-            <div v-for="item in adminItems" :key="item.title" class="card mb-3">
-              <div class="card-body" @click="handleAdminAction(item.title)"
-                   @mouseover="hoverCard(item)" @mouseleave="unhoverCard(item)"
-                   :data-hover="item.isHovered" :style="{'--hover-color': item.hoverColor}">
-                <img v-if="item.imgSrc" :src="item.imgSrc" :alt="item.title" height="50px">
-                <i v-else :class="item.icon"></i>
-                <h5 class="card-title mt-3">{{ item.title }}</h5>
-                <p class="card-text">{{ item.description }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
+          <h1 class="mb-4">여행지 관리</h1>
+          <!-- Side Navigation -->
+      <div class="col-md-3">
+        <div class="nav flex-column text-center side-nav">
+          <div v-for="item in adminItems" :key="item.title" class="nav mb-3">
+            <div class="card-body" @click="handleAdminAction(item.title)"
+                  @mouseover="hoverCard(item)" @mouseleave="unhoverCard(item)"
+                  :style="{ backgroundColor: item.isHovered ? item.hoverColor : 'transparent' }">
+              <img v-if="item.imgSrc" :src="item.imgSrc" :alt="item.title" height="50px">
+              <i v-else :class="item.icon"></i>
+              <h5 class="nav-title mt-3">{{ item.title }}</h5>
+              <p class="nav-text">{{ item.description }}</p>
 
-        <!-- Main Content -->
-        <div class="row">
-          <div class="col-md-4" @click="openAddLocationModal">
-            <div class="image-container position-relative text-center add-location-card">
-              <span class="align-middle">[지역 추가]</span>
-            </div>
-          </div>
-          <div class="col-md-4" v-for="(image, name) in images" :key="name">
-            <div class="image-container position-relative">
-              <img :src="image.src" class="img-fluid rounded" :alt="name"/>
-              <button class="delete-icon" @click.stop="deleteImage(name)">
-                <i class="bi bi-bookmark-x"></i>
-              </button>
-              <div class="text">
-                <span class="additional-text">{{ image.text }}</span><br>
-                <span>{{ name }}</span><br><br>
-              </div>
             </div>
           </div>
         </div>
-        <!-- 여행지 추가 폼 모달 -->
-        <div class="modal" id="addLocationModal" tabindex="-1" role="dialog">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">여행지 추가</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+      </div>
+
+          <!-- Main Content -->
+          <div class="row"><br><br><br><br>
+              <div class="col-md-4" @click="openAddLocationModal">
+                  <div class="image-container position-relative text-center add-location-card">
+                      <span class="align-middle;">[지역 추가]</span>
+                  </div>
               </div>
-              <div class="modal-body">
-                <form @submit.prevent="addLocation">
-                  <div class="form-group">
-                    <label for="location-name">지역 이름</label>
-                    <input type="text" class="form-control" id="location-name" v-model="newLocationName" required>
+              <div class="col-md-4" v-for="(image, name) in images" :key="name">
+                  <div class="image-container position-relative">
+                      <img :src="image.src" class="img-fluid rounded" :alt="name"/>
+                      <button class="delete-icon" @click.stop="deleteImage(name)">
+                          <i class="bi bi-bookmark-x-fill"></i>
+                      </button>
+                      <div class="text">
+                          <span class="additional-text">{{ image.text }}</span><br>
+                          <span>{{ name }}</span><br>
+                      </div>
                   </div>
-                  <div class="form-group">
-                    <label for="location-description">지역 설명</label>
-                    <textarea class="form-control" id="location-description" v-model="newLocationDescription"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="location-image">이미지 업로드</label>
-                    <input type="file" class="form-control-file" id="location-image" @change="handleFileChange">
-                  </div>
-                  <button type="submit" class="btn btn-primary">추가</button>
-                </form>
               </div>
+          </div>
+
+          <!-- Modal for Adding Locations -->
+      <div ref="addLocationModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">여행지 추가</h5>
+           
+            </div>
+            <div class="modal-body">
+              <form @submit.prevent="addLocation">
+                <div class="form-group">
+                  <label for="location-name">지역 이름</label>
+                  <input type="text" class="form-control" id="location-name" v-model="newLocationName" required>
+                </div><br>
+                <div class="form-group">
+                  <label for="location-description">지역 설명</label>
+                  <textarea class="form-control" id="location-description" v-model="newLocationDescription"></textarea>
+                </div><br>
+                <div class="form-group">
+                  <label for="location-image">이미지 업로드</label>
+                  <input type="file" class="form-control-file" id="location-image" @change="handleFileChange">
+                </div><br>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" @click="closeAddLocationModal">닫기</button>
+                  <button type="submit" class="btn btn-primary">저장</button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
-    </template>
+  </div>
+</template>
+
     
   <script>
-//   import axios from 'axios';
+  import axios from 'axios';
+  import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+  import { Modal } from 'bootstrap';
 
   export default {
     name: 'AdminRoute',
@@ -90,49 +96,58 @@
           { icon: 'fas fa-chart-line', title: '통계 확인', description: '회원 및 여행지 현황 확인', hoverColor: 'lightgray', isHovered: false }
         ],
         images: {
-        Seoul: {
-          text: "서울",
-          src: require("@/assets/main_seoul.jpeg"),
-          description:
-            "서울은 대한민국의 수도로, 전통과 현대가 어우러진 도시입니다. 한강을 중심으로 펼쳐진 이 대도시는 고궁, 고증 건축물, 그리고 현대적인 스카이라인을 자랑합니다. 경복궁, 창덕궁, 덕수궁 같은 조선 시대의 궁궐들은 한국의 역사를 체험할 수 있는 최고의 장소입니다. 이외에도 인사동에서는 전통 차와 공예품을 즐길 수 있고, 명동과 강남 지역에서는 세계적인 쇼핑과 미식을 경험할 수 있습니다. 또한, 홍대와 이태원은 다양한 문화가 공존하는 유니크한 지역으로, 젊은이들과 외국인 관광객들로부터 큰 사랑을 받고 있습니다. 서울은 또한 많은 박물관과 예술 갤러리를 보유하고 있어 문화 예술을 사랑하는 이들에게도 큰 매력을 발산합니다.",
-        },
-        Busan: {
-          text: "부산",
-          src: require("@/assets/main_busan.png"),
-          description:
-            "부산은 한국에서 두 번째로 큰 도시로, 해운대와 광안리 같은 아름다운 해변이 유명합니다. 부산은 자연의 아름다움과 도시적인 활기를 동시에 느낄 수 있는 곳입니다. 해변 외에도 부산에는 범어사와 같은 수려한 사찰과 자갈치 시장 같은 전통 시장이 있어 다양한 볼거리를 제공합니다. 특히 자갈치 시장에서는 싱싱한 해산물을 직접 맛보고 구매할 수 있는 경험을 할 수 있으며, 부산 국제 영화제 같은 다양한 문화 행사가 연중 개최되어 문화예술 도시로서의 면모를 갖추고 있습니다. 또한, 감천문화마을처럼 예술적 가치와 역사적 배경이 어우러진 곳들도 많아 관광객들에게 인기가 많습니다.",
-        },
-        Jeju: {
-          text: "제주",
-          src: require("@/assets/main_jeju.png"),
-          description:
-            "제주도는 한국 남부에 위치한 섬으로, 독특한 문화와 자연 경관으로 유명합니다. 화산 활동으로 형성된 섬답게 다양한 지질 및 자연 경관이 특징이며, 이는 제주도의 중요한 관광 자원입니다. 제주의 해안선을 따라 펼쳐진 절경과, 한라산 국립공원 등의 대표적인 하이킹 코스는 많은 탐험가와 자연 애호가들에게 사랑받고 있습니다. 제주도는 또한 오름, 성산일출봉, 만장굴과 같은 독특한 자연 유산들을 자랑하며, 제주 특유의 돌하르방과 감귤 농장도 인기 있는 관광 명소입니다. 제주의 맛집에서는 흑돼지, 갈치 등 다양한 지역 특산물을 맛볼 수 있으며, 올레길을 걸으며 섬의 아름다운 풍경을 천천히 감상하는 것도 추천할 만한 활동입니다. 이러한 각 지역의 소개는 그 지역을 방문하거나 더 알아보는 데 유용한 정보를 제공하며, 각 지역의 독특한 매력과 문화를 간략하게나마 효과적으로 전달합니다.",
-        },
-        Gangwon: {
-          text: "강원",
-          src: require("@/assets/main_gangwon.jpg"),
-          description: "Visit Gangwon for stunning landscapes.",
-        },
-        Daegu: {
-          text: "대구",
-          src: require("@/assets/main_daegu.jpg"),
-          description: "Experience the culture in Daegu.",
-        },
-        Gyeongju: {
-          text: "경주",
-          src: require("@/assets/main_gyeongju.png"),
-          description: "See the historical sites in Gyeongju.",
-        },
       },
+      modalInstance: null,
       };
     },
     mounted() {
-      this.fetchMembers();
+      this.fetchimage();
+      this.modalInstance = new Modal(this.$refs.addLocationModal, {
+            keyboard: false
+          });
     },
+
     methods: {
-    openAddLocationModal() {
-      ('#addLocationModal').modal('show');
-    },
+      createImageUrl(imageData) {
+    const blob = new Blob([imageData], { type: 'image/jpeg' }); // MIME type을 적절히 설정
+    return URL.createObjectURL(blob);
+  },
+      fetchimage() {
+    axios.get('http://192.168.0.78:3000/api/toursiteimage')
+    .then(response => {
+        console.log('Received data:', response.data);
+        this.images = response.data.map(item => ({
+          name: item.image_name,
+          // src: this.createImageUrl(item.image_data),
+          src: `data:image/jpeg;base64, ${item.image_data}`,
+          description: item.description
+        }));
+      })
+      .catch(error => {
+        console.error('Error fetching images:', error);
+
+      });
+  },
+
+
+  deleteImage(data_id) {
+  if (confirm("이미지를 삭제하시겠습니까?")) {
+    axios.put(`http://192.168.0.78:3000/api/toursiteimage/modify/${data_id}`)
+      .then(() => {
+        const index = this.toursiteimage.findIndex(item => item.data_id === data_id);
+        if (index !== -1) {
+          this.toursiteimage[index].valid = 0;
+          this.fetchimage();  // Re-fetch images to update the list
+        }
+      })
+      .catch(error => {
+        console.error("Error disabling the toursiteimage:", error);
+      });
+  }
+},
+handleFileChange(event) {
+    this.newLocationFile = event.target.files[0];
+  },
     handleAdminAction(action) {
        console.log('Action:', action);
        if (action === '공지 관리') {
@@ -150,30 +165,38 @@
      },
      navigateToUrl(url) {
        window.location.href = url;
-     }
+     },
       
-    // addLocation() {
-    //   let formData = new FormData();
-    //   formData.append("name", this.newLocationName);
-    //   formData.append("description", this.newLocationDescription);
-    //   formData.append("image", this.newLocationFile);
+     openAddLocationModal() {
+            this.modalInstance.show();
+        },
+        closeAddLocationModal() {
+            this.modalInstance.hide();
+        },
+     
+    addLocation() {
+      let formData = new FormData();
+      formData.append("image_name", this.newLocationName);
+      formData.append("content", this.newLocationDescription);
+      formData.append("image_data", this.newLocationFile);
 
-    //   axios.post('http://localhost:3000/api/location', formData, {
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data'
-    //     }
-    //   }).then(() => {
-    //     // update your images object here
-    //     ('#addLocationModal').modal('hide');
-    //   }).catch(error => {
-    //     console.error("Error adding location:", error);
-    //   });
-    // }
+      axios.post('http://192.168.0.78:3000/api/toursiteimage/add', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(() => {
+        this.fetchimage();
+        this.closeAddLocationModal();
+      }).catch(error => {
+        console.error("Error adding location:", error);
+      });
+    }
   }
 }
 </script>
   
   <style>
+
 .image-container {
   position: relative;
   width: 300px;
@@ -182,13 +205,65 @@
   border: 1px solid #ddd; /* Add border for clarity */
   justify-content: center;
   align-items: center;
+  margin-bottom: 100px; 
+  margin-left:100px;
+  
 }
 
+
+.side-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100px; /* 너비 조정 */
+  height: 100vh; /* 배경색 */
+
+}
+
+.container-fluid {
+  padding-right:10%; /* 사이드 네비게이션 너비만큼 패딩 추가 */
+}
+
+.nav {
+  display: flex;
+  flex-direction: column; /* Ensures items are arranged vertically */
+  width: 200px;
+
+}
+.card-body {
+  text-align: left; /* Aligns text to the left */
+  padding: 10px; /* Padding inside card body */
+  border: 1px solid #ddd;
+  width: 200px;
+}
+
+.hover-active {
+  background-color: var(--hover-color); 
+}
+
+
+.card {
+  width: 100%; /* Card takes full width of the sidebar */
+  margin-bottom: 5px; /* Space between cards */
+}
+
+
+
+.form-control{
+  width: 400px;
+}
+.modal-body .form-group label {
+  text-align: left; /* Align text to the left */
+  display: block; /* Make sure the label is a block element to take up the full width */
+}
 .add-location-card {
   cursor: pointer;
   background-color: #f8f9fa; /* Light background color */
   color: #333; /* Text color */
   font-size: 20px; /* Larger text size for visibility */
+  text-align: left;
+  height: 150px; /* Standardize height for visual consistency */
+  margin-left:300px;
 }
 
 .img-fluid {
@@ -206,4 +281,5 @@
   cursor: pointer;
   font-size: 1.8em;
 }
+
 </style>

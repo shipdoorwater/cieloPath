@@ -1,13 +1,15 @@
 <template>
   <div>
+    <div class="kbg"  >
     <a id="custom-login-btn" @click="loginWithKakao()">
       <img
         src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
-        width="222"
+        width="180"
+        height="45"
         alt="카카오 로그인 버튼"
       />
     </a>
-    >
+  </div>
   </div>
 </template>
 
@@ -112,3 +114,14 @@ export default {
   },
 };
 </script>
+<style scoped>
+.kbg{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:460px;
+  border-radius: 8px;
+  height: 45px;
+  background-color: #FEE500
+}
+</style>
