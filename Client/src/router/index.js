@@ -1,8 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// import LoginPage from '@/components/LoginPage.vue'
+import LoginPage from '@/components/LoginPage.vue'
 import SignUp from '@/components/SignUp.vue'
 import MyPage from '@/components/MyPage.vue'
 import AdminPage from '@/components/AdminPage.vue'
+import AdminNotice from '@/components/AdminNotice.vue'
+import AdminMember from '@/components/AdminMember.vue'
+import AdminRoute from '@/components/AdminRoute.vue'
 // import Login_getToken from '@/components/Login_getToken.vue'
 import kakaoCallback from '@/components/kakao-callback.vue'
 
@@ -24,11 +27,26 @@ const routes = [
     name: 'signup',
     component: SignUp
   },
-  // {
-  //   path: '/login',
-  //   name: 'login',
-  //   component: Login_getToken
-  // },
+  {
+    path: '/login',
+    name: 'login',
+    component: LoginPage
+  },
+  {
+    path: '/route',
+    name: 'AdminRoute',
+    component: AdminRoute
+  },
+  {
+    path: '/notice',
+    name: 'AdminNotice',
+    component: AdminNotice
+  },
+  {
+    path: '/member',
+    name: 'AdminMember',
+    component: AdminMember
+  },
   {
     path: '/mypage',
     name: 'mypage',
