@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 // import createPersistedState from 'vuex-persistedstate';
+import axios from 'axios';
 
 const store = createStore({
   // plugins: [createPersistedState({
@@ -8,6 +9,8 @@ const store = createStore({
   state: {
     user: null,
     token: null,
+    qandaPosts: [],
+    isAdmin: false
   },
   mutations: {
     setUser(state, user) {
@@ -16,19 +19,48 @@ const store = createStore({
     setToken(state, token) {
       state.token = token;
     },
+
+    setQandAPosts(state, posts) {
+      state.qandaPosts = posts;
+    },
+    setAdminStatus(state, status) {
+      state.isAdmin = status;
+    }
   },
+
   actions: {
-    login({ commit }, { user, token }) {
+    
+    login({ commit, dispatch }, { user, token }) {
       commit("setUser", user);
       commit("setToken", token);
-      // 토큰을 localStorage에 저장
-      // localStorage.setItem("token", token);
+      dispatch("checkAdminStatus", user.email); 
+
     },
     logout({ commit }) {
       commit("setUser", null);
       commit("setToken", null);
-      // localStorage에서 토큰 제거
-      // localStorage.removeItem("token");
+
+    },
+    checkAdminStatus({ commit }, userId) {
+      axios.get(`http://localhost:3000/api/checkAdmin/${encodeURIComponent(userId)}`)
+        .then(response => {
+          commit('setAdminStatus', response.data.isAdmin);  // 응답에서 관리자 여부를 받아와 저장
+          console.log("userId" + userId);
+          console.log(response);
+        })
+        .catch(error => {
+          console.error("Failed to check admin status:", error);
+        });
+    },
+
+    fetchItems({ commit }) {  // context 대신 destructuring 사용하여 commit 직접 접근
+      axios.get("http://localhost:3000/api/qna")
+        .then(response => {
+          commit('setQandAPosts', response.data);  // setItems 대신 setQandAPosts 사용
+        })
+        .catch(error => {
+          console.error("Failed to fetch items:", error);
+        });
     },
   },
   getters: {
@@ -38,6 +70,9 @@ const store = createStore({
     currentUser(state) {
       return state.user;
     },
+    isAdmin(state) {
+      return state.isAdmin;
+    }
   },
 });
 
