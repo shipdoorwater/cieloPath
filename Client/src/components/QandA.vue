@@ -17,19 +17,19 @@
             <th scope="col">NO</th>
             <th scope="col">제목</th>
             <th scope="col">글쓴이</th>
-            <th scope="col">작성일</th>
+            <th scope="col">작성일시</th>
           </tr>
         </thead>
         <tbody>
           <tr
             v-for="item in items"
-            :key="item.id"
-            @dblclick="goToDetail(item.id)"
+            :key="item.postId"
+            @dblclick="goToDetail(item.postId)"
           >
             <th scope="row">{{ item.postId }}</th>
             <td>{{ item.title }}</td>
-            <td>{{ item.writer }}</td>
-            <td>{{ item.date }}</td>
+            <td>{{ item.writerId }}</td>
+            <td>{{ formatDate(item.writeDate) }}</td>
           </tr>
         </tbody>
       </table>
@@ -50,8 +50,7 @@
 
 </template>
 <script>
-import { mapGetters } from "vuex";
-import axios from "axios";
+// import axios from "axios";
 import QandAModal from '@/components/QandAModal.vue';
 
 export default {
@@ -63,42 +62,34 @@ export default {
       inquiry: {
         title: "",
         contents: "",
-      },
-      items: [],
+      }
     };
   },
   components: {
     QandAModal
   },
   mounted() {
-    this.fetchItems();
+    this.$store.dispatch('fetchItems');  // 스토어의 fetchItems 액션 호출
   },
 
   computed: {
-    ...mapGetters([
-      "user" // 스토어에서 currentUser를 가져옴
-    ])
+    items() {
+      return this.$store.state.qandaPosts;  // 스토어의 qandaPosts 상태 접근
+    }
   },
   methods: {
-    fetchItems() {
-      //데이터 가져오기
-      axios
-        .get("http://localhost:3000/api/qna")
-        .then((response) => {
-          this.items = response.data;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error("Failed to fetch items:", error);
-        });
-    },
+    formatDate(value) {
+        if (!value) return '';
+        return new Date(value).toLocaleString();
+      },
 
     changeShowmodal() {
       this.showModal = !this.showModal; // 모달 창 여닫기
       console.log(this.showModal);
     },
-    goToDetail(id) {
-      this.$router.push({ name: "DetailPage", params: { id } });
+    goToDetail(postId) {
+      this.$router.push({ name: "QandADetailPage", params: { postId } });
+
     }
   },
 };
