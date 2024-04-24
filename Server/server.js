@@ -27,11 +27,17 @@ app.listen(3000, function () {
 });
 // 현재 member 테이블 전송
 app.get("/api/member", (req, res) => {
-  connection.query("SELECT * FROM member", (err, results, fields) => {
+  const today = new Date().toISOString().slice(0, 10);
+  console.log(today);
+  connection.query(`SELECT *,CASE 
+  WHEN DATE_FORMAT(SIGNUPDATE, '%Y-%m-%d') = ? THEN 1 
+  ELSE 0 
+END AS today FROM member`, [today], (err, results, fields) => {
     if (err) {
       res.status(500).send("Server error");
       return;
     }
+    console.log(today);
     console.log(results);
     res.json(results);
   });
