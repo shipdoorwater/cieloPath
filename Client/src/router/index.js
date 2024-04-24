@@ -3,11 +3,13 @@ import LoginPage from '@/components/LoginPage.vue'
 import SignUp from '@/components/SignUp.vue'
 import MyPage from '@/components/MyPage.vue'
 import AdminPage from '@/components/AdminPage.vue'
+import Qanda from '@/components/QandA.vue'
 import AdminNotice from '@/components/AdminNotice.vue'
 import AdminMember from '@/components/AdminMember.vue'
 import AdminRoute from '@/components/AdminRoute.vue'
 // import Login_getToken from '@/components/Login_getToken.vue'
 import kakaoCallback from '@/components/kakao-callback.vue'
+import QandaModal from '@/components/QandAModal.vue'
 
 const routes = [
 
@@ -26,6 +28,22 @@ const routes = [
     path: '/signup',
     name: 'signup',
     component: SignUp
+  },
+  
+  {
+    path: '/loginPage',
+    name: 'loginPage',
+    component: LoginPage
+  },
+  {
+    path: '/qanda',
+    name: 'qanda',
+    component: Qanda
+  },
+  {
+    path: '/qandaModal',
+    name: 'qandaModal',
+    component: QandaModal
   },
   {
     path: '/login',

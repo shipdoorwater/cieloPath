@@ -1,8 +1,15 @@
 <template>
-  <div style="background-color: white;" class="container">
-    <h1>CIELO PATH에 대해<br> 궁금한 점이 있다면 무엇이든 말씀해주세요.</h1><br><br><br>
-    <button type="button" class="btn btn-primary" style="width:120px; background-color: beige; color: black; border: none" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">글&nbsp;쓰&nbsp;기</button>
+  <div style="background-color: white" class="container">
     <br><br><br>
+    <h1>
+      CIELO PATH에 대해<br />
+      궁금한 점이 있다면 무엇이든 말씀해주세요.
+    </h1>
+    <br /><br /><br />
+    <button @click="changeShowmodal()">
+      글&nbsp;쓰&nbsp;기
+    </button>
+    <br /><br /><br />
     <div class="table-responsive">
       <table class="table table-hover">
         <thead>
@@ -14,8 +21,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in items" :key="item.id" @dblclick="goToDetail(item.id)">
-            <th scope="row">{{ item.id }}</th>
+          <tr
+            v-for="item in items"
+            :key="item.id"
+            @dblclick="goToDetail(item.id)"
+          >
+            <th scope="row">{{ item.postId }}</th>
             <td>{{ item.title }}</td>
             <td>{{ item.writer }}</td>
             <td>{{ item.date }}</td>
@@ -23,75 +34,82 @@
         </tbody>
       </table>
     </div>
-    <br>
-    <!-- Writing Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">1:1문의 남기기</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label class="col-form-label">제목</label>
-            <input type="text" class="form-control" id="title">
-          </div>
-          <div class="mb-3">
-            <label class="col-form-label">내용</label>
-            <textarea class="form-control" id="contents"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-        <button type="button" class="btn btn-primary">확인</button>
-      </div>
-    </div>
-  </div>
-</div>
+    <br />
+    
     <div class="btn-group me-2" role="group" aria-label="First group">
       <button type="button" class="btn btn-outline-secondary">1</button>
       <button type="button" class="btn btn-outline-secondary">2</button>
       <button type="button" class="btn btn-outline-secondary">3</button>
     </div>
   </div>
+  <!-- Writing Modal -->
+  <div v-if="showModal">
+    <QandAModal></QandAModal>
+  </div>
+      
+
 </template>
 <script>
+import { mapGetters } from "vuex";
+import axios from "axios";
+import QandAModal from '@/components/QandAModal.vue';
+
 export default {
-  name: 'QandA',
+  name: "QandA",
   data() {
+    
     return {
-        showWriteModal: false,
-      newPost: { title: '', content: '' },
-      items: [
-        { id: 1, title: '연습제목', writer: '연습이름', date: '작성일' },
-        { id: 2, title: '연습제목', writer: '연습이름', date: '작성일' },
-        { id: 3, title: '연습제목', writer: '연습이름', date: '작성일' }
-      ]
+      showModal: false,
+      inquiry: {
+        title: "",
+        contents: "",
+      },
+      items: [],
     };
   },
+  components: {
+    QandAModal
+  },
+  mounted() {
+    this.fetchItems();
+  },
+
+  computed: {
+    ...mapGetters([
+      "user" // 스토어에서 currentUser를 가져옴
+    ])
+  },
   methods: {
-    goToDetail(id) {
-      this.$router.push({ name: 'DetailPage', params: { id } });
+    fetchItems() {
+      //데이터 가져오기
+      axios
+        .get("http://localhost:3000/api/qna")
+        .then((response) => {
+          this.items = response.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error("Failed to fetch items:", error);
+        });
     },
-    submitPost() {
-      if (this.newPost.title && this.newPost.content) {
-        this.items.push({...this.newPost, id: this.items.length + 1, writer: 'Default Author', date: new Date().toLocaleDateString()});
-        this.newPost = { title: '', content: '' }; // Reset form
-        this.showWriteModal = false; // Close modal
-      } else {
-        alert("제목과 내용을 모두 입력해주세요.");
-      }
+
+    changeShowmodal() {
+      this.showModal = !this.showModal; // 모달 창 여닫기
+      console.log(this.showModal);
+    },
+    goToDetail(id) {
+      this.$router.push({ name: "DetailPage", params: { id } });
     }
-  }
-}
+  },
+};
 </script>
 <style>
 .container {
   max-width: 1200px;
   margin: auto;
+}
+.modal {
+  display: none;
 }
 .modal-backdrop {
   position: fixed;
@@ -103,7 +121,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1040;
+  z-index: 100; 
 }
 .modal-dialog {
   width: auto;
@@ -112,6 +130,7 @@ export default {
   position: relative;
   padding: 20px;
   animation: fadeIn 0.5s;
+  /* background-color: rgba(0, 0, 0, 0.5);  */
 }
 .close {
   cursor: pointer;

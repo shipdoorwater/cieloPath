@@ -1,8 +1,12 @@
-CREATE TABLE notice 
+DROP TABLE IF EXISTS notice;
+
+CREATE TABLE notice
 (
     postId INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(20),
     content TEXT,
     writerId VARCHAR(20),
-    writeDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    writeDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    valid INT DEFAULT 1,
+    CONSTRAINT chk_valid CHECK (valid IN (0, 1))
 );

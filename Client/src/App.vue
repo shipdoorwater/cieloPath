@@ -4,11 +4,11 @@
 <router-view name="main1"></router-view>
 <router-view name="main2"></router-view>
 <router-view name="footer"></router-view>
-<Login_kakao></Login_kakao>
+
 </template>
 
 <script>
-import Login_kakao from "@/components/Login_kakao.vue"
+
 
 
 
@@ -16,7 +16,6 @@ import Login_kakao from "@/components/Login_kakao.vue"
 export default {
   name: 'App',
   components: {
-    Login_kakao
   }
 }
 //
