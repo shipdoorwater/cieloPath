@@ -6,7 +6,7 @@
         <img src="@/assets/logo.png" alt="" /><br /><br />
         <h3>WELCOME</h3>
         <br />
-        <p>CIELO PATH에서 간편하고 빠르게 여행 일정을 만들어보세요!</p>
+        <p>CIELO PATH에서<br> 간편하고 빠르게<br>여행 일정을 만들어보세요!</p>
       </div>
       <div class="col-md-9 register-right">
         <h3 class="register-heading">회원가입</h3>
@@ -16,7 +16,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <div class="form-group">
-                  <input
+                  <input style="width:600px"
                     type="email"
                     class="form-control"
                     placeholder="이메일"
@@ -26,7 +26,7 @@
                   {{ emailSuccess }} {{ emailError }} <br />
                 </div>
                 <div class="form-group">
-                  <input
+                  <input style="width:600px"
                     type="text"
                     class="form-control"
                     placeholder="이름"
@@ -34,7 +34,7 @@
                   /><br />
                 </div>
                 <div class="form-group">
-                  <input
+                  <input style="width:600px"
                     type="text"
                     class="form-control"
                     placeholder="닉네임"
@@ -42,7 +42,7 @@
                   /><br />
                 </div>
                 <div class="form-group">
-                  <input
+                  <input style="width:600px"
                     type="password"
                     class="form-control"
                     placeholder="비밀번호"
@@ -50,7 +50,7 @@
                   /><br />
                 </div>
                 <div class="form-group">
-                  <input
+                  <input style="width:600px"
                     type="password"
                     class="form-control"
                     placeholder="비밀번호 확인"
@@ -59,7 +59,7 @@
                 </div>
 
                 <div class="form-group">
-                  <input
+                  <input style="width:600px"
                     type="text"
                     minlength="10"
                     maxlength="11"
@@ -69,7 +69,7 @@
                     v-model="userInfo.phoneNumber"
                   /><br />
                 </div>
-                <input
+                <input 
                   type="submit"
                   class="btnRegister"
                   :disabled="isFormInvalid"
@@ -159,6 +159,9 @@ export default {
 };
 </script>
 <style>
+.container{
+  height: 800px;
+}
 .form-group {
   width: 500px;
 }
