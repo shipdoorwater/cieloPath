@@ -4,6 +4,7 @@
 <router-view name="main1"></router-view>
 <router-view name="main2"></router-view>
 <router-view name="footer"></router-view>
+<router-view @sendTravelInfo="handleTravelInfo"></router-view>
 
 </template>
 
@@ -14,7 +15,19 @@
 
 
 export default {
+
+
+
+  
   name: 'App',
+
+  // methods: {
+  //   handleTravelInfo(travelInfo) {
+  //     // 여기서 travelInfo를 TravelPlanner 컴포넌트로 전달할 로직 구현
+  //     console.log(travelInfo); // 또는 여기에서 로그를 확인
+  //   }
+  // },
+
   components: {
   }
 }

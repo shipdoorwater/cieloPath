@@ -10,7 +10,14 @@ import AdminRoute from '@/components/AdminRoute.vue'
 // import Login_getToken from '@/components/Login_getToken.vue'
 import kakaoCallback from '@/components/kakao-callback.vue'
 import QandaModal from '@/components/QandAModal.vue'
+
+import TripSearch from '@/components/TripSearch.vue'
+import TravelPlanner from '@/components/TravelPlanner.vue'
+import SelfPlan from '@/components/SelfPlan.vue'
+
+
 import QandADetailPage from '@/components/QandADetailPage.vue'
+
 
 const routes = [
 
@@ -85,7 +92,37 @@ const routes = [
       path: '/kakao-callback',
       name: 'kakao-callback',
       component: kakaoCallback
+    },
+
+    {
+      path: '/TripSearch',
+      name: 'TripSearch',
+      component: TripSearch,
+      props: true
+    },
+    {
+      path: '/TravelPlanner',
+      name: 'TravelPlanner',
+      component: TravelPlanner,
+      // props: true
+    },
+
+    {
+      path: '/SelfPlan',
+      name: 'SelfPlan',
+      component: SelfPlan,
+      // props: true
+    },
+
+    {
+      path: '/SelfPlan2',
+      name: 'SelfPlan2',
+      component: () => import('@/components/SelfPlan2.vue'),
+      props: true
     }
+
+
+
 ]
 
 const router = createRouter({
