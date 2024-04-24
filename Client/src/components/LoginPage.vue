@@ -41,12 +41,16 @@
                             </div>
                         </form>
                     </div>
-                    <div class="card-footer">SNS간편로그인<br>
+                    <div>
+                        SNS간편로그인<br>
+                        <loginKakao></loginKakao>
+                    </div>
+                    <!-- <div class="card-footer">SNS간편로그인<br>
                         <a id="custom-login-btn" @click="loginWithKakao()">
                                     <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="150" alt="카카오 로그인 버튼"/>
                                 </a>
-                                <p>{{ tokenResult }}</p>
-                    </div>
+                               
+                    </div> -->
                 </div>
             </div>
 
@@ -54,12 +58,17 @@
     
 
 <script>
+import loginKakao from './Login_kakao.vue';
+
 export default {
   name: "LoginPage",
   data() {
     return {
       tokenResult: "",
     };
+},
+components: {
+     loginKakao
 },
 methods: {
     loginWithKakao() {

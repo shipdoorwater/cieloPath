@@ -21,6 +21,39 @@ connection.connect();
 app.listen(3000, function () {
   console.log("node Start");
 });
+// 현재 member 테이블 전송
+app.get("/api/member", (req, res) => {
+  connection.query(
+    "SELECT * FROM member",(err, results, fields) => {
+      if (err) {
+        res.status(500).send('Server error');
+        return;
+      }
+      console.log(results);
+      res.json(results);
+    });
+  });
+
+
+
+// 회원 비활성화(탈퇴)
+app.put('/api/member/:email_Id/disable', (req, res) => {
+  const emailId = req.params.email_Id;
+  const sql = 'UPDATE member SET valid = ? WHERE email_Id = ?';
+
+  connection.query(sql, [0, emailId], (error, results) => {
+    if (error) {
+      return res.status(500).send({ message: 'Error updating Member', error: error.message });
+    }
+    if (results.affectedRows === 0) {
+      return res.status(404).send({ message: 'Member not found' });
+    }
+    res.status(200).send({ message: 'Member disabled successfully' });
+  });
+});
+
+
+
 
 // 카카카오 로그인 및 회원가입
 app.post("/api/kakao", (req, res) => {
@@ -173,9 +206,9 @@ app.post("/api/loginbyemail", (req, res) => {
 
 // 공지사항 글 작성
 app.post("/api/notice/write", (req, res) => {
-  const { title, content, writerId } = req.body;
-  const sql = `INSERT INTO notice (title, content, writerId) VALUES (?, ?, ?)`;
-  connection.query(sql, [title, content, writerId], (error, results) => {
+  const { title, content } = req.body;
+  const sql = `INSERT INTO notice (title, content) VALUES (?, ? )`;
+  connection.query(sql, [title, content], (error, results) => {
     if (error) {
       return res.status(500).send(error);
     }
@@ -183,12 +216,29 @@ app.post("/api/notice/write", (req, res) => {
   });
 });
 
-// 공지사항 글 수정
+
+// 공지사항 글 삭제(비활성화)
+app.put('/api/notice/:postId/disable', (req, res) => {
+  const postId = req.params.postId;
+  const sql = 'UPDATE Notice SET valid = ? WHERE postId = ?';
+
+  connection.query(sql, [0, postId], (error, results) => {
+    if (error) {
+      return res.status(500).send({ message: 'Error updating notice', error: error.message });
+    }
+    if (results.affectedRows === 0) {
+      return res.status(404).send({ message: 'Notice not found' });
+    }
+    res.status(200).send({ message: 'Notice disabled successfully' });
+  });
+});
+
+
 
 // 1대1게시판 글 작성
 app.post("/api/qna/write", (req, res) => {
   const { title, content, writerId } = req.body;
-  const sql = `INSERT INTO qna (title, content, writerId) VALUES (?, ?, ?)`;
+  const sql = `INSERT INTO qanda (title, content, writerId) VALUES (?, ?, ?)`;
   connection.query(sql, [title, content, writerId], (error, results) => {
     if (error) {
       return res.status(500).send(error);
@@ -200,3 +250,29 @@ app.post("/api/qna/write", (req, res) => {
 // 1대1게시판 댓글 작성
 
 // 1대1게시판 댓글 수정
+
+
+
+  app.get("/api/notice", (req, res) => {
+  connection.query(
+    "SELECT * FROM notice",(err, results, fields) => {
+      if (err) {
+        res.status(500).send('Server error');
+        return;
+      }
+      console.log(results);
+      res.json(results);
+    });
+  });
+
+  app.get("/api/qna", (req, res) => {
+    connection.query(
+      "SELECT * FROM qanda",(err, results, fields) => {
+        if (err) {
+          res.status(500).send('Server error');
+          return;
+        }
+        res.json(results);
+      });
+    });
+  

@@ -53,15 +53,19 @@
               <i class="bi bi-person-circle" style="font-size: 1.5rem"></i>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><router-link class="dropdown-item" to="/qanda">1대1 문의</router-link> </li>
               <li><a class="dropdown-item" href="http://localhost:8080/mypage">프로필</a></li>
-              <li><a class="dropdown-item" href="#">설정</a></li>
+              <li><a class="dropdown-item"
+              
+                 @click="goToQandA()"
+                 >1대1 문의</a></li>
               <li><hr class="dropdown-divider" /></li>
               <li><a class="dropdown-item" href="#" @click="logout">로그아웃</a></li>
             </ul>
           </li>
           <li class="nav-item" v-else>
             <!-- 로그인 되어 있지 않을 때의 로그인 링크 -->
-            <a class="nav-link" href="/login">로그인</a>
+            <a class="nav-link" href="/loginPage">로그인</a>
           </li>
         </ul>
       </div>
@@ -92,7 +96,9 @@ export default {
         console.log("Element not found"); // Debug log
       }
     },
-
+    goToQandA() {
+      this.$router.replace("/qanda");
+    },
     logout() {
       this.$store.dispatch("logout");
       this.$router.replace("/"); // 로그인 페이지로 리다이렉트

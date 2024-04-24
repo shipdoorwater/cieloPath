@@ -1,10 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// import LoginPage from '@/components/LoginPage.vue'
+import LoginPage from '@/components/LoginPage.vue'
 import SignUp from '@/components/SignUp.vue'
 import MyPage from '@/components/MyPage.vue'
 import AdminPage from '@/components/AdminPage.vue'
-// import Login_getToken from '@/components/Login_getToken.vue'
+import Qanda from '@/components/QandA.vue'
 import kakaoCallback from '@/components/kakao-callback.vue'
+import QandaModal from '@/components/QandAModal.vue'
 
 const routes = [
 
@@ -24,11 +25,22 @@ const routes = [
     name: 'signup',
     component: SignUp
   },
-  // {
-  //   path: '/login',
-  //   name: 'login',
-  //   component: Login_getToken
-  // },
+  
+  {
+    path: '/loginPage',
+    name: 'loginPage',
+    component: LoginPage
+  },
+  {
+    path: '/qanda',
+    name: 'qanda',
+    component: Qanda
+  },
+  {
+    path: '/qandaModal',
+    name: 'qandaModal',
+    component: QandaModal
+  },
   {
     path: '/mypage',
     name: 'mypage',
