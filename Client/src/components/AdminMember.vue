@@ -1,0 +1,169 @@
+<template>
+    <div class="container-fluid mt-5">
+      <div class="row">
+        <h1 class="mb-4">회원 관리</h1>
+        <!-- Side Navigation -->
+        <div class="col-md-3">
+          <div class="nav flex-column text-center">
+            <div v-for="item in adminItems" :key="item.title" class="card mb-3">
+              <div class="card-body" @click="handleAdminAction(item.title)"
+                   @mouseover="hoverCard(item)" @mouseleave="unhoverCard(item)"
+                   :data-hover="item.isHovered" :style="{'--hover-color': item.hoverColor}">
+                <img v-if="item.imgSrc" :src="item.imgSrc" :alt="item.title" height="50px">
+                <i v-else :class="item.icon"></i>
+                <h5 class="card-title mt-3">{{ item.title }}</h5>
+                <p class="card-text">{{ item.description }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Main Content -->
+        <div class="col-md-9">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">이메일</th>
+                  <th scope="col">이름</th>
+                  <th scope="col">닉네임</th>
+                  <th scope="col">휴대폰번호</th>
+                  <th scope="col">가입일시</th>
+                  <th scope="col">탈퇴여부</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in members" :key="item.email_id">
+                  <th scope="row">{{ item.EMAIL_ID }}</th>
+                  <td>{{ item.NAME }}</td>
+                  <td>{{ item.NICKNAME }}</td>
+                  <td>{{ item.PHONENUMBER }}</td>
+                  <td>{{ formatDate(item.SIGNUPDATE) }}</td>
+                  <td>{{ item.VALID }}</td>
+                  <td><button @click="deleteMember(item.EMAIL_ID)" :disabled="item.VALID === 0">탈퇴</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  
+  <script>
+  import axios from 'axios';
+  
+  export default {
+    name: 'AdminMember',
+    data() {
+      return {
+        members: [],
+        showModal: false,
+        adminItems: [
+          { imgSrc: require('@/assets/logo.png'), hoverColor: 'orange', isHovered: false, url: 'http://localhost:8080/'},
+          { icon: 'fas fa-user-minus', title: '회원 관리', description: '회원정보 조회 및 탈퇴', hoverColor: 'lightblue', isHovered: false },
+          { icon: 'fas fa-map-marked-alt', title: '여행지 관리', description: '여행지 등록 및 삭제', hoverColor: 'beige', isHovered: false },
+          { icon: 'fas fa-bullhorn', title: '공지 관리', description: '공지사항 작성', hoverColor: 'lightpink', isHovered: false },
+          { icon: 'fas fa-chart-line', title: '통계 확인', description: '회원 및 여행지 현황 확인', hoverColor: 'lightgray', isHovered: false }
+        ],
+      };
+    },
+    mounted() {
+      this.fetchMembers();
+    },
+    methods: {
+      deleteMember(EMAIL_ID) {
+        if (confirm('탈퇴 하시겠습니까?')){
+        axios.put(`http://192.168.0.78:3000/api/member/${EMAIL_ID}/disable`)
+          .then(() => {
+            const index = this.members.findIndex(item => item.EMAIL_ID === EMAIL_ID);
+            if (index !== -1) {
+              this.members[index].valid = 0;
+              this.fetchMembers();  // Re-fetch members to update the list
+            }
+          })
+          .catch(error => {
+            console.error("Error disabling the member:", error);
+          });
+      }},
+      formatDate(value) {
+        if (!value) return '';
+        return new Date(value).toLocaleString();
+      },
+      fetchMembers() {
+        axios.get('http://192.168.0.78:3000/api/member')
+          .then(response => {
+            this.members = response.data;
+            console.log("Received data:", this.members);
+          })
+          .catch(error => {
+            console.error("There was an error fetching the members:", error);
+          });
+      },
+      handleAdminAction(action) {
+       console.log('Action:', action);
+       if (action === '공지 관리') {
+      this.$router.push('/notice');
+    } else if(action === '회원 관리') {
+    this.$router.push('/member');
+     }else if(action === '여행지 관리') {
+    this.$router.push('/route');
+    }},
+     hoverCard(item) {
+       item.isHovered = true;
+     },
+     unhoverCard(item) {
+       item.isHovered = false;
+     },
+     navigateToUrl(url) {
+       window.location.href = url;
+     }
+    }
+  }
+  </script>
+  
+  <style>
+  .disabled-member {
+    color: #383838;
+    background-color: #e9ecef;
+    text-decoration: line-through;
+  }
+  .table-responsive {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+  .container {
+    max-width: 1200px;
+    margin: auto;
+  }
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1040;
+  }
+  .modal-dialog {
+    width: auto;
+  }
+  .modal-content {
+    position:relative;
+    padding: 20px;
+    animation: fadeIn 0.5s;
+  }
+  .close {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    border: none;
+    background: none;
+    color: black;
+    font-size: 1.5rem;
+  }
+  </style>
+  

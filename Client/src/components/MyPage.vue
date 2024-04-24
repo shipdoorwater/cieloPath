@@ -87,46 +87,49 @@
 
 
 <script>
-export default {
-name: 'MyPage',
-data() {
-  return {
-    showWriteModal: false,
-    profileImageUrl: '',
-    showModal: false, // Controls visibility of the modal
-    tempCieloText:""
-  };
-},
-methods: {
-  onFileChange(e) {
-            const file = e.target.files[0];
-            this.previewImage(file);
-        },
-        previewImage(file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                this.profileImageUrl = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        },
-        uploadImage() {
-    let formData = new FormData();
-    const fileInput = document.querySelector('input[type="file"]');
-    formData.append("image", fileInput.files[0]);
+import axios from 'axios';
 
-    // // axios.post('your-server-upload-url', formData, {
-    // //     headers: {
-    // //         'Content-Type': 'multipart/form-data'
-    // //     }
-    // }).then(response => {
-    //     console.log("Image uploaded successfully", response.data);
-    // }).catch(error => {
-    //     console.error("Error uploading image:", error);
-    // });
-}
-}
+export default {
+  name: 'MyPage',
+  data() {
+    return {
+      showWriteModal: false,
+      profileImageUrl: '',
+      showModal: false,
+      tempCieloText: ""
+    };
+  },
+  methods: {
+    onFileChange(e) {
+      const file = e.target.files[0];
+      this.previewImage(file);
+    },
+    previewImage(file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.profileImageUrl = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
+    uploadImage() {
+      let formData = new FormData();
+      const fileInput = document.querySelector('input[type="file"]');
+      formData.append("image", fileInput.files[0]);
+
+      axios.post('http://localhost:3000/upload', formData, {
+          headers: {
+              'Content-Type': 'multipart/form-data'
+          }
+      }).then(response => {
+          console.log("Image uploaded successfully", response.data);
+      }).catch(error => {
+          console.error("Error uploading image:", error);
+      });
+    }
+  }
 };
 </script>
+
 
 
 <style scoped>
