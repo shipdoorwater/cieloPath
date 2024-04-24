@@ -60,6 +60,7 @@ export default {
       inquiry: {
         title: "",
         contents: "",
+        nickname: ""
       },
     };
   },
@@ -78,7 +79,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      "user", // 스토어에서 currentUser를 가져옴
+      "currentUser", // 스토어에서 currentUser를 가져옴
     ]),
   },
   methods: {
@@ -99,15 +100,16 @@ export default {
       // 서버로 데이터 전송
       const postData = {
         title: this.inquiry.title,
-        contents: this.inquiry.contents,
-        // writer: this.user.nickname  // 사용자 이름 또는 ID 추가
+        content: this.inquiry.contents,
+        writer: this.currentUser.nickname  // 사용자 이름 또는 ID 추가
       };
       axios
         .post("http://localhost:3000/api/qna/write", postData)
         .then((response) => {
           console.log("Inquiry sent successfully:", response);
-          this.$router.push("/qanda");
+          this.$store.dispatch('fetchItems');
           this.closeModal();
+          console.log(postData);
         })
         .catch((error) => {
           console.error("Error sending inquiry:", error);

@@ -10,9 +10,13 @@ import AdminRoute from '@/components/AdminRoute.vue'
 // import Login_getToken from '@/components/Login_getToken.vue'
 import kakaoCallback from '@/components/kakao-callback.vue'
 import QandaModal from '@/components/QandAModal.vue'
+
 import TripSearch from '@/components/TripSearch.vue'
 import TravelPlanner from '@/components/TravelPlanner.vue'
 import SelfPlan from '@/components/SelfPlan.vue'
+
+
+import QandADetailPage from '@/components/QandADetailPage.vue'
 
 
 const routes = [
@@ -32,6 +36,11 @@ const routes = [
     path: '/signup',
     name: 'signup',
     component: SignUp
+  },
+  {
+    path: '/QandADetailPage/:postId',
+    name: 'QandADetailPage',
+    component: QandADetailPage
   },
   
   {

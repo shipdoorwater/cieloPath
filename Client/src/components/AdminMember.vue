@@ -2,23 +2,23 @@
     <div class="container-fluid mt-5">
       <div class="row">
         <h1 class="mb-4">회원 관리</h1>
-        <!-- Side Navigation -->
-        <div class="col-md-3">
-          <div class="nav flex-column text-center">
-            <div v-for="item in adminItems" :key="item.title" class="card mb-3">
-              <div class="card-body" @click="handleAdminAction(item.title)"
-                   @mouseover="hoverCard(item)" @mouseleave="unhoverCard(item)"
-                   :data-hover="item.isHovered" :style="{'--hover-color': item.hoverColor}">
-                <img v-if="item.imgSrc" :src="item.imgSrc" :alt="item.title" height="50px">
-                <i v-else :class="item.icon"></i>
-                <h5 class="card-title mt-3">{{ item.title }}</h5>
-                <p class="card-text">{{ item.description }}</p>
+         <!-- Side Navigation -->
+         <div class="col-md-3">
+        <div class="nav flex-column text-center side-nav">
+          <div v-for="item in adminItems" :key="item.title" class="nav mb-3">
+            <div class="card-body" @click="handleAdminAction(item.title)"
+                  @mouseover="hoverCard(item)" @mouseleave="unhoverCard(item)"
+                  :style="{ backgroundColor: item.isHovered ? item.hoverColor : 'transparent' }">
+              <img v-if="item.imgSrc" :src="item.imgSrc" :alt="item.title" height="50px">
+              <i v-else :class="item.icon"></i>
+              <h5 class="nav-title mt-3">{{ item.title }}</h5>
+              <p class="nav-text">{{ item.description }}</p>
               </div>
             </div>
           </div>
         </div>
         <!-- Main Content -->
-        <div class="col-md-9">
+        <div class="col-md-9"><br><br><br><br>
           <div class="table-responsive">
             <table class="table table-hover">
               <thead>
