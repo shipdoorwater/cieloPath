@@ -1,8 +1,9 @@
-drop table  IF EXISTS toursiteimag;
+drop table  IF EXISTS toursiteimage;
 
 CREATE TABLE toursiteimage (
     id INT AUTO_INCREMENT PRIMARY KEY,
     image_name VARCHAR(255),
+	image_english_name VARCHAR(255),
     image_data LONGBLOB,
 	content text,
 valid int default 1,

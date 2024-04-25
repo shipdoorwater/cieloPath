@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const store = createStore({
   // plugins: [createPersistedState({
-  //   paths: ['user', 'token'] // 유지하고 싶은 상태
+  //   paths: ['user', 'token','isAdmin'] // 유지하고 싶은 상태
   // })],
   state: {
     user: null,
