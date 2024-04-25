@@ -23,11 +23,11 @@
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <th scope="col">NO</th>
-                  <th scope="col">제목</th>
-                  <th scope="col">내용</th>
-                  <th scope="col">작성일시</th>
-                  <th scope="col">삭제여부</th>
+                  <th style="background-color: beige ;" scope="col">NO</th>
+                  <th style="background-color: beige ;" scope="col">제목</th>
+                  <th style="background-color: beige ;" scope="col">내용</th>
+                  <th style="background-color: beige ;" scope="col">작성일시</th>
+                  <th style="background-color: beige ;" scope="col">삭제여부</th>
                  
                 </tr>
               </thead>
@@ -43,7 +43,11 @@
 
 </tbody>
             </table>
+            <br><br> <div class="btn-group me-2" role="group" aria-label="First group">
+      <button type="button" class="btn btn-outline-secondary">1</button>
+    </div>
           </div>
+          
           <div class="text-center mt-4">
             <!-- Trigger button for modal -->
 
@@ -102,8 +106,7 @@
          { icon: 'fas fa-user-minus', title: '회원 관리', description: '회원정보 조회 및 탈퇴', hoverColor: 'lightblue', isHovered: false },
          { icon: 'fas fa-map-marked-alt', title: '여행지 관리', description: '여행지 등록 및 삭제', hoverColor: 'beige', isHovered: false },
          { icon: 'fas fa-bullhorn', title: '공지 관리', description: '공지사항 작성', hoverColor: 'lightpink', isHovered: false },
-         { icon: 'fas fa-chart-line', title: '통계 확인', description: '회원 및 여행지 현황 확인', hoverColor: 'lightgray', isHovered: false }
-    ],
+            ],
   };
 },
   mounted() {

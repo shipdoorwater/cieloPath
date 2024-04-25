@@ -57,7 +57,7 @@ export default {
 
     sendContentIds() {
         // 서버에 보내는거야.
-        const apiUrl = 'http://localhost:3000/api/self-plan2';
+        const apiUrl = 'http://192.168.0.78:3000/api/self-plan2';
             // 로컬 스토리지에서 데이터 읽기
     const days = localStorage.getItem('days');
     const companions = localStorage.getItem('companions');

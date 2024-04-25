@@ -23,12 +23,13 @@
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <th scope="col">이메일</th>
-                  <th scope="col">이름</th>
-                  <th scope="col">닉네임</th>
-                  <th scope="col">휴대폰번호</th>
-                  <th scope="col">가입일시</th>
-                  <th scope="col">탈퇴여부</th>
+                  <th style="background-color: beige; width:300px;" scope="col">이메일</th>
+                  <th style="background-color: beige; width:150px;" scope="col">이름</th>
+                  <th style="background-color: beige; width:150px;" scope="col">닉네임</th>
+                  <th style="background-color: beige; width:200px;" scope="col">휴대폰번호</th>
+                  <th style="background-color: beige; width:500px;" scope="col">가입일시</th>
+                  <th style="background-color: beige; width:400px;" scope="col">정상여부</th>
+                  <th style="background-color: beige; width:300px;" scope="col">탈퇴</th>
                 </tr>
               </thead>
               <tbody>
@@ -43,7 +44,11 @@
                 </tr>
               </tbody>
             </table>
+           <br><br> <div class="btn-group me-2" role="group" aria-label="First group">
+      <button type="button" class="btn btn-outline-secondary">1</button>
+    </div>
           </div>
+          
         </div>
       </div>
     </div>
@@ -63,8 +68,7 @@
           { icon: 'fas fa-user-minus', title: '회원 관리', description: '회원정보 조회 및 탈퇴', hoverColor: 'lightblue', isHovered: false },
           { icon: 'fas fa-map-marked-alt', title: '여행지 관리', description: '여행지 등록 및 삭제', hoverColor: 'beige', isHovered: false },
           { icon: 'fas fa-bullhorn', title: '공지 관리', description: '공지사항 작성', hoverColor: 'lightpink', isHovered: false },
-          { icon: 'fas fa-chart-line', title: '통계 확인', description: '회원 및 여행지 현황 확인', hoverColor: 'lightgray', isHovered: false }
-        ],
+             ],
       };
     },
     mounted() {
@@ -128,42 +132,13 @@
     text-decoration: line-through;
   }
   .table-responsive {
-    max-width: 90%;
+    max-width: 100%;
     margin: 0 auto;
   }
   .container {
     max-width: 1200px;
     margin: auto;
   }
-  .modal-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1040;
-  }
-  .modal-dialog {
-    width: auto;
-  }
-  .modal-content {
-    position:relative;
-    padding: 20px;
-    animation: fadeIn 0.5s;
-  }
-  .close {
-    cursor: pointer;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    border: none;
-    background: none;
-    color: black;
-    font-size: 1.5rem;
-  }
+  
   </style>
   

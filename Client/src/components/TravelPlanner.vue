@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     submitPlan() {
-    const apiUrl = 'http://localhost:3000/api/send-plan';
+    const apiUrl = 'http://192.168.0.78:3000/api/send-plan';
     const params = {
       days: this.days,
       companions: this.companions,

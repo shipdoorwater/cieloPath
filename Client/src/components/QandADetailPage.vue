@@ -1,4 +1,5 @@
 <template>
+  <NavBar></NavBar>
   <div>글번호 : {{ postId }}</div>
   <div>제목 : {{ postDetails.title }}</div>
   <div>글쓴이: {{ postDetails.writerId }}</div>
@@ -13,6 +14,7 @@
 
 <script>
 import axios from "axios";
+import NavBar from "./NavBar.vue";
 import { mapGetters } from "vuex";
 
 export default {
@@ -23,6 +25,9 @@ export default {
       postDetails: {},
       repl: ""
     };
+  },
+  components: {
+    NavBar
   },
   computed: {
     ...mapGetters(['currentUser','isAdmin']),

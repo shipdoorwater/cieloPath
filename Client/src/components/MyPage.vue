@@ -1,5 +1,7 @@
-<template><br><br><br><br>
-  <div class="container my-page">
+
+<template>
+<NavBar></NavBar>
+<br><br><br><br><div class="container my-page">
   <h1>My Profile</h1>
   <div class="profile-section">
     <div id="app">
@@ -88,6 +90,7 @@
 
 <script>
 import axios from 'axios';
+import NavBar from './NavBar.vue';
 
 export default {
   name: 'MyPage',
@@ -98,6 +101,9 @@ export default {
       showModal: false,
       tempCieloText: ""
     };
+  },
+  components: {
+    NavBar
   },
   methods: {
     onFileChange(e) {
