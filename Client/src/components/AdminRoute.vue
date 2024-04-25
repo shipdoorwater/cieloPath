@@ -1,18 +1,17 @@
 <template>
-  <div class="container-fluid mt-5">
+  <div class="container-fluid mt-5 adminbackground">
       <div class="row">
           <h1 class="mb-4">여행지 관리</h1>
           <!-- Side Navigation -->
       <div class="col-md-3">
         <div class="nav flex-column text-center side-nav">
-          <div v-for="item in adminItems" :key="item.title" class="nav mb-3">
-            <div class="card-body" @click="handleAdminAction(item.title)"
-                  @mouseover="hoverCard(item)" @mouseleave="unhoverCard(item)"
-                  :style="{ backgroundColor: item.isHovered ? item.hoverColor : 'transparent' }">
-              <img v-if="item.imgSrc" :src="item.imgSrc" :alt="item.title" height="50px">
-              <i v-else :class="item.icon"></i>
-              <h5 class="nav-title mt-3">{{ item.title }}</h5>
-              <p class="nav-text">{{ item.description }}</p>
+  <div v-for="item in adminItems" :key="item.title" class="nav mb-3">
+    <div class="card-body" @click="handleAdminAction(item.title)"
+         @mouseover="hoverCard(item)" @mouseleave="unhoverCard(item)"
+         :style="{ backgroundColor: item.isHovered ? item.hoverColor : 'white' }">
+      <img v-if="item.imgSrc" :src="item.imgSrc" :alt="item.title" height="50px">
+      <h5 class="nav-title mt-3">{{ item.title }}</h5>
+      <p class="nav-text">{{ item.description }}</p>
 
             </div>
           </div>
@@ -94,7 +93,8 @@
       newLocationDescription: '',
       newLocationFile: null,
       adminItems: [
-          { imgSrc: require('@/assets/logo.png'), hoverColor: 'orange', isHovered: false, url: 'http://localhost:8080/'},
+          { imgSrc: require('@/assets/logo.png'), title: '', hoverColor: 'orange', isHovered: false},
+          { icon: 'fas fa-user-admin', title: '현황 조회', description: '고객 및 여행지 현황', hoverColor: 'gray', isHovered: false },
           { icon: 'fas fa-user-minus', title: '회원 관리', description: '회원정보 조회 및 탈퇴', hoverColor: 'lightblue', isHovered: false },
           { icon: 'fas fa-map-marked-alt', title: '여행지 관리', description: '여행지 등록 및 삭제', hoverColor: 'beige', isHovered: false },
           { icon: 'fas fa-bullhorn', title: '공지 관리', description: '공지사항 작성', hoverColor: 'lightpink', isHovered: false },
@@ -153,14 +153,20 @@ handleFileChange(event) {
     this.newLocationFile = event.target.files[0];
   },
   handleAdminAction(action) {
-       console.log('Action:', action);
-       if (action === '공지 관리') {
-      this.$router.push('/notice');
-    } else if(action === '회원 관리') {
+  console.log('Action clicked:', action); // 액션이 정확하게 찍히는지 확인
+  if (action === '공지 관리') {
+    this.$router.push('/notice');
+  } else if (action === '회원 관리') {
     this.$router.push('/member');
-     }else if(action === '여행지 관리') {
+  } else if (action === '여행지 관리') {
     this.$router.push('/route');
-    }},
+  } else if (action === '현황 조회') {
+    this.$router.push('/admin');
+  } else if (action === '') {
+    this.$router.push('/');
+  }
+},
+
      hoverCard(item) {
        item.isHovered = true;
      },
@@ -221,7 +227,7 @@ handleFileChange(event) {
   left: 0;
   width: 100px; /* 너비 조정 */
   height: 100vh; /* 배경색 */
-
+  z-index: 1100;
 }
 
 .container-fluid {
@@ -285,5 +291,10 @@ handleFileChange(event) {
   cursor: pointer;
   font-size: 1.8em;
 }
-
+.adminbackground{
+  background-image: url("@/assets/adminbg.jpg") !important; /* Ensure the path is correct */
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
 </style>
