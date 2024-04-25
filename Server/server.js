@@ -27,11 +27,17 @@ app.listen(3000, function () {
 });
 // 현재 member 테이블 전송
 app.get("/api/member", (req, res) => {
-  connection.query("SELECT * FROM member", (err, results, fields) => {
+  const today = new Date().toISOString().slice(0, 10);
+  console.log(today);
+  connection.query(`SELECT *,CASE 
+  WHEN DATE_FORMAT(SIGNUPDATE, '%Y-%m-%d') = ? THEN 1 
+  ELSE 0 
+END AS today FROM member`, [today], (err, results, fields) => {
     if (err) {
       res.status(500).send("Server error");
       return;
     }
+    console.log(today);
     console.log(results);
     res.json(results);
   });
@@ -518,4 +524,128 @@ app.post('/api/self-plan2', (req, res) => {
         console.log('Query results:', results);
         res.status(200).send({ message: 'Data fetched successfully', data: results });
     });
+});
+
+function calculateDistance(base, target) {
+  return Math.sqrt(Math.pow(base.mapx - target.mapx, 2) + Math.pow(base.mapy - target.mapy, 2));
+}
+  // 여행 인원 스타일/ 동반자 / 일수 받는 부분
+// 경기도 관광지 정보를 가져오고 일자별로 그룹화하는 엔드포인트
+// 여행 일정 계획 요청 처리
+app.post('/api/send-plan', (req, res) => {
+  const { days, location } = req.body;
+  const maxAttractionsPerDay = 5; // 하루 최대 관광지 수 변경
+  const query = `
+      SELECT *
+      FROM LocalTourPlaces LTP
+      JOIN RegionCodes RC ON LEFT(LTP.zipcode, 2) = RC.PostalCodePrefix
+      WHERE RC.CodeName2 = ?
+      ORDER BY LTP.visitNo DESC;
+  `;
+  connection.query(query, [location], (err, results) => {
+      if (err) {
+          console.error('Database query error:', err);
+          return res.status(500).send({ error: 'Database query failed', details: err });
+      }
+      // 결과를 특정 contenttypeid 값에 따라 필터링하여 일자별로 그룹화
+      const groupedResults = [];
+      const usedIds = new Set(); // 중복을 피하기 위해 사용된 ID 저장
+      for (let i = 0; i < days; i++) {
+          const day = [];
+          const contentTypes = ['12', '39', '14','39']; // 반복 순서
+          contentTypes.forEach(type => {
+              const attraction = results.find(r => r.contenttypeid === type && !usedIds.has(r.contentid));
+              if (attraction) {
+                  day.push(attraction);
+                  usedIds.add(attraction.contentid);
+              }
+          });
+          groupedResults.push(day);
+      }
+      // console.log('Grouped Results:', groupedResults);
+      res.send({
+          message: `Travel plans generated for ${location}`,
+          data: groupedResults
+      });
+      console.log(`Sending response to client for location `);
+  });
+});
+// 셀프 추가하는 데이터 송부 코드
+//###############################################################################
+app.post('/api/self-plan', (req, res) => {
+  console.log('Received request:', req.body); // 클라이언트에서 받은 요청의 본문 출력
+  const { days, location } = req.body;
+  const maxAttractionsPerType = 5; // 각 유형별 최대 관광지 수
+  const contentTypes = ['12', '14', '28', '39'];
+  const queries = contentTypes.map(type => `
+      SELECT * FROM LocalTourPlaces LTP
+      JOIN RegionCodes RC ON LEFT(LTP.zipcode, 2) = RC.PostalCodePrefix
+      WHERE RC.CodeName2 = ? AND LTP.contenttypeid = '${type}'
+      ORDER BY LTP.visitNo DESC
+      LIMIT ${maxAttractionsPerType};
+  `);
+  // 각 쿼리를 실행하고 결과를 저장
+  Promise.all(queries.map(query => new Promise((resolve, reject) => {
+      connection.query(query, [location], (err, results) => {
+          if (err) {
+              reject(err);
+          } else {
+              // 콘솔에 결과의 title과 contenttypeid 출력
+              console.log(`Results for content type ${query.match(/contenttypeid = '(\d+)'/)[1]} at location ${location}:`);
+              results.forEach(result => {
+                  // console.log(`Title: ${result.title}, Content Type ID: ${result.contenttypeid}`);
+              });
+              resolve(results);
+          }
+      });
+  })))
+  .then(results => {
+      // 각 타입별 결과를 배열로 반환
+      const data = results.flat(); // 결과 배열을 평탄화
+      // console.log('Data fetched for each content type:', data);
+      // console.log('selfplan 데이터 송부');
+      // 클라이언트에 데이터 보내기 전에 로그 추가
+      // console.log(`Sending response to client for location ${location} with data:`, data);
+      // console.log(`Sending response to client for location `);
+      res.send({
+          message: `Travel plans generated for ${location} with specified content types.`,
+          data: data
+      });
+  })
+  .catch(error => {
+      console.error('Database query error:', error);
+      res.status(500).send({ error: 'Database query failed', details: error });
+  });
+});
+// 클라이언트에서 받은 데이터를 통해 최적 일정 추출
+//###############################################################################
+app.post('/api/self-plan2', (req, res) => {
+  const companions = req.body.companions;
+  const days = req.body.days;
+  const location = req.body.location;
+  const contentIds = req.body.selectedItinerary.map(item => item.contentid);
+  // console.log('서버에서 받은 contentId 배열:', contentIds);
+  // SQL 쿼리 준비: contentIds 배열을 사용하여 contenttypeid가 '39'인 행만 조회
+  const sql =
+  // `   SELECT count(*)
+  //     FROM LocalTourPlaces
+  //     WHERE contentid IN (?) AND contenttypeid = '39';'
+  `SELECT required as *
+  FROM LocalTourPlaces LTP
+  JOIN RegionCodes RC ON LEFT(LTP.zipcode, 2) = RC.PostalCodePrefix
+  WHERE RC.CodeName2 = ? AND LTP.contentid IN (?) AND contenttypeid IN (12, 14)
+  union all
+  SELECT *
+  FROM LocalTourPlaces LTP
+  JOIN RegionCodes RC ON LEFT(LTP.zipcode, 2) = RC.PostalCodePrefix
+  WHERE RC.CodeName2 = ? AND LTP.contentid NOT IN (?) AND contenttypeid IN (12, 14);`;
+  // 데이터베이스에서 쿼리 실행
+  connection.query(sql, [location, contentIds, location, contentIds], (error, results, fields) => {
+      if (error) {
+          console.error('Database query error:', error);
+          return res.status(500).send({ error: 'Database query failed' });
+      }
+      console.log('Query results:', results);
+      res.status(200).send({ message: 'Data fetched successfully', data: results });
+  });
 });
