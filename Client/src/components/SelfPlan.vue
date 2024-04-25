@@ -1,5 +1,5 @@
 <template>
-    <h1 class="text-center mb-4">여행일정 만들기</h1>
+    <h1 class="text-center mb-4">SelfPlan</h1>
     <div class="main-container">
 
       <div class="grid-container">
@@ -24,18 +24,18 @@
         <div v-for="(item, index) in selectedItinerary" :key="`selected-${index}`">
           <p>{{ item.title }} <button @click="removeFromSchedule(index)">삭제</button></p>
         </div>
-        <button @click="createCieloPlan">선택한 일정으로 Cielo만들기</button>
+        <button @click="createCieloPlan">여행일정 생성</button>
       </div>
     </div>
-  </template>
-  
+  </template>  
   
   <script>
-  import axios from 'axios';
-  
+  import axios from 'axios';  
   
   export default {
     computed: {
+
+
       days() {
         return this.$route.query.days;
       },
@@ -78,15 +78,20 @@
 
       };
     },
+
     methods: {
       sendPlan() {
         // 서버에 보내는거야.
         const apiUrl = 'http://localhost:3000/api/self-plan';
         const data = {
-          days: this.days,
-          companions: this.companions,
-          style: this.style,
-          location: this.location
+          days: localStorage.getItem('days'),
+          companions: localStorage.getItem('companions'),
+          style: localStorage.getItem('style'),
+          location: localStorage.getItem('location'),
+          startDate: localStorage.getItem('startDate'),
+          endDate: localStorage.getItem('endDate'),
+          
+          
         };
   
         axios.post(apiUrl, data)
@@ -94,6 +99,7 @@
             this.itineraries = response.data.data;
             console.log('서버 응답:', response.data);
             console.log('서버 응답:', this.itineraries);
+            
             // alert('데이터 전송 성공');
           })
           .catch(error => {
@@ -127,14 +133,15 @@
     // 로컬 스토리지에 일정 저장
     localStorage.setItem('selectedItinerary', JSON.stringify(this.selectedItinerary));
     this.$router.push({ name: 'SelfPlan2' });
+    
   }
 
     },
     mounted() {
         this.sendPlan();
+        
+
     },
-
-
 
    
 }
