@@ -90,6 +90,17 @@ export default {
   border-spacing: 12px 8px; /* 열과 행의 간격 조정 */
 }
 
+.modal {
+  z-index: -1;
+}
+.modal-backdrop {
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+background-color: rgba(0,0,0,0.5);
+
 .schedule-table th, .schedule-table td {
   border: 1px solid #ccc; /* 경계선 스타일 */
   padding: 12px 20px; /* 셀 내부 패딩 조정 */

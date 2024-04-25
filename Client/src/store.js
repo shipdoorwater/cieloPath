@@ -1,11 +1,11 @@
 import { createStore } from "vuex";
-// import createPersistedState from 'vuex-persistedstate';
+import createPersistedState from 'vuex-persistedstate';
 import axios from 'axios';
 
 const store = createStore({
-  // plugins: [createPersistedState({
-  //   paths: ['user', 'token','isAdmin'] // 유지하고 싶은 상태
-  // })],
+  plugins: [createPersistedState({
+    paths: ['user', 'token','isAdmin'] // 유지하고 싶은 상태
+  })],
   state: {
     user: null,
     token: null,
@@ -25,7 +25,10 @@ const store = createStore({
     },
     setAdminStatus(state, status) {
       state.isAdmin = status;
-    }
+    },
+    // setIsAuthenticated(state, value) {
+    //   state.isAuthenticated = value;
+    // },
   },
 
   actions: {

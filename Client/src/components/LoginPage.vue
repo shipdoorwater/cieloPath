@@ -18,15 +18,22 @@
     />
 
     <div class="login-card" style="">
-      <div class="login-card-header"><br>
+      <div class="login-card-header">
+        <br />
         <h3>LOGIN</h3>
       </div>
       <div class="login-card-body">
-        <form><br>
+        <div>
+          <br />
           <div class="input-group form-group">
             <span class="input-group-text"><i class="fas fa-user"></i></span>
 
-            <input type="text" class="form-control" placeholder="e-mail" />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="e-mail"
+              v-model="loginInfo.email"
+            />
           </div>
           <div class="input-group form-group">
             <span class="input-group-text"><i class="fas fa-key"></i></span>
@@ -35,97 +42,103 @@
               type="password"
               class="form-control"
               placeholder="password"
+              v-model="loginInfo.password"
             />
           </div>
-          <button style="font-size:12px" class="btn btn-link" @click="showModal = true">비밀번호를 잊으셨나요?</button>
+          <button
+            style="font-size: 12px"
+            class="btn btn-link"
+            @click="showModal = true"
+          >
+            비밀번호를 잊으셨나요?
+          </button>
 
-         
-<br><br>
+          <br /><br />
           <div class="form-group">
             <br /><br />
-            <input type="submit" value="Login" class="login_btn" />
-        </div> 
-          <div style="text-align: center;">
-          또는<br />
-        <loginKakao></loginKakao>
-    <br><br>
-    <span>아직 회원이 아니신가요? 
-  <router-link to="/signup" class="signup-link">가입하기</router-link>
-</span></div>
-        </form>
-        
+            <button class="login_btn" value="Login" @click="loginByEmail">
+              Login
+            </button>
+          </div>
+          <div style="text-align: center">
+            <br />
+            <br />
+            <loginKakao></loginKakao>
+            <br /><br />
+            <span
+              >아직 회원이 아니신가요?
+              <router-link to="/signup" class="signup-link"
+                >가입하기</router-link
+              >
+            </span>
+          </div>
+        </div>
       </div>
-     
-      <div>
-       
-      </div>
-       
-    
-      <!-- <div class="card-footer">SNS간편로그인<br>
-                        <a id="custom-login-btn" @click="loginWithKakao()">
-                                    <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="150" alt="카카오 로그인 버튼"/>
-                                </a>
-                               
-                    </div> -->
     </div>
-    </div>
- 
+  </div>
 </template>
 
 <script>
 import loginKakao from "./Login_kakao.vue";
+import axios from "axios";
+// import store from 'vuex';
 
 export default {
   name: "LoginPage",
   data() {
     return {
-      tokenResult: "",
-      
+      loginInfo: {
+        email: "",
+        password: "",
+      },
     };
   },
   components: {
     loginKakao,
   },
   methods: {
-    loginWithKakao() {
-      window.Kakao.Auth.authorize({
-        redirectUri: "http://localhost:8080/login",
-      });
-    },
-    displayToken() {
-      const token = this.getCookie("authorize-access-token");
-      if (token) {
-        window.Kakao.Auth.setAccessToken(token);
-        window.Kakao.Auth.getStatusInfo()
-          .then((res) => {
-            if (res.status === "connected") {
-              this.tokenResult =
-                "login success, token: " + window.Kakao.Auth.getAccessToken();
-            }
-          })
-          .catch((err) => {
-            console.error("Kakao Login Error:", err);
-            window.Kakao.Auth.setAccessToken(null);
-          });
+    async loginByEmail() {
+      console.log(this.loginInfo);
+      try {
+        const res = await axios.post(
+          "http://localhost:3000/api/loginbyemail",
+          this.loginInfo
+        );
+
+        const userData = res.data.user;
+        this.$store.commit("setUser", {
+          email: userData.EMAIL_ID,
+          nickname: userData.NICKNAME,
+          profileImage: userData.PROFILE_IMAGE_PATH,
+        });
+        this.$store.commit("setToken", "loginByEmail");
+        this.$router.push('/');
+
+        // this.$router.push('/');
+        // 비밀번호 일치하는 경우 로그인
+      } catch (error) {
+        // ID 없는 경우 (404에러 오는 경우)
+        if (error.response && error.response.status === 404) {
+          console.log(404, error.response);
+          alert(error.response.data);
+        }
+        // 소셜 로그인해야하는 경우
+        else if (error.response && error.response.status === 400) {
+          console.log(400, error.response);
+          alert(error.response.data);
+        }
+        // 비밀번호 일치하지 않는 경우
+        else if (error.response && error.response.status === 401) {
+          console.log(401, error.response);
+          alert(error.response.data);
+        }
       }
-    },
-    getCookie(name) {
-      const parts = document.cookie.split(name + "=");
-      if (parts.length === 2) {
-        return parts[1].split(";")[0];
-      }
-      return "";
-    },
-    mounted() {
-      this.displayToken();
     },
   },
 };
 </script>
 
 <style>
-
-
 .background {
   background-image: url("@/assets/loginbackground.png") !important; /* Ensure the path is correct */
   background-size: cover;
@@ -165,13 +178,11 @@ export default {
   top: 30%;
   left: 40%;
   /* transform: translate(-50%, -50%); */
-  
 }
 
 .login-card-header h3 {
   color: white;
   height: 50px;
-  
 }
 
 .input-group-prepend span {
@@ -196,7 +207,6 @@ input:focus {
   height: 40px;
   /* transform: translate(0%, -50%); */
 }
-
 
 .links {
   color: white;
