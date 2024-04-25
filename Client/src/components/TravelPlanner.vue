@@ -44,7 +44,7 @@
         <div style="background-color: #eee; width: 100%; height: 100%">
           Map Goes Here
         </div>
-        <button class="btn btn-primary">일정 저장하기</button>
+        <button class="btn btn-primary" @click ="savePlan">일정 저장하기</button>
         <button class="btn btn-secondary" @click="goToSelfPlan">여행일정 직접 만들기</button>
       
       </div>
@@ -66,9 +66,10 @@ export default {
       location: '',
       startDate: '', // startDate 추가
       endDate: '', // endDate 추가
+      currentUser: "",
       itineraries: [],
       travelInfo: {},
-      currentUser: "",
+
     };
   },
   computed: {
@@ -163,8 +164,38 @@ export default {
 
 
     return diffDays;
-  }
   },
+
+  savePlan() {
+    const apiUrl = "http://localhost:3000/api/save-plan"; // API URL 설정
+    const planData = {
+      companions: this.companions,
+      currentUser: this.currentUser,
+      days: this.days,
+      endDate: this.endDate,
+      itineraries: this.itineraries,
+      location: this.location,
+      startDate: this.startDate,
+      style: this.style
+    };
+
+    console.log("Sending plan to server:", planData); // 로그 출력
+
+    axios
+      .post(apiUrl, planData)
+      .then(response => {
+        console.log("Plan saved successfully:", response.data); // 성공 로그
+        alert("여행 일정이 성공적으로 저장되었습니다!"); // 사용자 알림
+      })
+      .catch(error => {
+        console.error("Failed to save plan:", error); // 실패 로그
+        alert("일정 저장에 실패하였습니다."); // 에러 알림
+      });
+  }
+
+
+
+  }, // 메서드 종료 
   created() {
     
     if (this.$route.query) {

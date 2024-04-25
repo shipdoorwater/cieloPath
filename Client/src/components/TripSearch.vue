@@ -3,7 +3,7 @@
   <div id="trip-search" style="background-color: white">
     <h1>어디로 떠나볼까요?</h1>
 
-    <button class="btn btn-primary" @click="$router.push({ name: 'SelfPlan2' })">바로 테스트가기</button>
+    <button class="btn btn-primary" @click="$router.push({ name: 'mypage' })">바로 테스트가기</button>
     <br /><br /><br />
     <nav class="navbar navbar-light bg-white">
       <div class="container-fluid justify-content-center">
