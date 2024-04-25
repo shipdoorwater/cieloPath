@@ -23,52 +23,38 @@
         <i class="bi bi-list"></i>
       </button>
 
-      <!-- Navbar links -->
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <!-- <a class="nav-link active" aria-current="page" href="#">여행지</a> -->
-            <a
-              class="nav-link active"
-              href="#trip-search"
-              @click="scrollToComponent($event, 'trip-search')"
-              >여행지</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link active"
-              href="#Notice-Area" style="width: 80px;"
-              @click="scrollToComponent($event, 'Notice-Area')"
+            <li class="nav-item">
+              <a class="nav-link active" href="#trip-search" @click="scrollToComponent($event, 'trip-search')"
+                >여행지</a
+              >
+            </li>
+            
+            <li class="nav-item">
+            <a class="nav-link active" href="#Notice-Area" style="width: 80px" @click="scrollToComponent($event, 'Notice-Area')"
               >공지사항</a
             >
           </li>
-        </ul>
+          
+            <!-- 로그인 되었을 때 표시할 메뉴 항목들 -->
+            <li class="nav-item" v-if="isAuthenticated">
+                <router-link class="nav-link active" to="/qanda">1대1 문의</router-link>
+            </li>
+            <li class="nav-item" v-if="isAuthenticated">
+                <router-link class="nav-link active" to="/mypage">프로필</router-link>
+            </li>
+            <li class="nav-item" v-if="isAuthenticated">
+                <a class="nav-link active"  @click="logout">로그아웃</a>
+            </li>
 
-        <!-- User Icon -->
-        <ul class="navbar-nav">
-          <li class="nav-item" v-if="isAuthenticated">
-            <!-- 로그인 되었을 때의 드롭다운 메뉴 -->
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-person-circle" style="font-size: 1.5rem"></i>
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><router-link class="dropdown-item" to="/qanda">1대1 문의</router-link> </li>
-              <li><a class="dropdown-item" href="http://localhost:8080/mypage">프로필</a></li>
-              <li><a class="dropdown-item"
-              
-                 @click="goToQandA()"
-                 >1대1 문의</a></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#" @click="logout">로그아웃</a></li>
-            </ul>
-          </li>
-          <li class="nav-item" v-else>
-            <!-- 로그인 되어 있지 않을 때의 로그인 링크 -->
-            <a class="nav-link" href="/loginPage">로그인</a>
-          </li>
+            <!-- 로그인 되어 있지 않을 때 표시할 로그인 링크 -->
+            <li class="nav-item" v-else>
+                <a class="nav-link" href="/loginPage">로그인</a>
+            </li>
         </ul>
-      </div>
+</div>
+
     </div>
   </nav>
 </template>
@@ -97,11 +83,11 @@ export default {
       }
     },
     goToQandA() {
-      this.$router.replace("/qanda");
+      this.$router.push("/qanda");
     },
     logout() {
       this.$store.dispatch("logout");
-      this.$router.replace("/"); // 로그인 페이지로 리다이렉트
+      this.$router.push("/"); // 로그인 페이지로 리다이렉트
     },
   },
 };
@@ -125,9 +111,13 @@ export default {
   background-color: #fdf8ec;
 }
 
+li.nav-item {
+  margin: 10px;
+  width: auto;
+}
+
 .navbar .navbar-nav .dropdown-menu {
   left: auto; /* 드롭다운 메뉴를 왼쪽으로 정렬 */
   right: 0; /* 오른쪽 정렬을 무시 */
-
 }
 </style>

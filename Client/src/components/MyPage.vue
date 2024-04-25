@@ -183,7 +183,9 @@ height:40px;
 width: 100%; 
 align-items: flex-start; 
 }
-
+.modal {
+  z-index: -1;
+}
 .modal-backdrop {
 position: fixed;
 top: 0;
