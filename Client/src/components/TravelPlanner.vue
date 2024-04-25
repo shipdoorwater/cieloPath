@@ -1,6 +1,6 @@
 <template>
   <div class="travel-planner container-fluid mt-5">
-    <h1 class="text-center mb-4">여행 일정 계획하기</h1>
+    <h1 class="text-center mb-4">TravelPlanner</h1>
     
     <div class="d-flex">
       <div class="itinerary-container flex-grow-1">
@@ -27,7 +27,7 @@
           Map Goes Here
         </div>
         <button class="btn btn-primary">일정 저장하기</button>
-        <button class="btn btn-secondary" @click="goToSelfPlan">Cielo직접 만들기</button>
+        <button class="btn btn-secondary" @click="goToSelfPlan">여행일정 직접 만들기</button>
       
       </div>
 
@@ -47,6 +47,8 @@ export default {
       companions: '',
       style: '',
       location: '',
+      startDate: '', // startDate 추가
+      endDate: '', // endDate 추가
       itineraries: [],
       travelInfo: {}
     };
@@ -82,10 +84,12 @@ export default {
     localStorage.setItem('companions', this.companions);
     localStorage.setItem('style', this.style);
     localStorage.setItem('location', this.location);
-    console.log("Navigating to SelfPlan with", this.days, this.companions, this.style, this.location);
+    localStorage.setItem('startDate', this.startDate);
+    localStorage.setItem('endDate', this.endDate);
+    
+    console.log("Navigating to SelfPlan 1", this.days, this.companions, this.style, this.location,this.startDate, this.endDate);
 
 
-      
       this.$router.push({
         name: 'SelfPlan',
         
@@ -97,7 +101,6 @@ export default {
         }
       },
       console.log("SelfPlan", this.days,this.companions,this.style,location),
-
     
     );
     },
@@ -115,10 +118,15 @@ export default {
     console.error("diffTime: ", diffTime);
     // 보정을 추가: UTC 시간을 기준으로 계산하여 시간대 영향을 최소화합니다.
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    this.startDate = startDate;
+    this.endDate= endDate;
+
+
     return diffDays;
   }
   },
   created() {
+    
     if (this.$route.query) {
       this.travelInfo = this.$route.query;
       this.companions = this.travelInfo.companion || '정보 없음';

@@ -4,7 +4,7 @@
 <router-view name="main1"></router-view>
 <router-view name="main2"></router-view>
 <router-view name="footer"></router-view>
-<router-view @sendTravelInfo="handleTravelInfo"></router-view>
+<!-- <router-view @sendTravelInfo="handleTravelInfo"></router-view> -->
 
 </template>
 
