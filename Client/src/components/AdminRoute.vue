@@ -55,6 +55,10 @@
                   <input type="text" class="form-control" id="location-name" v-model="newLocationName" required>
                 </div><br>
                 <div class="form-group">
+                  <label for="location-name">영문 이름</label>
+                  <input type="text" class="form-control" id="location-name" v-model="newLocationEnglishName" required>
+                </div><br>
+                <div class="form-group">
                   <label for="location-description">지역 설명</label>
                   <textarea class="form-control" id="location-description" v-model="newLocationDescription"></textarea>
                 </div><br>
@@ -75,7 +79,7 @@
   </div>
 </template>
 
-    
+
   <script>
   import axios from 'axios';
   import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -83,6 +87,7 @@
 
   export default {
     name: 'AdminRoute',
+    
     data() {
       return {
         newLocationName: '',
@@ -93,8 +98,7 @@
           { icon: 'fas fa-user-minus', title: '회원 관리', description: '회원정보 조회 및 탈퇴', hoverColor: 'lightblue', isHovered: false },
           { icon: 'fas fa-map-marked-alt', title: '여행지 관리', description: '여행지 등록 및 삭제', hoverColor: 'beige', isHovered: false },
           { icon: 'fas fa-bullhorn', title: '공지 관리', description: '공지사항 작성', hoverColor: 'lightpink', isHovered: false },
-          { icon: 'fas fa-chart-line', title: '통계 확인', description: '회원 및 여행지 현황 확인', hoverColor: 'lightgray', isHovered: false }
-        ],
+                  ],
         images: {
       },
       modalInstance: null,
@@ -106,7 +110,7 @@
             keyboard: false
           });
     },
-
+ 
     methods: {
       createImageUrl(imageData) {
     const blob = new Blob([imageData], { type: 'image/jpeg' }); // MIME type을 적절히 설정
@@ -148,7 +152,7 @@
 handleFileChange(event) {
     this.newLocationFile = event.target.files[0];
   },
-    handleAdminAction(action) {
+  handleAdminAction(action) {
        console.log('Action:', action);
        if (action === '공지 관리') {
       this.$router.push('/notice');
@@ -166,7 +170,6 @@ handleFileChange(event) {
      navigateToUrl(url) {
        window.location.href = url;
      },
-      
      openAddLocationModal() {
             this.modalInstance.show();
         },
@@ -177,6 +180,7 @@ handleFileChange(event) {
     addLocation() {
       let formData = new FormData();
       formData.append("image_name", this.newLocationName);
+      formData.append("image_english_name", this.newLocationEnglishName);
       formData.append("content", this.newLocationDescription);
       formData.append("image_data", this.newLocationFile);
 

@@ -78,6 +78,7 @@ export default {
 
   methods: {
     sendContentIds() {
+
       const apiUrl = 'http://localhost:3000/api/self-plan2';
       const dataToSend = {
         days: localStorage.getItem('days'),
@@ -92,6 +93,7 @@ export default {
       
 
       axios.post(apiUrl, dataToSend)
+
         .then(response => {
           this.itineraries = response.data.itineraries; // 서버 응답에서 itineraries 배열 직접 할당
           console.log('Updated itineraries:', this.itineraries);

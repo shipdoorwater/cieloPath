@@ -16,6 +16,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <div class="form-group">
+            
                   <input style="width:600px"
                     type="email"
                     class="form-control"
@@ -23,7 +24,7 @@
                     v-model="userInfo.email"
                     @blur="checkEmailAvailability"
                   /><br />
-                  {{ emailSuccess }} {{ emailError }} <br />
+                
                 </div>
                 <div class="form-group">
                   <input style="width:600px"
@@ -72,11 +73,11 @@
                 <input 
                   type="submit"
                   class="btnRegister"
-                  :disabled="isFormInvalid"
+                  
                   value="가입완료"
                 />
               </div>
-            </div>
+            </div>{{ emailSuccess }} {{ emailError }} <br />
           </div>
         </form>
       </div>
@@ -107,18 +108,13 @@ export default {
         this.emailError = "이메일을 입력해주세요.";
         return;
       }
-      axios
-        .get(
-          `http://localhost:3000/api/check-email?email=${encodeURIComponent(
-            this.userInfo.email
-          )}`
-        )
+      axios.get(`http://192.168.0.78:3000/api/check-email?email=${encodeURIComponent(this.userInfo.email)}`)
         .then((response) => {
           if (response.data.isAvailable) {
             this.emailError = null;
-            this.emailSuccess = "사용 가능한 이메일입니다";
+            this.emailSuccess = "사용 가능한 이메일입니다.";
           } else {
-            this.emailError = "이미 사용중인 이메일입니다.";
+            this.emailError = "이미 사용 중인 이메일입니다.";
           }
         })
         .catch((error) => {
@@ -128,26 +124,32 @@ export default {
     },
 
     submitForm() {
-      console.log(this.isFormInvalid);
-      axios
-        .post("http://localhost:3000/api/registerbyemail", this.userInfo)
-        .then((response) => {
-          alert("회원가입이 완료되었습니다.");
-          console.log(response);
-          // 회원가입 후 추가 작업 (예: 로그인 페이지로 리다이렉션)
-        })
-        .catch((error) => {
-          console.error("회원가입 실패:", error);
-          // 에러 처리
-        });
+      if (this.validateForm()) {
+        axios.post("http://192.168.0.78:3000/api/registerbyemail", this.userInfo)
+          .then(() => {
+            alert("회원가입이 완료되었습니다.");
+            window.location.href = 'http://localhost:8080/';
+          })
+          .catch((error) => {
+            console.error("회원가입 실패:", error);
+            alert("회원가입 처리 중 오류가 발생했습니다.");
+          });
+      }
     },
+
+    validateForm() {
+      if (this.isFormInvalid) {
+        alert("모든 필드를 올바르게 작성해주세요.");
+        return false;
+      }
+      return true;
+    }
   },
   computed: {
     isFormInvalid() {
-      // 모든 필드가 채워져 있고 비밀번호가 일치해야 true를 반환
       return !(
         this.userInfo.email &&
-        !this.emailError && // 이메일 중복 검사에서 오류가 없어야 함
+        !this.emailError &&
         this.userInfo.userName &&
         this.userInfo.nickName &&
         this.userInfo.password &&
@@ -158,12 +160,16 @@ export default {
   },
 };
 </script>
+
 <style>
+
 .container{
+
   height: 800px;
 }
 .form-group {
-  width: 500px;
+  width: 400px;
+  height: 28px;
 }
 .register {
   background: -webkit-linear-gradient(left, #3931af, #00c6ff);
@@ -195,9 +201,9 @@ export default {
 .register-left img {
   margin-top: 15%;
   margin-bottom: 5%;
-  width: 25%;
+  width: 50%;
   -webkit-animation: mover 2s infinite alternate;
-  animation: mover 1s infinite alternate;
+  animation: mover 0.8s infinite alternate;
 }
 @-webkit-keyframes mover {
   0% {

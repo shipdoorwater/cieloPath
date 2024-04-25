@@ -51,8 +51,7 @@ data() {
        { icon: 'fas fa-user-minus', title: '회원 관리', description: '회원정보 조회 및 탈퇴', hoverColor: 'lightblue', isHovered: false },
        { icon: 'fas fa-map-marked-alt', title: '여행지 관리', description: '여행지 등록 및 삭제', hoverColor: 'beige', isHovered: false },
        { icon: 'fas fa-bullhorn', title: '공지 관리', description: '공지사항 작성', hoverColor: 'lightpink', isHovered: false },
-       { icon: 'fas fa-chart-line', title: '통계 확인', description: '회원 및 여행지 현황 확인', hoverColor: 'lightgray', isHovered: false }
-  ],
+        ],
 };
 },
 
@@ -86,10 +85,11 @@ handleAdminAction(action) {
         console.error("There was an error fetching the members:", error);
       });
       },
+
       fetchDailyNewMembers() {
-    axios.get('http://192.168.0.78:3000/api/members/today')
+    axios.get('http://192.168.0.78:3000/api/member')
       .then(response => {
-        this.dailyNewMembers = response.data.length;  // 응답받은 데이터의 길이로 신규 회원 수 설정
+        this.dailyNewMembers = response.data.filter(member => member.today === 1).length;
         console.log("Today's new members updated:", this.dailyNewMembers);
       })
       .catch(error => {

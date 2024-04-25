@@ -125,7 +125,7 @@
 </template>
 
 <script>
-
+import axios from 'axios';
 
 import 'vue-cal/dist/vuecal.css'
 
@@ -192,15 +192,41 @@ export default {
       },
     };
   },
+  created() {
+  this.fetchImage();
+},
+
   methods: {
     // 메서드들 ...
     openModal(name, image) {
       this.currentImage = { name, ...image };
       this.showModal = true;
       this.whereToGo = name;  // 클릭된 이미지의 이름을 whereToGo에 저장
+  },
 
 
-    },
+  fetchImage() {
+  axios.get('http://192.168.0.78:3000/api/toursiteimage')
+  .then(response => {
+    console.log('Received data:', response.data);
+    const serverImages = response.data.reduce((acc, item) => {
+      acc[item.image_name] = {
+        text: item.image_name,
+        src: `data:image/jpeg;base64,${item.image_data}`,
+        description: item.description
+      };
+      return acc;
+    }, {});
+
+    // 기존 이미지 객체(this.images)와 서버에서 받은 이미지(serverImages)를 병합
+    this.images = {...serverImages , ...this.images };
+  })
+  .catch(error => {
+    console.error('Error fetching images:', error);
+  });
+},
+
+
     closeModal() {
       this.showModal = false;
     },

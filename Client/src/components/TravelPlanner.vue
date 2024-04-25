@@ -79,6 +79,7 @@ export default {
   },
   methods: {
     submitPlan() {
+
       const apiUrl = "http://localhost:3000/api/send-plan";
       const params = {
         days: this.days,
@@ -103,6 +104,7 @@ export default {
           console.error("Error sending data to server:", error);
         });
     },
+
     goToSelfPlan() {
       // 로컬 스토리지에 정보 저장
       localStorage.setItem("days", this.days);
