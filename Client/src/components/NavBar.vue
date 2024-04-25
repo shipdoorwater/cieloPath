@@ -38,7 +38,7 @@
           <li class="nav-item">
             <a
               class="nav-link active"
-              href="#Notice-Area"
+              href="#Notice-Area" style="width: 80px;"
               @click="scrollToComponent($event, 'Notice-Area')"
               >공지사항</a
             >
@@ -128,5 +128,6 @@ export default {
 .navbar .navbar-nav .dropdown-menu {
   left: auto; /* 드롭다운 메뉴를 왼쪽으로 정렬 */
   right: 0; /* 오른쪽 정렬을 무시 */
+
 }
 </style>
