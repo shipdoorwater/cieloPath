@@ -38,9 +38,14 @@ import axios from 'axios';
 
 export default {
 name: 'AdminPage',
-
+created() {
+  this.fetchMembers();  // 컴포넌트 로드 시 회원 데이터 가져오기
+  this.fetchDailyNewMembers(); 
+},
 data() {
   return {
+    totalMembers: 0,
+    dailyNewMembers: 0,
      adminItems: [
        { imgSrc: require('@/assets/logo.png'), hoverColor: 'orange', isHovered: false, url: 'http://localhost:8080/'},
        { icon: 'fas fa-user-minus', title: '회원 관리', description: '회원정보 조회 및 탈퇴', hoverColor: 'lightblue', isHovered: false },
@@ -72,15 +77,25 @@ handleAdminAction(action) {
      window.location.href = url;
    },
    fetchMembers() {
-        axios.get('http://192.168.0.78:3000/api/member')
-          .then(response => {
-            this.members = response.data;
-            console.log("Received data:", this.members);
-          })
-          .catch(error => {
-            console.error("There was an error fetching the members:", error);
-          });
+    axios.get('http://192.168.0.78:3000/api/member')
+      .then(response => {
+        this.totalMembers = response.data.length;  // 응답받은 데이터의 길이로 총 회원 수 설정
+        console.log("Total members updated:", this.totalMembers);
+      })
+      .catch(error => {
+        console.error("There was an error fetching the members:", error);
+      });
       },
+      fetchDailyNewMembers() {
+    axios.get('http://192.168.0.78:3000/api/members/today')
+      .then(response => {
+        this.dailyNewMembers = response.data.length;  // 응답받은 데이터의 길이로 신규 회원 수 설정
+        console.log("Today's new members updated:", this.dailyNewMembers);
+      })
+      .catch(error => {
+        console.error("There was an error fetching today's new members:", error);
+      });
+  },
  }
 }
 
@@ -102,8 +117,9 @@ handleAdminAction(action) {
 .nav-item {
   text-align: left;
   padding: 10px;
-  border: 1px solid #ddd;
-  width: 50%; /* 자동으로 부모 컨테이너 너비에 맞춤 */
+  border: 1px solid #fdf8ec;
+  width: 100%; /* 자동으로 부모 컨테이너 너비에 맞춤 */
+  margin:15px;
 }
 
 .card-body {

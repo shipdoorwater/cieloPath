@@ -202,7 +202,7 @@ handleFileChange(event) {
   width: 300px;
   height: 400px;
   object-fit: cover;
-  border: 1px solid #ddd; /* Add border for clarity */
+  border: 1px solid #fdf8ec; /* Add border for clarity */
   justify-content: center;
   align-items: center;
   margin-bottom: 100px; 

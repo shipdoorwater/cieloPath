@@ -17,7 +17,7 @@
       crossorigin="anonymous"
     />
 
-    <div class="login-card">
+    <div class="login-card" style="">
       <div class="login-card-header"><br>
         <h3>LOGIN</h3>
       </div>
@@ -148,21 +148,23 @@ export default {
 .link-container a:hover {
   color: blue; /* Changes color to blue on hover */
 }
-.container {
+.login-container {
+  position: fixed;
   height: 150vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .login-card {
+  position: fixed;
   height: 550px !important;
   margin-top: auto;
   margin-bottom: auto;
   width: 500px !important;
   background-color: rgba(0, 0, 0, 0.5) !important;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 30%;
+  left: 40%;
+  /* transform: translate(-50%, -50%); */
   
 }
 
@@ -190,9 +192,9 @@ input:focus {
   border-radius: 7px;
   padding: 5px;
   background-color: lightblue;
-  width: 460px;
+  width: 400px;
   height: 40px;
-  transform: translate(0%, -50%);
+  /* transform: translate(0%, -50%); */
 }
 
 
