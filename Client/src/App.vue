@@ -1,5 +1,6 @@
 <template>
 <router-view name="default"></router-view>
+<br><br><br><br><br><br><br><br><br>
 <router-view name="header"></router-view>
 <router-view name="main1"></router-view>
 <router-view name="main2"></router-view>
