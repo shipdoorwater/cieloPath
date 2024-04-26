@@ -477,106 +477,122 @@ app.post("/api/send-plan", (req, res) => {
 });
 // 셀프 추가하는 데이터 송부 코드
 //###############################################################################
-app.post("/api/self-plan", (req, res) => {
-  console.log("Received request:", req.body); // 클라이언트에서 받은 요청의 본문 출력
-  const { days, location } = req.body;
-  const maxAttractionsPerType = 5; // 각 유형별 최대 관광지 수
-  const contentTypes = ["12", "14", "28", "39"];
-  const queries = contentTypes.map(
-    (type) => `
+app.post('/api/self-plan', (req, res) => {
+    console.log('Received request:', req.body); // 클라이언트에서 받은 요청의 본문 출력
+    const { days, location } = req.body;
+    const maxAttractionsPerType = 5; // 각 유형별 최대 관광지 수
+    const contentTypes = ['12', '14', '28', '39'];
+    const queries = contentTypes.map(type => `
         SELECT * FROM LocalTourPlaces LTP
         JOIN RegionCodes RC ON LEFT(LTP.zipcode, 2) = RC.PostalCodePrefix
         WHERE RC.CodeName2 = ? AND LTP.contenttypeid = '${type}'
         ORDER BY LTP.visitNo DESC
         LIMIT ${maxAttractionsPerType};
-    `
-  );
-  // 각 쿼리를 실행하고 결과를 저장
-  Promise.all(
-    queries.map(
-      (query) =>
-        new Promise((resolve, reject) => {
-          connection.query(query, [location], (err, results) => {
+    `);
+    // 각 쿼리를 실행하고 결과를 저장
+    Promise.all(queries.map(query => new Promise((resolve, reject) => {
+        connection.query(query, [location], (err, results) => {
             if (err) {
-              reject(err);
+                reject(err);
             } else {
-              // 콘솔에 결과의 title과 contenttypeid 출력
-              console.log(
-                `Results for content type ${
-                  query.match(/contenttypeid = '(\d+)'/)[1]
-                } at location ${location}:`
-              );
-              results.forEach((result) => {
-                // console.log(`Title: ${result.title}, Content Type ID: ${result.contenttypeid}`);
-              });
-              resolve(results);
+                // 콘솔에 결과의 title과 contenttypeid 출력
+                // console.log(`Results for content type ${query.match(/contenttypeid = '(\d+)'/)[1]} at location ${location}:`);
+                results.forEach(result => {
+                    // console.log(`Title: ${result.title}, Content Type ID: ${result.contenttypeid}`);
+                });
+                resolve(results);
             }
-          });
-        })
-    )
-  )
-    .then((results) => {
-      // 각 타입별 결과를 배열로 반환
-      const data = results.flat(); // 결과 배열을 평탄화
-      // console.log('Data fetched for each content type:', data);
-      // console.log('selfplan 데이터 송부');
-      // 클라이언트에 데이터 보내기 전에 로그 추가
-      // console.log(`Sending response to client for location ${location} with data:`, data);
-      // console.log(`Sending response to client for location `);
-      res.send({
-        message: `Travel plans generated for ${location} with specified content types.`,
-        data: data,
-      });
+        });
+    })))
+    .then(results => {
+        // 각 타입별 결과를 배열로 반환
+        const data = results.flat(); // 결과 배열을 평탄화
+        console.log('Data fetched for each content type:', data);
+        // console.log('selfplan 데이터 송부');
+        // 클라이언트에 데이터 보내기 전에 로그 추가
+        // console.log(`Sending response to client for location ${location} with data:`, data);
+        // console.log(`Sending response to client for location `);
+        res.send({
+            message: `Travel plans generated for ${location} with specified content types.`,
+            data: data
+        });
     })
-    .catch((error) => {
-      console.error("Database query error:", error);
-      res.status(500).send({ error: "Database query failed", details: error });
+    .catch(error => {
+        console.error('Database query error:', error);
+        res.status(500).send({ error: 'Database query failed', details: error });
     });
 });
+ // 클라이언트에서 받은 데이터를 통해 최적 일정 추출
+//###############################################################################
 // 클라이언트에서 받은 데이터를 통해 최적 일정 추출
 //###############################################################################
-app.post("/api/self-plan2", (req, res) => {
+app.post('/api/self-plan2', (req, res) => {
   const companions = req.body.companions;
-  const days = req.body.days;
+  const days = parseInt(req.body.days, 10);
   const location = req.body.location;
-  const contentIds = req.body.selectedItinerary.map((item) => item.contentid);
-  // console.log('서버에서 받은 contentId 배열:', contentIds);
-  // SQL 쿼리 준비: contentIds 배열을 사용하여 contenttypeid가 '39'인 행만 조회
-  const sql =
-    // `   SELECT count(*)
-    //     FROM LocalTourPlaces
-    //     WHERE contentid IN (?) AND contenttypeid = '39';'
-    `SELECT required as *
-    FROM LocalTourPlaces LTP
-    JOIN RegionCodes RC ON LEFT(LTP.zipcode, 2) = RC.PostalCodePrefix
-    WHERE RC.CodeName2 = ? AND LTP.contentid IN (?) AND contenttypeid IN (12, 14)
-    union all
-    SELECT *
-    FROM LocalTourPlaces LTP
-    JOIN RegionCodes RC ON LEFT(LTP.zipcode, 2) = RC.PostalCodePrefix
-    WHERE RC.CodeName2 = ? AND LTP.contentid NOT IN (?) AND contenttypeid IN (12, 14);`;
-  // 데이터베이스에서 쿼리 실행
-  connection.query(
-    sql,
-    [location, contentIds, location, contentIds],
-    (error, results, fields) => {
+  const contentIds = req.body.selectedItinerary.map(item => item.contentid);
+  const sql = `
+  SELECT * FROM (
+      SELECT *, 'must' AS 필수여부
+      FROM LocalTourPlaces LTP
+      JOIN RegionCodes RC ON LEFT(LTP.zipcode, 2) = RC.PostalCodePrefix
+      WHERE RC.CodeName2 = ? AND LTP.contentid IN (?) AND contenttypeid IN (12,14,28)
+      UNION ALL
+      SELECT *, 'must_restaurant' AS 필수여부
+      FROM LocalTourPlaces LTP
+      JOIN RegionCodes RC ON LEFT(LTP.zipcode, 2) = RC.PostalCodePrefix
+      WHERE RC.CodeName2 = ? AND LTP.contentid IN (?) AND contenttypeid IN (39)
+      UNION ALL
+      SELECT *, 'recommended' AS 필수여부
+      FROM LocalTourPlaces LTP
+      JOIN RegionCodes RC ON LEFT(LTP.zipcode, 2) = RC.PostalCodePrefix
+      WHERE RC.CodeName2 = ? AND LTP.contentid NOT IN (?) AND contenttypeid IN (12, 14,28)
+      UNION ALL
+      SELECT *, 'recommended_restaurant' AS 필수여부
+      FROM LocalTourPlaces LTP
+      JOIN RegionCodes RC ON LEFT(LTP.zipcode, 2) = RC.PostalCodePrefix
+      WHERE RC.CodeName2 = ? AND LTP.contentid NOT IN (?) AND contenttypeid IN (39)
+  ) AS combined_results
+  ORDER BY addr1
+  `;
+  connection.query(sql, [location, contentIds, location, contentIds, location, contentIds, location, contentIds], (error, results, fields) => {
       if (error) {
-        console.error("Database query error:", error);
-        return res.status(500).send({ error: "Database query failed" });
+          console.error('Database query error:', error);
+          return res.status(500).send({ error: 'Database query failed' });
       }
-      console.log("Query results:", results);
-      res
-        .status(200)
-        .send({ message: "Data fetched successfully", data: results });
-    }
-  );
+      const must = [], must_restaurant = [], recommended = [], recommended_restaurant = [];
+      results.forEach(row => {
+          switch(row.필수여부) {
+              case 'must':
+                  must.push(row);
+                  break;
+              case 'must_restaurant':
+                  must_restaurant.push(row);
+                  break;
+              case 'recommended':
+                  recommended.push(row);
+                  break;
+              case 'recommended_restaurant':
+                  recommended_restaurant.push(row);
+                  break;
+          }
+      });
+      // 일정 배열 생성
+      const itineraries = Array.from({ length: days }, () => []);
+      let m = 0, mr = 0, r = 0, rr = 0;
+      for (let i = 0; i < days; i++) {
+          itineraries[i][0] = (m < must.length) ? must[m++] : recommended[r++];
+          itineraries[i][1] = (mr < must_restaurant.length) ? must_restaurant[mr++] : recommended_restaurant[rr++];
+          itineraries[i][2] = (m < must.length) ? must[m++] : recommended[r++];
+          itineraries[i][3] = (mr < must_restaurant.length) ? must_restaurant[mr++] : recommended_restaurant[rr++];
+      }
+      console.log('Itinerary for each day:', itineraries.map(day => day.map(attr => attr.필수여부 + ': ' + attr.title)));
+      res.status(200).send({
+          itineraries
+      });
+      console.log('Response sent to client successfully.');
+  });
 });
-
-function calculateDistance(base, target) {
-  return Math.sqrt(
-    Math.pow(base.mapx - target.mapx, 2) + Math.pow(base.mapy - target.mapy, 2)
-  );
-}
 // 여행 인원 스타일/ 동반자 / 일수 받는 부분
 // 경기도 관광지 정보를 가져오고 일자별로 그룹화하는 엔드포인트
 // 여행 일정 계획 요청 처리
@@ -717,4 +733,121 @@ app.post("/api/self-plan2", (req, res) => {
         .send({ message: "Data fetched successfully", data: results });
     }
   );
+});
+app.post('/api/save-plan', (req, res) => {
+    const { companions, currentUser, days, endDate, itineraries, location, startDate, style } = req.body;
+    const userId = 9999999;  // 무작위 사용자 ID 생성
+    const sql = `
+        INSERT INTO SCHEDULE (USEREID, REGIONID, REGIONNAME, STARTDAY, ENDDAY)
+        VALUES (?, ?, ?, ?, ?);
+    `;
+    connection.query(sql, [userId, location, location, startDate, endDate], (error, results, fields) => {
+        if (error) {
+            console.error('Database query error:', error);
+            return res.status(500).send({ error: 'Database query failed' });
+        }
+        const scheduleId = results.insertId;  // 생성된 SCHEDULEID
+        let queriesCompleted = 0;
+        const totalQueries = itineraries.flat().length;
+        for (let i = 0; i < itineraries.length; i++) {
+            const day = itineraries[i];
+            for (let j = 0; j < day.length; j++) {
+                const attraction = day[j];
+                const sq2 = `
+                    INSERT INTO SCHEDULE_DETAIL
+                    (SCHEDULEID, NTHDAY, SEQ, USEREID, REGIONID, REGIONNAME, PLACEID, PLACENAME, PLACEADDRESS, MAPX, MAPY, STARTDAY, ENDDAY)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                `;
+                connection.query(sq2, [
+                    scheduleId, i + 1, j + 1, userId, null, location,
+                    attraction.contentid, attraction.title, attraction.addr1,
+                    attraction.mapx, attraction.mapy, startDate, startDate
+                ], (error, results, fields) => {
+                    queriesCompleted++;
+                    if (error) {
+                        console.error('Inner query error:', error);
+                    }
+                    if (queriesCompleted === totalQueries) {
+                        console.log('All data inserted successfully');
+                        res.status(200).send({ message: "Travel plan saved successfully", scheduleId });
+                    }
+                });
+            }
+        }
+    });
+});
+
+//###############################################
+app.post('/api/plan-review', (req, res) => {
+  const { userID } = req.body;
+  const sql = `
+  SELECT * FROM SCHEDULE WHERE USEREID = ?
+  `;
+  // 데이터베이스에서 쿼리 실행
+  connection.query(sql, [userID], (error, results) => {
+      if (error) {
+          console.error('Database query error:', error);
+          return res.status(500).send({ error: 'Database query failed' });
+      }
+      // 쿼리 결과를 콘솔에 로깅
+      console.log('Query results:', results);
+      // 클라이언트에 결과 전송
+      res.send({
+          message: `Data retrieved successfully for : ${userID}`,
+          data: results
+      });
+  });
+});
+//###############################################
+app.post('/api/schedule-detail', (req, res) => {
+  const { scheduleId } = req.body;
+  const sql = `
+  SELECT * FROM SCHEDULE_DETAIL WHERE SCHEDULEID = ?
+  `;
+  // 데이터베이스에서 쿼리 실행
+  connection.query(sql, [scheduleId], (error, results) => {
+      if (error) {
+          console.error('Database query error:', error);
+          return res.status(500).send({ error: 'Database query failed' });
+      }
+      // 쿼리 결과를 콘솔에 로깅
+      console.log('Query results:', results);
+      // 클라이언트에 결과 전송
+      res.send({
+          message: `Data retrieved successfully for : ${scheduleId}`,
+          data: results
+      });
+  });
+});
+//#####################################
+// SELECT * FROM SCHEDULE WHERE USEREID = ?
+app.post('/api/plan-recall', (req, res) => {
+  const lastScheduleId = Object.keys(req.body)[0];
+  console.log('lastScheduleId', lastScheduleId);
+  const sql = `
+      SELECT ltp.*
+      FROM LocalTourPlaces ltp
+      WHERE ltp.contentid IN (SELECT PLACEID
+          FROM SCHEDULE_DETAIL
+          WHERE SCHEDULEID = ?
+      );
+  `;
+  connection.query(sql, [lastScheduleId], (error, results) => {
+      if (error) {
+          console.error('Database query error:', error);
+          return res.status(500).send({ error: 'Database query failed' });
+      }
+      // 쿼리 결과를 콘솔에 로깅
+      console.log('Query results:', results);
+      // 결과 데이터를 4개씩 그룹화
+      let groupedResults = [];
+      for (let i = 0; i < results.length; i += 4) {
+          groupedResults.push(results.slice(i, i + 4));
+      }
+      // 클라이언트에 결과 전송
+      res.send({
+          message: `Data retrieved successfully for : ${lastScheduleId}`,
+          data: groupedResults
+      });
+  });
 });

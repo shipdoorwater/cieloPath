@@ -42,7 +42,10 @@
                 <router-link class="nav-link active" to="/qanda">1대1 문의</router-link>
             </li>
             <li class="nav-item" v-if="isAuthenticated">
-                <router-link class="nav-link active" to="/mypage">프로필</router-link>
+                <router-link class="nav-link active" to="/mypage">여행일정</router-link>
+            </li>
+            <li class="nav-item" v-if="isAuthenticated">
+                <router-link class="nav-link active" to="/admin">Admin</router-link>
             </li>
             <li class="nav-item" v-if="isAuthenticated">
                 <a class="nav-link active"  @click="logout">로그아웃</a>

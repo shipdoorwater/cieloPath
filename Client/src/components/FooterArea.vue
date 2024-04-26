@@ -5,7 +5,7 @@
       <div style="align-items: flex-start; text-align: left">
         <img src="@/assets/logo.png" alt="logo" height="80px" style="margin-bottom: 30px;"> 
       </div>
-      <div class="footerText1">프로젝트 8조 | 배문수 이슬기 한일섭</div>
+      <div class="footerText1">상장까지 프로젝트 8조 | 배문수 이슬기 한일섭</div>
       <div class="footerText1">사업자 등록번호 123-45-67890</div>
       <div class="footerText1">서울시 서초구 서초대로74길 33. 3F</div>
       <div class="footerText1">contact@cielopath.co.kr</div>

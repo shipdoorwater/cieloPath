@@ -104,7 +104,7 @@ export default {
         writer: this.currentUser.nickname  // 사용자 이름 또는 ID 추가
       };
       axios
-        .post("http://192.168.0.78:3000/api/qna/write", postData)
+        .post("http://localhost:3000/api/qna/write", postData)
         .then((response) => {
           console.log("Inquiry sent successfully:", response);
           this.$store.dispatch('fetchItems');
@@ -133,7 +133,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* z-index: 100; */
+  z-index: 30;
 }
 .modal-dialog {
   width: auto;

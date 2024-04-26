@@ -1,6 +1,7 @@
 <template>
   <NavBar></NavBar>
-  <div>글번호 : {{ postId }}</div>
+  <div class="post-details">
+    <div>글번호 : {{ postId }}</div>
   <div>제목 : {{ postDetails.title }}</div>
   <div>글쓴이: {{ postDetails.writerId }}</div>
   <div>작성일시: {{ formatDate(postDetails.writeDate) }}</div>
@@ -10,6 +11,8 @@
     <input type="text" v-model="repl" placeholder="댓글 입력">
     <button @click="submitReply">댓글작성</button>
   </div>
+  </div>
+  
 </template>
 
 <script>
@@ -80,4 +83,43 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+.post-details {
+  
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 100px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  text-align: left;
+}
+
+.post-details div {
+  margin-bottom: 10px;
+}
+
+.post-details input[type="text"] {
+  width: calc(100% - 80px);
+  padding: 8px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.post-details button {
+  padding: 8px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.post-details button:hover {
+  background-color: #0056b3;
+}
+</style>
+

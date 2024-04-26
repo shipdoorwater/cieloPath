@@ -1,5 +1,9 @@
 <template>
+  <NavBar class="fixed-top"></NavBar>
+       <!-- <router-view name="default" class="fixed-top"></router-view> -->
+  <br><br><br><br>     
   <div class="travel-planner container-fluid mt-5">
+
     <h1 class="text-center mb-4">TravelPlanner</h1>
 
     <div class="map-container flex-grow-1" >
@@ -24,7 +28,8 @@
                 :key="attraction.contentid"
                 class="attraction-card mb-2"
               >
-                <h5 class="card-title">{{ attraction.title }}</h5>
+                <h5 class="card-title">{{ attraction.title }}<br>
+                  <i style=" font-size: 1.3rem; color: red; border: none;" class="bi bi-heart-fill" @click="likesSpot(attraction)"></i></h5>
                 <img
                   :src="
                     attraction.firstimage ||
@@ -35,12 +40,12 @@
                 />
                 <p class="card-text">{{ attraction.addr1 }}</p>
                 <!-- 버튼 추가 -->
-                <button type="button" class="btn btn-outline-primary">
+                <!-- <button type="button" class="btn btn-outline-primary">
                   상세보기
-                </button>
-                <button type="button" class="btn btn-outline-danger">
-                  좋아요
-                </button>
+                </button> -->
+                <!-- <button class="btn btn-outline-danger" > -->
+                  <!-- <i style=" font-size: 1.3rem; color: red; border: none;" class="bi bi-heart-fill" @click="likesSpot(item)"></i> -->
+                <!-- </button> -->
               </div>
             </div>
           </div>
@@ -54,6 +59,7 @@
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
+import NavBar from '@/components/NavBar.vue';
 
 export default {
   name: "TravelPlanner",
@@ -70,6 +76,9 @@ export default {
       travelInfo: {},
 
     };
+  },
+  components: {
+    NavBar
   },
   computed: {
     ...mapState(["user", "token"]), // `user`와 `token` 상태를 매핑
@@ -190,7 +199,22 @@ export default {
         console.error("Failed to save plan:", error); // 실패 로그
         alert("일정 저장에 실패하였습니다."); // 에러 알림
       });
-  }
+  },
+  likesSpot(item) {
+    axios.post('http://192.168.0.78:3000/api/localtourplaces/like', { title: item.title })
+      .then(response => {
+        console.log(item);
+        console.log(item.title);
+        console.log('Like updated!', response);
+        alert('좋아요 ♥ ')
+        // 필요하다면 클라이언트 측 상태를 업데이트
+      })
+      .catch(error => {
+        console.error('Error updating like:', error);
+      });
+  },
+
+
 
 
 
@@ -264,5 +288,12 @@ export default {
   height: auto; /* 높이를 자동으로 조정 */
   padding: 0; /* 패딩 제거 */
   margin-bottom: 0; /* 하단 마진 제거 */
+}
+.fixed-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
 </style>

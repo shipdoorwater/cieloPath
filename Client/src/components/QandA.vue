@@ -1,11 +1,12 @@
 <template>
-  <div style="background-color: white" class="container">
-    <br><br><br>
-    <h1>
+  <NavBar class="fixed-top"></NavBar>
+  <div style="background-color: white;" class="container">
+    <br><br><br><br><br>
+    <h1 >
       CIELO PATH에 대해<br />
       궁금한 점이 있다면 무엇이든 말씀해주세요.
     </h1>
-    <br /><br /><br />
+    <br />
     <button @click="changeShowmodal()">
       글&nbsp;쓰&nbsp;기
     </button>
@@ -14,10 +15,10 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th scope="col">NO</th>
-            <th scope="col">제목</th>
-            <th scope="col">글쓴이</th>
-            <th scope="col">작성일시</th>
+            <th scope="col" style="background-color: beige; width: 100px;">NO</th>
+            <th scope="col" style="background-color: beige; width: 300px;">제목</th>
+            <th scope="col" style="background-color: beige; width: 300px;">글쓴이</th>
+            <th scope="col" style="background-color: beige; width: 300px;">작성일시</th>
           </tr>
         </thead>
         <tbody>
@@ -52,6 +53,7 @@
 <script>
 // import axios from "axios";
 import QandAModal from '@/components/QandAModal.vue';
+import NavBar from "@/components/NavBar.vue";
 
 export default {
   name: "QandA",
@@ -66,7 +68,8 @@ export default {
     };
   },
   components: {
-    QandAModal
+    QandAModal,
+    NavBar
   },
   mounted() {
     this.$store.dispatch('fetchItems');  // 스토어의 fetchItems 액션 호출
@@ -97,7 +100,9 @@ export default {
 <style>
 .container {
   max-width: 1200px;
-  margin: auto;
+  margin-top: 200px;
+  align-items: center;
+  text-align: center;
 }
 .modal {
   display: none;
@@ -112,7 +117,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 100; 
+  z-index: 50; 
 }
 .modal-dialog {
   width: auto;
@@ -133,7 +138,16 @@ export default {
   color: black;
   font-size: 1.5rem;
 }
-.table-responsive {
-  padding: 0 15px;
+div.table-responsive {
+  padding-left: 0px;
+  padding-right: 0px;
+  display: inline-block; /* 인라인 블록 요소로 설정하여 중앙 정렬 적용 */
+}
+.fixed-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
 </style>
