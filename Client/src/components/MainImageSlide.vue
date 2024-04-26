@@ -86,14 +86,14 @@ export default {
 <style>
 
 .carousel-inner {
-    background-color: rgba(128, 128, 128, 0.2);
+    background-color: rgba(238, 222, 222, 0.2);
 }
 
 .carousel-content {
   display: flex; /* Flexbox를 활성화 */
   align-items: center; /* 수직 정렬 */
   justify-content: space-between; /* 요소들 사이에 공간을 균등하게 배분 */
-  height: 500px; /* 고정된 높이 설정 */
+  height: 600px; /* 고정된 높이 설정 */
 }
 
 .carousel-image {

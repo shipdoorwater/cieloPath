@@ -83,7 +83,7 @@ export default {
 
     sendUserInfoToServer(userInfo) {
       axios
-        .post("http://localhost:3000/api/kakao", userInfo)
+        .post("http://192.168.0.78:3000/api/kakao", userInfo)
         .then((response) => {
           console.log(
             "서버에 사용자 정보가 성공적으로 전송되었습니다.",

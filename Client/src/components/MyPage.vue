@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     fetchSchedule() {
-      axios.post('http://localhost:3000/api/plan-review', { userID: 9999999 })
+      axios.post('http://192.168.0.78:3000/api/plan-review', { userID: 9999999 })
         .then(results => {
           if (results.data && Array.isArray(results.data.data)) {
             this.schedules = results.data.data;
@@ -100,6 +100,7 @@ left: 0;
 width: 100vw;
 height: 100vh;
 background-color: rgba(0,0,0,0.5);
+}
 
 .schedule-table th, .schedule-table td {
   border: 1px solid #ccc; /* 경계선 스타일 */

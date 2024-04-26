@@ -45,7 +45,7 @@ const store = createStore({
 
     },
     checkAdminStatus({ commit }, userId) {
-      axios.get(`http://localhost:3000/api/checkAdmin/${encodeURIComponent(userId)}`)
+      axios.get(`http://192.168.0.78:3000/api/checkAdmin/${encodeURIComponent(userId)}`)
         .then(response => {
           commit('setAdminStatus', response.data.isAdmin);  // 응답에서 관리자 여부를 받아와 저장
           console.log("userId" + userId);
@@ -57,7 +57,7 @@ const store = createStore({
     },
 
     fetchItems({ commit }) {  // context 대신 destructuring 사용하여 commit 직접 접근
-      axios.get("http://localhost:3000/api/qna")
+      axios.get("http://192.168.0.78:3000/api/qna")
         .then(response => {
           commit('setQandAPosts', response.data);  // setItems 대신 setQandAPosts 사용
         })

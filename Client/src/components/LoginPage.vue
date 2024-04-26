@@ -101,7 +101,7 @@ export default {
       console.log(this.loginInfo);
       try {
         const res = await axios.post(
-          "http://localhost:3000/api/loginbyemail",
+          "http://192.168.0.78:3000/api/loginbyemail",
           this.loginInfo
         );
 

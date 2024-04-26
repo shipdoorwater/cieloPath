@@ -81,7 +81,7 @@ export default {
   methods: {
     submitPlan() {
 
-      const apiUrl = "http://localhost:3000/api/send-plan";
+      const apiUrl = "http://192.168.0.78:3000/api/send-plan";
       const params = {
         days: this.days,
         companions: this.companions,
@@ -167,7 +167,7 @@ export default {
   },
 
   savePlan() {
-    const apiUrl = "http://localhost:3000/api/save-plan"; // API URL 설정
+    const apiUrl = "http://192.168.0.78:3000/api/save-plan"; // API URL 설정
     const planData = {
       companions: this.companions,
       currentUser: this.currentUser,
