@@ -119,7 +119,14 @@ const routes = [
       name: 'SelfPlan2',
       component: () => import('@/components/SelfPlan2.vue'),
       props: true
-    }
+    },
+
+    {
+      path: '/SelfPlan3',
+      name: 'SelfPlan3',
+      component: () => import('@/components/SelfPlan3.vue'),
+      props: true
+    },
 
 
 

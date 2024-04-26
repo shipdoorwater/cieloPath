@@ -1,13 +1,15 @@
 <template>
   <div class="schedule-container">
-      <h1>Schedule Review</h1>
-      <button @click="fetchSchedule">Load Schedule</button>
-      <h2>Schedules</h2>
+      <h1>나의 일정 목록</h1>
+      <br>
+
+      <!-- <button @click="fetchSchedule">Load Schedule</button> -->
+
       <table class="schedule-table">
           <thead>
               <tr>
                   <th>여행ID</th>
-                  <th>UserID</th>
+                  <!-- <th>UserID</th> -->
                   <th>지역</th>
                   <th>출발일</th>
                   <th>도착일</th>
@@ -17,7 +19,7 @@
               <tr v-for="schedule in schedules" :key="schedule.SCHEDULEID" 
                   class="schedule-item" @dblclick="sendScheduleId(schedule.SCHEDULEID)">
                   <td>{{ schedule.SCHEDULEID }}</td>
-                  <td>{{ schedule.USEREID }}</td>
+                  <!-- <td>{{ schedule.USEREID }}</td> -->
                   <td>{{ schedule.REGIONID }}</td>
                   <td>{{ formatDate(schedule.STARTDAY) }}</td>
                   <td>{{ formatDate(schedule.ENDDAY) }}</td>
@@ -68,7 +70,11 @@ export default {
     }
   },// 메서드 종료
 
+  mounted() {
+    
 
+  this.fetchSchedule();
+  },
 
 }
 
@@ -77,8 +83,8 @@ export default {
 
 <style scoped>
 .schedule-container {
-  width: 90%; /* 너비 조정 */
-  margin: 20px auto; /* 상하 여백 추가 및 중앙 정렬 */
+  width: 50%; /* 너비 조정 */
+  margin: 10px auto; /* 상하 여백 추가 및 중앙 정렬 */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -87,13 +93,14 @@ export default {
 .schedule-table {
   width: 100%; /* 테이블 너비 전체 사용 */
   border-collapse: separate; /* 셀 간격을 조정하기 위해 병합 해제 */
-  border-spacing: 12px 8px; /* 열과 행의 간격 조정 */
+  border-spacing: 1px 2px; /* 열과 행의 간격 조정 */
 }
 
 .schedule-table th, .schedule-table td {
   border: 1px solid #ccc; /* 경계선 스타일 */
-  padding: 12px 20px; /* 셀 내부 패딩 조정 */
-  text-align: left; /* 텍스트 왼쪽 정렬 */
+  padding: 1px 20px; /* 셀 내부 패딩 조정 */
+  font-size: 30px;
+  text-align: center; /* 텍스트 왼쪽 정렬 */
 }
 
 .schedule-item:hover {
