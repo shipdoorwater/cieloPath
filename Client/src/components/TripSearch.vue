@@ -3,8 +3,8 @@
   <div id="trip-search" style="background-color: white">
     <h1>어디로 떠나볼까요?</h1>
 
-    <button class="btn btn-primary" @click="$router.push({ name: 'mypage' })">바로 테스트가기</button>
-    <br /><br /><br />
+    <!-- <button class="btn btn-primary" @click="$router.push({ name: 'mypage' })">바로 테스트가기</button> -->
+    <br />
     <nav class="navbar navbar-light bg-white">
       <div class="container-fluid justify-content-center">
         <form class="d-flex justify-content-center">
@@ -21,7 +21,7 @@
         </form>
       </div>
     </nav>
-    <br /><br /><br /><br /><br />
+    <br /><br /><br />
     <div class="row">
       <div
         class="col-md-4"

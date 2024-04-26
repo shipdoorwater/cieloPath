@@ -36,7 +36,7 @@
       <!-- Main Content -->
       <div class="col-md-9">
         <br /><br />
-        <div class="table-responsive">
+        <!-- <div class="table-responsive"> -->
           <table class="table table-hover">
             <thead>
               <tr>
@@ -73,13 +73,7 @@
           <div class="btn-group me-2" role="group" aria-label="First group">
             <button type="button" class="btn btn-outline-secondary">1</button>
           </div>
-        </div>
-
-        <div class="text-center mt-4">
-          <!-- Trigger button for modal -->
-
-         
-        </div>
+    
       </div>
     </div>
     <!-- Modal -->
@@ -92,14 +86,15 @@
       aria-modal="true"
     >
       <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content" >
           <div class="modal-header">
             <h5 class="modal-title" id="noticeModalLabel">공지사항 입력</h5>
           </div>
-          <div class="modal-body">
-            <form>
+          <div class="modal-body" style="padding: 0px;">
+            <form style="width:200px; padding:0px; margin:0px; height: 300px;">
               <div class="form-group">
                 <label for="noticeTitle">제목</label>
+                <br>
                 <input
                   type="text"
                   class="form-control"
@@ -107,13 +102,16 @@
                   v-model="newNotice.title"
                 />
               </div>
+              <br>
               <div class="form-group">
                 <label for="noticeContent">내용</label>
+                <br>
                 <textarea
                   class="form-control"
                   id="noticeContent"
-                  rows="3"
+                  rows="4"
                   v-model="newNotice.content"
+            
                 ></textarea>
               </div>
             </form>
@@ -277,17 +275,16 @@ export default {
   background-color: #e9ecef; /* 연한 회색 배경 */
   text-decoration: double line-through;
 }
-.table-responsive {
+/* .table-responsive {
   max-width: 100%;
-  margin: auto; /* 가운데 정렬 */
-  padding-right: 20%;
-}
+  margin: auto; /* 가운데 정렬 
+  padding-right: 20%;} */
 
 .container {
   max-width: 1200px;
-  margin: auto;
+  margin: 0px;
 }
-.modal-backdrop {
+/* .modal-backdrop {
   position: fixed;
   top: 0;
   left: 0;
@@ -297,14 +294,14 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1040;
-}
+  z-index: 100;
+} */
 .modal-dialog {
   width: auto;
 }
 .modal-content {
-  position: relative;
-  padding: 20px;
+  /* position: relative; */
+  padding: 0px;
   animation: fadeIn 0.5s;
 }
 .close {
@@ -331,4 +328,7 @@ export default {
   right: 0;
   z-index: 100;
 }
+/* div.form-group {
+  margin: 10px;
+} */
 </style>

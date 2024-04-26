@@ -45,6 +45,9 @@
                 <router-link class="nav-link active" to="/mypage">여행일정</router-link>
             </li>
             <li class="nav-item" v-if="isAuthenticated">
+                <router-link class="nav-link active" to="/admin">Admin</router-link>
+            </li>
+            <li class="nav-item" v-if="isAuthenticated">
                 <a class="nav-link active"  @click="logout">로그아웃</a>
             </li>
 
