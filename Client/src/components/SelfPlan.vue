@@ -1,20 +1,20 @@
 <template>
-  <NavBar></NavBar><br><br><br><br>
-    <h1 class="text-center mb-4">Self-CIELO</h1><br><br>
+  <NavBar class="fixed-top"></NavBar><br><br><br><br><br>
+    <h1 class="text-center mb-4">Plan My Journey</h1>
     <div class="selected-itinerary"><br><br><br><br>
-        <br><br><br><br><br><br>
+        <br><br><br>
         <div v-for="(item, index) in selectedItinerary" :key="`selected-${index}`">
           <img :src="item.firstimage || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1 1\'/%3E'" alt="Image of {{ item.title }}" style="width: 200px; border-radius: 5px; height: 150px;" class="img-fluid">
-          <i class="bi bi-bookmark-dash-fill" @click="removeFromSchedule(index)" style="position: absolute; top: 0; right: 0; font-size: 2.0rem; color: rgb(204, 222, 255);"></i>
+          <!-- <i class="bi bi-bookmark-dash-fill" @click="removeFromSchedule(index)" style="position: absolute; top: 0; right: 0; font-size: 2.0rem; color: rgb(204, 222, 255);"></i> -->
           <i class="bi bi-caret-right-fill" style="font-size: 2.0rem; color: gray; margin-left: 30px; margin-right: 30px;"></i>
 
-          <p>{{ item.title }} <br>
-            <button @click="removeFromSchedule(index)">삭제</button></p>
+          <div>{{ item.title }} &nbsp;
+            <button style="border:none; text-decoration: underline; background-color: rgb(207, 228, 255);" @click="removeFromSchedule(index)">삭제</button></div>
         </div>
      
       </div><br>
-      <button style="font-size: 20px; width: 200px; height:50px; border-radius: 30px; border:none; background-color:  rgb(204, 222, 255);" @click="createCieloPlan">완료</button>
-    <br><br><br><br><br><div class="main-container">
+      <button style="font-size: 20px; width: 200px; height:50px; border-radius: 30px; border:none; background-color:  rgb(204, 222, 255);" @click="createCieloPlan">일정생성</button>
+    <br><br><div class="main-container">
 
       <div class="grid-container">
         <div style="font-size: 20px;" class="grid-item" v-for="(group, index) in groupedItineraries" :key="index"><br>
@@ -239,5 +239,12 @@
   align-items: center;      /* 세로 방향 중앙 정렬 */
   width: 200px;             /* 각 아이템 컨테이너의 너비 */
   margin: 10px;              /* 주변 간격 추가 */
+}
+.fixed-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
 </style>

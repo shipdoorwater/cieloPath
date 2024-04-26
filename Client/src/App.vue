@@ -1,12 +1,12 @@
 <template>
   <router-view name="default" class="fixed-top"></router-view>
-  <div style="margin-top: 300px"></div>
+  <div style="margin-top: 100px; background-color: rgba(238, 222, 222, 0.2);"></div>
   <router-view name="header"></router-view>
-  <div style="margin-top: 300px"></div>
+  <!-- <div style="margin-top: 300px"></div> -->
   <router-view name="main2"></router-view>
   <router-view name="main1"></router-view>
   
-  <div style="margin-top: 120px">
+  <!-- <div style="margin-top: 120px">
     <div style="font-size: 45px; margin-bottom: 80px">PARTNERS</div>
     <div
       style="
@@ -38,8 +38,8 @@
       <img src="@/assets/resized_partners_naver.png" alt="" />
       <img src="@/assets/resized_partners_hotels.png" alt="" />
     </div>
-  </div>
-
+  </div> -->
+  <router-view name="Partners"></router-view>
   <router-view name="footer"></router-view>
 </template>
 

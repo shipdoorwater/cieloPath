@@ -1,6 +1,7 @@
 <template>
+  <NavBar class="fixed-top"></NavBar><br><br><br>
   <div class="travel-planner container-fluid mt-5">
-    <h1 class="text-center mb-4">SelfPlan2</h1>
+    <h1 class="text-center mb-4">My Jouney</h1>
 
     <div class="map-container">
  
@@ -34,6 +35,7 @@
 
 <script>
 import axios from 'axios';
+import NavBar from '@/components/NavBar.vue';
 
 export default {
   data() {
@@ -51,6 +53,9 @@ export default {
       itineraries: [], // itineraries를 배열로 초기화
 
     };
+  },
+  components: {
+    NavBar
   },
 
   mounted() {
@@ -199,5 +204,13 @@ export default {
   width: 100%;
   background-color: #fff;
   object-fit: cover;
+}
+
+.fixed-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
 </style>

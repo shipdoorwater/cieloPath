@@ -17,6 +17,7 @@ import SelfPlan from "@/components/SelfPlan.vue";
 
 import QandADetailPage from "@/components/QandADetailPage.vue";
 
+
 const routes = [
   {
     path: "/",
@@ -26,7 +27,8 @@ const routes = [
       header: () => import("@/components/MainImageSlide.vue"),
       main1: () => import("@/components/TripSearch.vue"),
       main2: () => import("@/components/NoticeArea.vue"),
-      footer: () => import("@/components/FooterArea.vue"),
+      Partners: () => import('@/components/Partners.vue'),
+      footer: () => import("@/components/FooterArea.vue")
     },
   },
   {
@@ -88,7 +90,7 @@ const routes = [
   
 
    
-
+  {
     path: "/kakao-callback",
     name: "kakao-callback",
     component: kakaoCallback,
@@ -127,7 +129,6 @@ const routes = [
       component: () => import('@/components/SelfPlan3.vue'),
       props: true
     },  
-    
     
   {
     path: "/NavBar",

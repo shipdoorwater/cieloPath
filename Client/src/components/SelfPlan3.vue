@@ -1,6 +1,6 @@
 <template>
   <div class="travel-planner container-fluid mt-5">
-    <h1 class="text-center mb-4">SelfPlan2</h1>
+    <h1 class="text-center mb-4">SelfPlan3</h1>
 
     <div class="map-container">
  
