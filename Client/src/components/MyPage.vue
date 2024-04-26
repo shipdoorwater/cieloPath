@@ -1,18 +1,19 @@
 <template>
+  <NavBar class="fixed-top"></NavBar><br><br><br><br><br>
   <div class="schedule-container">
-      <h1>나의 일정 목록</h1>
-      <br>
+      <h1>My Journey</h1>
+      <br><br><br>
 
       <!-- <button @click="fetchSchedule">Load Schedule</button> -->
 
-      <table class="schedule-table">
+      <table class="table table-hover" style="width:700px;">
           <thead>
               <tr>
-                  <th>여행ID</th>
+                  <th style="background-color: beige">여행ID</th>
                   <!-- <th>UserID</th> -->
-                  <th>지역</th>
-                  <th>출발일</th>
-                  <th>도착일</th>
+                  <th style="width: 200px; background-color: beige">지역</th>
+                  <th style="width: 200px; background-color: beige">출발일</th>
+                  <th style="width: 200px; background-color: beige">도착일</th>
               </tr>
           </thead>
           <tbody>
@@ -30,6 +31,7 @@
 </template>
 <script>
 import axios from 'axios';
+import NavBar from './NavBar.vue';
 
 export default {
   name: 'ScheduleReview',
@@ -38,6 +40,9 @@ export default {
       schedules: [],
       lastScheduleId: null,
     };
+  },
+  components: {
+    NavBar
   },
   methods: {
     fetchSchedule() {
@@ -121,5 +126,13 @@ background-color: rgba(0,0,0,0.5);
 
 thead {
   background-color: #eee; /* 헤드 배경색 */
+}
+
+.fixed-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
 </style>

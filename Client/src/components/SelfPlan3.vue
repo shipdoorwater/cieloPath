@@ -1,12 +1,14 @@
 <template>
+  <NavBar class="fixed-top"></NavBar>
+  <br><br><br>
   <div class="travel-planner container-fluid mt-5">
-    <h1 class="text-center mb-4">SelfPlan3</h1>
+    <h1 class="text-center mb-4">Detail Journey</h1>
 
     <div class="map-container">
  
-        <button class="btn btn-primary" @click="savePlan()">일정 저장하기</button>
+        <!-- <button class="btn btn-primary" @click="savePlan()">일정 저장하기</button>
         <button class="btn btn-secondary" @click="goToSelfPlan">여행일정 다시 생성</button>
-        <button class="btn btn-primary" @click="$router.push({ name: 'main' })">홈으로 돌아가기</button>
+        <button class="btn btn-primary" @click="$router.push({ name: 'main' })">홈으로 돌아가기</button> -->
       </div>
 
     <div class="content-layout d-flex flex-row">
@@ -34,6 +36,7 @@
   
   <script>
   import axios from 'axios';
+  import NavBar from '@/components/NavBar.vue';
   
   export default {
     data() {
@@ -53,7 +56,9 @@
   
       };
     },
-  
+    components: {
+      NavBar
+    },
     mounted() {
 
    
@@ -194,12 +199,14 @@
 .attractions-list {
   display: flex;
   flex-direction: column;
+  background-color: #EEEEEE;
 }
 
 .attraction-card {
-  border: 1px solid #ccc;
+  border: none;
   padding: 10px;
   margin-bottom: 10px;
+  
 }
 
 .img-fluid {
@@ -207,5 +214,10 @@
   width: 100%;
   background-color: #fff;
   object-fit: cover;
+}
+
+.day-container {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 </style>

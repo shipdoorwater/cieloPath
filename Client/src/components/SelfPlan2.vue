@@ -5,11 +5,11 @@
 
     <div class="map-container">
  
-        <button class="btn btn-primary" @click="savePlan()">일정 저장하기</button>
-        <button class="btn btn-secondary" @click="goToSelfPlan">여행일정 다시 생성</button>
-        <button class="btn btn-primary" @click="$router.push({ name: 'main' })">홈으로 돌아가기</button>
+        <button class="btn btn-primary" style="background-color: #CCDEFF; border: none; color:black" @click="savePlan()">일정 저장</button> &nbsp;
+        <button class="btn btn-secondary" style="border: none;" @click="goToSelfPlan">다시 생성</button>
+        <!-- <button class="btn btn-primary" @click="$router.push({ name: 'main' })">홈으로 돌아가기</button> -->
       </div>
-
+      <br><br><br>
     <div class="content-layout d-flex flex-row">
       <div class="itinerary-container flex-grow-1">
         <div class="d-flex justify-content-around mb-3">
@@ -19,7 +19,7 @@
               <div v-for="attraction in day" :key="attraction.contentid" class="attraction-card mb-2">
                 <h5 class="card-title">{{ attraction.title }}</h5>
                 <img :src="attraction.firstimage || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1 1\'/%3E'" alt="Image of {{ attraction.title }}" class="img-fluid">
-                <p class="card-text">{{ attraction.addr1 }}</p>
+                <!-- <p class="card-text">{{ attraction.addr1 }}</p> -->
                 <!-- <button type="button" class="btn btn-outline-primary">상세보기</button>
                 <button type="button" class="btn btn-outline-danger">좋아요</button> -->
               </div>
@@ -194,7 +194,7 @@ export default {
 }
 
 .attraction-card {
-  border: 1px solid #ccc;
+  border: none;
   padding: 10px;
   margin-bottom: 10px;
 }
@@ -212,5 +212,10 @@ export default {
   left: 0;
   right: 0;
   z-index: 100;
+}
+
+.day-container {
+  background-color: #EEEEEE;
+  padding-top: 20px;
 }
 </style>
