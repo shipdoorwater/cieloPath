@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="kbg"  >
+    <div style="margin-left: 30px;" class="kbg"  >
     <a id="custom-login-btn" @click="loginWithKakao()">
       <img
         src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
@@ -119,7 +119,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  width:460px;
+  width:430px;
   border-radius: 8px;
   height: 45px;
   background-color: #FEE500
