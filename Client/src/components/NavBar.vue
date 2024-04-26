@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
       <!-- Logo -->
-      <a class="navbar-brand me-auto" href="http://192.168.0.71:8080/">
+      <a class="navbar-brand me-auto" href="http://localhost:8080/">
         <img
           src="@/assets/logo.png"
           alt="logo"
@@ -26,14 +26,14 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" href="#trip-search" @click="scrollToComponent($event, 'trip-search')"
-                >여행지</a
+              <a class="nav-link active" href="#Notice-Area" @click="scrollToComponent($event, 'Notice-Area')"
+                >공지사항</a
               >
             </li>
             
             <li class="nav-item">
-            <a class="nav-link active" href="#Notice-Area" style="width: 80px" @click="scrollToComponent($event, 'Notice-Area')"
-              >공지사항</a
+            <a class="nav-link active" href="#trip-search" style="width: 80px" @click="scrollToComponent($event, 'trip-search')"
+              >여행지</a
             >
           </li>
           
@@ -50,7 +50,7 @@
 
             <!-- 로그인 되어 있지 않을 때 표시할 로그인 링크 -->
             <li class="nav-item" v-else>
-                <a class="nav-link" href="/loginPage">로그인</a>
+              <router-link class="nav-link active" to="/login">로그인</router-link>
             </li>
         </ul>
 </div>
@@ -106,14 +106,17 @@ export default {
 .bi-list {
   border: 0px;
 }
-
+div.container-fluid {
+  padding-right: 5%;
+}
 .navbar {
-  background-color: #fdf8ec;
+  background-color: rgba(253, 248, 236, 0.5);
 }
 
 li.nav-item {
   margin: 10px;
   width: auto;
+  border: none;
 }
 
 .navbar .navbar-nav .dropdown-menu {

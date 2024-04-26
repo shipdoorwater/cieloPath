@@ -44,7 +44,7 @@ export default {
       const postId = this.$route.params.postId;
       this.postId = postId;
       axios
-        .get(`http://localhost:3000/api/qandadetailpage/${postId}`)
+        .get(`http://192.168.0.78:3000/api/qandadetailpage/${postId}`)
         .then((response) => {
           this.postDetails = response.data[0]; // 서버로부터 받은 게시글 데이터를 postDetails에 할당
           console.log("Post details fetched:", this.postDetails);
@@ -63,7 +63,7 @@ export default {
         replcontent: this.repl,
         postId: this.postId
       };
-      axios.post(`http://localhost:3000/api/qandadetailpage/${this.postId}/repl`, replData)
+      axios.post(`http://192.168.0.78:3000/api/qandadetailpage/${this.postId}/repl`, replData)
         .then(response => {
           console.log("Reply submitted:", response);
           alert('댓글이 성공적으로 등록되었습니다.');

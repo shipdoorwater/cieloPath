@@ -1,29 +1,24 @@
 <template>
   
-  <div style="background-color: beige;"><br><br><br><br>
-    <img src="@/assets/logo.png" alt="logo" height="150px" style="float: left; margin-right: 40px;"> 
-    <br><br><br><br><br><br><br><br><br>
-    <h3>만든 이</h3><br>
-    <div>
-      <div class="profile">
-        <i class="bi bi-person-circle"></i>
-        <span class="text">한일섭</span>
-        소개글<br> 소개글<br> 소개글<br>
+  <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; background-color: #F7F8F9; padding-top: 30px; padding-left: 250px; padding-bottom: 40px; padding-right: 250px">
+    <div style="display:flex; flex-direction: column;">
+      <div style="align-items: flex-start; text-align: left">
+        <img src="@/assets/logo.png" alt="logo" height="80px" style="margin-bottom: 30px;"> 
       </div>
-      <div class="profile">
-        <i class="bi bi-person-circle"></i>
-        <span class="text">배문수</span>
-        소개글<br> 소개글<br> 소개글<br>
-      </div>
-      <div class="profile">
-        <i class="bi bi-person-circle"></i>
-        <span class="text">이슬기</span>
-        소개글<br> 소개글<br> 소개글<br>
-      </div>
+      <div class="footerText1">프로젝트 8조 | 배문수 이슬기 한일섭</div>
+      <div class="footerText1">사업자 등록번호 123-45-67890</div>
+      <div class="footerText1">서울시 서초구 서초대로74길 33. 3F</div>
+      <div class="footerText1">contact@cielopath.co.kr</div>
+      <br>
+      <div class="footerText2">이용약관 | 개인정보처리방침 | 고객지원 | 1:1 문의</div>
     </div>
- 
+    
+    <div>
+      <img src="@/assets/footerImage.png" alt="footer">
+    </div>
   </div>
-  <span  text-align="left">copyright@</span>
+ 
+
 </template>
 
 <script>
@@ -34,27 +29,16 @@ export default {
 
 <style>
 
-.profile {
-  display: inline-block; /* 요소를 옆으로 배열 */
-  text-align: center; /* 텍스트와 아이콘 중앙 정렬 */
-  margin: 0 100px; /* 좌우 마진 추가 */
+.footerText1 {
+  font-size: 14px;
+  text-align: left;
+  margin-bottom: 5px;
+  color: gray;
 }
 
-.bi-person-circle {
-  font-size: 120px; /* 아이콘 크기 조정 */
-}
-
-.text {
-  font-size: 30px; /* 텍스트 크기 조정 */
-  display: block; /* 블록 레벨 요소로 만들어 아래로 배치 */
-}
-
-/* 스타일을 NavBar와 일치시키기 위한 추가 */
-.container-fluid {
-  padding-right: 0;
-  padding-left: 0;
-  margin-right: auto;
-  margin-left: auto;
+.footerText2 {
+  font-size: 14px;
+  text-align: left;
   
 }
 </style>

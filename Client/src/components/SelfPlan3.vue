@@ -74,9 +74,9 @@
   
     methods: {
       sendContentIds() {
-  
-        const apiUrl = 'http://localhost:3000/api/plan-recall';
-        console.log('this.lastScheduleId:', this.lastScheduleId);
+
+        const apiUrl = 'http://192.168.0.78:3000/api/plan-recall';
+
         // const dataToSend = {
         //   days: localStorage.getItem('days'),
         //   companions: localStorage.getItem('companions'),
@@ -136,7 +136,7 @@
       },
       
       savePlan() {
-      const apiUrl = "http://localhost:3000/api/save-plan"; // API URL 설정
+      const apiUrl = "http://192.168.0.78:3000/api/save-plan"; // API URL 설정
       const planData = {
         companions: localStorage.getItem('companions'),
         currentUser: this.currentUser,

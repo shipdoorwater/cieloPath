@@ -56,7 +56,7 @@ console.log('포인트 체크');
 
 const port = 3000;
 app.listen(port, () => {
-    console.log(`서버 실행 중 http://localhost:${port}`);
+    console.log(`서버 실행 중 http://192.168.0.78:${port}`);
 });
 
 

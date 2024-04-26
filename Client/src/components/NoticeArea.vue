@@ -1,8 +1,9 @@
 <template>
-  <div id="Notice-Area" class="bg-sky-blue"><br><br><br><br><br>
-    <div class="container py-5">
-      <h1 class="text-center mb-4">Notice</h1><br><br><br><br><br><br>
-      <div class="row justify-content-between">
+  <div id="Notice-Area" class="bg-sky-blue" style="padding-left: 100px; padding-top:70px; padding-bottom: 100px;">
+    <h1 class="text-center mb-4">Notice</h1>
+    <div style="padding-top: 80px; padding-right:200px">
+     
+      <div style="display: flex; justify-content: space-between">
         <!-- Introduction Section -->
         <div class="col-lg-5">
           <div class="info-section">
@@ -99,16 +100,19 @@ toggleAccordion(id) {
 
 <style>
 .bg-sky-blue {
-  background-color: rgb(204, 222, 255); /* Light sky blue background for highlighted sections */
+  background-color: rgb(188, 211, 255, 0.7); /* Light sky blue background for highlighted sections */
 }
 
 .accordion-button:not(.collapsed) {
-  background-color: #cceeff; /* Lighter blue when the accordion button is active */
+  background-color: #c1e9fdd6; /* Lighter blue when the accordion button is active */
 }
 
 .container {
-  min-height: 100vh; /* Ensure the container covers at least the whole viewport height */
-  padding: 2rem 1rem; /* Provide padding on the top and bottom */
+  min-height: 50vh; 
+  margin-left:0px;
+  margin-right:0px;
+  padding-left:0px;
+  padding-right:0px;
 }
 
 .text-white-opacity {
@@ -123,13 +127,11 @@ toggleAccordion(id) {
 }
 
 .info-section {
-  margin-right: 80px; /* Increase margin for better spacing */
-  margin-left: -180px; /* Shift the text further to the left */
+  width: 40vw;
+  /* margin-right: 0px; /* Increase margin for better spacing */
+  /* margin-left: 0px; Shift the text further to the left */ 
 }
 
-.accordion-align-right {
-  text-align: right;
-}
 
 .accordion-button {
   border-radius: 0;
