@@ -1,7 +1,14 @@
 <template>
   <div class="travel-planner container-fluid mt-5">
     <h1 class="text-center mb-4">TravelPlanner</h1>
-    
+
+    <div class="map-container flex-grow-1" >
+
+        <button class="btn btn-primary" @click ="savePlan">일정 저장하기</button>
+        <button class="btn btn-secondary" @click="goToSelfPlan">여행일정 직접 만들기</button>
+      
+      </div>
+    <br>
     <div class="d-flex">
       <div class="itinerary-container flex-grow-1">
         <div class="d-flex justify-content-around mb-3">
@@ -39,15 +46,7 @@
           </div>
         </div>
       </div>
-      <div class="map-container flex-grow-1" style="height: 500px">
-        <!-- Map placeholder or integration -->
-        <div style="background-color: #eee; width: 100%; height: 100%">
-          Map Goes Here
-        </div>
-        <button class="btn btn-primary" @click ="savePlan">일정 저장하기</button>
-        <button class="btn btn-secondary" @click="goToSelfPlan">여행일정 직접 만들기</button>
-      
-      </div>
+     
     </div>
   </div>
 </template>
@@ -261,6 +260,9 @@ export default {
 }
 
 .map-container {
-  width: 50%;
+  width: 100%; /* 너비를 100%로 조정 */
+  height: auto; /* 높이를 자동으로 조정 */
+  padding: 0; /* 패딩 제거 */
+  margin-bottom: 0; /* 하단 마진 제거 */
 }
 </style>

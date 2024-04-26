@@ -17,7 +17,7 @@
       crossorigin="anonymous"
     />
 
-    <div class="login-card" style="">
+    <div class="login-card" style="margin-left: -60px;">
       <div class="login-card-header">
         <br />
         <h3>LOGIN</h3>
@@ -30,7 +30,7 @@
 
             <input
               type="text"
-              class="form-control"
+              class="login-form-control"
               placeholder="e-mail"
               v-model="loginInfo.email"
             />
@@ -40,13 +40,13 @@
 
             <input
               type="password"
-              class="form-control"
+              class="login-form-control"
               placeholder="password"
               v-model="loginInfo.password"
             />
           </div>
           <button
-            style="font-size: 12px"
+            style="font-size: 12px; "
             class="btn btn-link"
             @click="showModal = true"
           >
@@ -55,13 +55,13 @@
 
           <br /><br />
           <div class="form-group">
-            <br /><br />
+            
             <button class="login_btn" value="Login" @click="loginByEmail">
               Login
             </button>
           </div>
           <div style="text-align: center">
-            <br />
+            <br />또는
             <br />
             <loginKakao></loginKakao>
             <br /><br />
@@ -187,8 +187,8 @@ export default {
 
 .input-group-prepend span {
   width: 50px;
-  background-color: transparent; /* Beige background removed */
-  color: black;
+  /* background-color: transparent; */
+  /* color: black; */
   border: 0 !important;
 }
 
@@ -203,7 +203,7 @@ input:focus {
   border-radius: 7px;
   padding: 5px;
   background-color: lightblue;
-  width: 400px;
+  width: 430px;
   height: 40px;
   /* transform: translate(0%, -50%); */
 }
@@ -214,5 +214,12 @@ input:focus {
 
 .links a {
   margin-left: 4px;
+}
+
+.login-form-control
+{width: 400px;
+  height: 40px;
+border: none;
+border-radius: 7px;
 }
 </style>

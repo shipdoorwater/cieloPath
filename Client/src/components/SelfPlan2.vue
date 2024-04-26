@@ -1,25 +1,13 @@
 <template>
   <div class="travel-planner container-fluid mt-5">
     <h1 class="text-center mb-4">SelfPlan2</h1>
-<!-- 
-    <div>
-      <h1>선택된 일정 개수</h1>
-      <p>전달받은 일정의 개수: {{ selectedItinerary.length }}</p>
-      <div v-if="selectedItinerary.length > 0">
-        <h2>일정 세부 사항</h2>
-        <ul>
-          <li v-for="(item, index) in selectedItinerary" :key="index">
-            <h3>{{ item.title }}</h3>
-            <p>주소: {{ item.addr1 }}</p>
-            <p>contentid: {{ item.contentid }}</p>
-          </li>
-        </ul>
-        <button @click="sendContentIds">일정 contentid 서버로 보내기</button>
+
+    <div class="map-container">
+ 
+        <button class="btn btn-primary" @click="savePlan()">일정 저장하기</button>
+        <button class="btn btn-secondary" @click="goToSelfPlan">여행일정 다시 생성</button>
+        <button class="btn btn-primary" @click="$router.push({ name: 'main' })">홈으로 돌아가기</button>
       </div>
-      <div v-else>
-        <p>선택된 일정이 없습니다.</p>
-      </div>
-    </div> -->
 
     <div class="content-layout d-flex flex-row">
       <div class="itinerary-container flex-grow-1">
@@ -31,23 +19,15 @@
                 <h5 class="card-title">{{ attraction.title }}</h5>
                 <img :src="attraction.firstimage || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1 1\'/%3E'" alt="Image of {{ attraction.title }}" class="img-fluid">
                 <p class="card-text">{{ attraction.addr1 }}</p>
-                <button type="button" class="btn btn-outline-primary">상세보기</button>
-                <button type="button" class="btn btn-outline-danger">좋아요</button>
+                <!-- <button type="button" class="btn btn-outline-primary">상세보기</button>
+                <button type="button" class="btn btn-outline-danger">좋아요</button> -->
               </div>
             </div>
           </div>
         </div>
       </div>
       
-      <div class="map-container">
-        <!-- Map placeholder or integration -->
-        <div style="background-color: #eee; width: 100%; height: 100%;">
-          Map Goes Here
-        </div>
-        <button class="btn btn-primary" @click="savePlan()">일정 저장하기</button>
-        <button class="btn btn-secondary" @click="goToSelfPlan">여행일정 다시 생성</button>
-        <button class="btn btn-primary">홈으로 돌아가기</button>
-      </div>
+
     </div>
   </div>
 </template>
@@ -187,7 +167,7 @@ export default {
 }
 
 .content-layout {
-  display: flex; /* Flexbox를 활성화 */
+  display: flex; /* Flexbox 활성화 */
   flex-direction: row; /* 자식 요소를 행으로 배치 */
 }
 
@@ -199,8 +179,8 @@ export default {
 
 .map-container {
   flex: 1 1 40%; /* 유연한 너비 할당, 남는 공간의 40% 사용 */
-  height: 500px; /* 높이 설정 */
   padding-left: 20px; /* 왼쪽 여백 추가 */
+  margin-bottom: 0; /* 하단 마진 제거 */
 }
 
 .attractions-list {

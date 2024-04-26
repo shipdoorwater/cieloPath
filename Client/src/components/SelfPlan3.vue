@@ -1,38 +1,36 @@
 <template>
-    <div class="travel-planner container-fluid mt-5">
-      <h1 class="text-center mb-4">SelfPlan3</h1>
+  <div class="travel-planner container-fluid mt-5">
+    <h1 class="text-center mb-4">SelfPlan2</h1>
 
-  
-      <div class="content-layout d-flex flex-row">
-        <div class="itinerary-container flex-grow-1">
-          <div class="d-flex justify-content-around mb-3">
-            <div v-for="(day, index) in itineraries" :key="index" class="day-container">
-              <h2>{{ index + 1 }}일차</h2>
-              <div class="attractions-list">
-                <div v-for="attraction in day" :key="attraction.contentid" class="attraction-card mb-2">
-                  <h5 class="card-title">{{ attraction.title }}</h5>
-                  <img :src="attraction.firstimage || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1 1\'/%3E'" alt="Image of {{ attraction.title }}" class="img-fluid">
-                  <p class="card-text">{{ attraction.addr1 }}</p>
-                  <button type="button" class="btn btn-outline-primary">상세보기</button>
-                  <button type="button" class="btn btn-outline-danger">좋아요</button>
-                </div>
+    <div class="map-container">
+ 
+        <button class="btn btn-primary" @click="savePlan()">일정 저장하기</button>
+        <button class="btn btn-secondary" @click="goToSelfPlan">여행일정 다시 생성</button>
+        <button class="btn btn-primary" @click="$router.push({ name: 'main' })">홈으로 돌아가기</button>
+      </div>
+
+    <div class="content-layout d-flex flex-row">
+      <div class="itinerary-container flex-grow-1">
+        <div class="d-flex justify-content-around mb-3">
+          <div v-for="(day, index) in itineraries" :key="index" class="day-container">
+            <h2>{{ index + 1 }}일차</h2>
+            <div class="attractions-list">
+              <div v-for="attraction in day" :key="attraction.contentid" class="attraction-card mb-2">
+                <h5 class="card-title">{{ attraction.title }}</h5>
+                <img :src="attraction.firstimage || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1 1\'/%3E'" alt="Image of {{ attraction.title }}" class="img-fluid">
+                <p class="card-text">{{ attraction.addr1 }}</p>
+                <!-- <button type="button" class="btn btn-outline-primary">상세보기</button>
+                <button type="button" class="btn btn-outline-danger">좋아요</button> -->
               </div>
             </div>
           </div>
         </div>
-        
-        <div class="map-container">
-          <!-- Map placeholder or integration -->
-          <div style="background-color: #eee; width: 100%; height: 100%;">
-            Map Goes Here
-          </div>
-          <button class="btn btn-primary" @click="savePlan()">일정 저장하기</button>
-          <button class="btn btn-secondary" @click="goToSelfPlan">여행일정 다시 생성</button>
-          <button class="btn btn-primary">홈으로 돌아가기</button>
-        </div>
       </div>
+      
+
     </div>
-  </template>
+  </div>
+</template>
   
   <script>
   import axios from 'axios';
@@ -76,8 +74,9 @@
   
     methods: {
       sendContentIds() {
-  
+
         const apiUrl = 'http://192.168.0.78:3000/api/plan-recall';
+
         // const dataToSend = {
         //   days: localStorage.getItem('days'),
         //   companions: localStorage.getItem('companions'),
@@ -93,7 +92,7 @@
         axios.post(apiUrl, this.lastScheduleId)
   
           .then(response => {
-            this.itineraries = response.data; // 서버 응답에서 itineraries 배열 직접 할당
+            this.itineraries = response.data.data; // 서버 응답에서 itineraries 배열 직접 할당
             console.log('SelfPlan3 Updated itineraries:', this.itineraries);
           })
           .catch(error => {
@@ -170,43 +169,43 @@
   
   
   <style scoped>
-  .travel-planner {
-    max-width: 1200px;
-    margin: auto;
-  }
-  
-  .content-layout {
-    display: flex; /* Flexbox를 활성화 */
-    flex-direction: row; /* 자식 요소를 행으로 배치 */
-  }
-  
-  .itinerary-container {
-    flex: 1 1 60%; /* 유연한 너비 할당, 남는 공간의 60% 사용 */
-    overflow-x: auto;
-    padding: 10px;
-  }
-  
-  .map-container {
-    flex: 1 1 40%; /* 유연한 너비 할당, 남는 공간의 40% 사용 */
-    height: 500px; /* 높이 설정 */
-    padding-left: 20px; /* 왼쪽 여백 추가 */
-  }
-  
-  .attractions-list {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .attraction-card {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .img-fluid {
-    height: 150px;
-    width: 100%;
-    background-color: #fff;
-    object-fit: cover;
-  }
-  </style>
+.travel-planner {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.content-layout {
+  display: flex; /* Flexbox 활성화 */
+  flex-direction: row; /* 자식 요소를 행으로 배치 */
+}
+
+.itinerary-container {
+  flex: 1 1 60%; /* 유연한 너비 할당, 남는 공간의 60% 사용 */
+  overflow-x: auto;
+  padding: 10px;
+}
+
+.map-container {
+  flex: 1 1 40%; /* 유연한 너비 할당, 남는 공간의 40% 사용 */
+  padding-left: 20px; /* 왼쪽 여백 추가 */
+  margin-bottom: 0; /* 하단 마진 제거 */
+}
+
+.attractions-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.attraction-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.img-fluid {
+  height: 150px;
+  width: 100%;
+  background-color: #fff;
+  object-fit: cover;
+}
+</style>

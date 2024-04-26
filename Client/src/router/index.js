@@ -85,11 +85,15 @@ const routes = [
     name: "admin",
     component: AdminPage,
   },
-  {
+  
+
+   
+
     path: "/kakao-callback",
     name: "kakao-callback",
     component: kakaoCallback,
   },
+
 
   {
     path: "/TripSearch",
@@ -117,6 +121,14 @@ const routes = [
     component: () => import("@/components/SelfPlan2.vue"),
     props: true,
   },
+   {
+      path: '/SelfPlan3',
+      name: 'SelfPlan3',
+      component: () => import('@/components/SelfPlan3.vue'),
+      props: true
+    },  
+    
+    
   {
     path: "/NavBar",
     name: "NavBar",

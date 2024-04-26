@@ -292,7 +292,7 @@ handleFileChange(event) {
   font-size: 1.8em;
 }
 .adminbackground{
-  background-image: url("@/assets/adminbg.jpg") !important; /* Ensure the path is correct */
+  background-image: url("@/assets/adminbg1.jpg") !important; /* Ensure the path is correct */
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
